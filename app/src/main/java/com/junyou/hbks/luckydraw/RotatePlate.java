@@ -15,6 +15,7 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ScrollerCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -175,10 +176,39 @@ public class RotatePlate extends View {
         this.invalidate();
     }
 
+
+    public void startRotateNull(int pos){
+        //每次都转到谢谢惠顾
+        int lap = 12;
+        int angle = 218;
+        long time = (lap + angle / 360) * ONE_WHEEL_TIME;
+//        Log.i("TAG","lap==" + lap + "desR==" + DesRotate);
+        ValueAnimator animtor = ValueAnimator.ofInt(InitAngle,6270);
+        animtor.setInterpolator(new AccelerateDecelerateInterpolator());
+        animtor.setDuration(time);
+        animtor.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int updateValue = (int) animation.getAnimatedValue();
+                InitAngle = (updateValue % 360 + 360) % 360;
+                ViewCompat.postInvalidateOnAnimation(RotatePlate.this);
+            }
+        });
+
+        animtor.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if(listener != null)
+                    listener.endAnimation(1);
+            }
+        });
+        animtor.start();
+    }
+
     public void startRotate(int pos){
 
         int lap = (int) (Math.random()*12) + 4;
-
         int angle = 0;
         if(pos < 0){
             angle = (int) (Math.random() * 360);
@@ -204,6 +234,7 @@ public class RotatePlate extends View {
         DesRotate -= offRotate;
         DesRotate += 30;
 
+        Log.i("TAG","lap== " + lap +"angle==" + angle + "desR==" + DesRotate);
         ValueAnimator animtor = ValueAnimator.ofInt(InitAngle,DesRotate);
         animtor.setInterpolator(new AccelerateDecelerateInterpolator());
         animtor.setDuration(time);

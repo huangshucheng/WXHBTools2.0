@@ -108,7 +108,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="金币数: 2"
+                android:text="金币: 0"
                 android:layout_marginTop="3dp"
                 android:textColor="#161616"
                 android:paddingLeft="50dp"
@@ -117,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="积分: 2"
+                android:text="积分: 0"
                 android:layout_marginTop="3dp"
                 android:textColor="#161616"
                 android:paddingLeft="50dp"

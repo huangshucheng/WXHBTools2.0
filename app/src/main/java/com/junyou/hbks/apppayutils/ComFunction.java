@@ -1,6 +1,7 @@
 package com.junyou.hbks.apppayutils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -217,5 +219,32 @@ public static String getDeviceInfo(Context context) {
     }
     return null;
 }
-                  
+
+	//判断文件是否存在
+	public static boolean fileIsExists(Context context)
+	{
+		String databasename = "hbks.db";
+		boolean isSdcardEnable = false;
+		String state = Environment.getExternalStorageState();
+		if(Environment.MEDIA_MOUNTED.equals(state)){
+			//SDCard是否插入
+			isSdcardEnable = true;
+		}
+		String dbPath = null;
+		if(isSdcardEnable){
+			dbPath =Environment.getExternalStorageDirectory().getPath() +"/database/";
+		}else{
+			dbPath =context.getFilesDir().getPath() + "/database/";
+		}
+		databasename = dbPath + databasename;
+		try {
+			File f=new File(databasename);
+			if(f.exists()) {
+				return true;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
 }

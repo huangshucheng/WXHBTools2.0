@@ -8,12 +8,15 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -37,6 +40,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.junyou.hbks.Utils.DBContext;
+import com.junyou.hbks.Utils.DBOpenHelper;
 import com.junyou.hbks.Utils.LocalSaveUtil;
 import com.junyou.hbks.Utils.ShareHelper;
 import com.junyou.hbks.Utils.SignInUtil;
@@ -189,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         SignInUtil.init(this);
 //        Log.i("TAG", "onCreate: <<<<<<<<<<<<<<<<<<<<<" + SignInUtil.getCurTime());
         setSignedBtn();
+        LocalSaveUtil.init(this);
 }
 
     class TimeThread extends Thread {
@@ -1455,6 +1461,40 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     }
 
     public void luckyDrawClick(View view){
+        //db是否存在，存在则不创建，不存在则创建
+        /*
+        DBOpenHelper helper = new DBOpenHelper(this);
+        String dbName =  helper.getDatabaseName();
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        if (ComFunction.fileIsExists(this)){
+            Log.i("TAG","表存在");
+        }else{
+            Log.i("TAG","表不存在");
+            //向ContentValues中存放数据
+            values.put("id", 1);
+            values.put("name","hcc");
+            values.put("coinNum",1);
+            values.put("pointNum",0);
+            values.put("timeNum",4320);
+            db.insert("user", null, values);
+        }
+
+        Log.i("TAG","dbName:" + dbName);
+        //查询
+        Cursor cursor = db.query("user", new String[]{"id","name","coinNum","pointNum","timeNum"}, "id=?", new String[]{"1"}, null, null, null, null);
+        //利用游标遍历所有数据对象
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            int coinNum = cursor.getInt(cursor.getColumnIndex("coinNum"));
+            int pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
+            int timeNum = cursor.getInt(cursor.getColumnIndex("timeNum"));
+            //日志打印输出
+            Log.i("TAG","id:" + id + ",name:"+name + ",coin:" + coinNum +",point" +  pointNum + ",time" + timeNum);
+        }
+*/
         try {
             Intent helpAvt = new Intent(MainActivity.this,LuckyDraw.class);
             startActivity(helpAvt);
@@ -1462,4 +1502,30 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             e.printStackTrace();
         }
     }
+
+    //判断表是否存在
+    /*
+    public  boolean tabbleIsExist(String tableName){
+        boolean result = false;
+        if(tableName == null){
+            return false;
+        }
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = this.getReadableDatabase();
+            String sql = "select count(*) as c from Sqlite_master  where type ='table' and name ='"+tableName.trim()+"' ";
+            cursor = db.rawQuery(sql, null);
+            if(cursor.moveToNext()){
+                int count = cursor.getInt(0);
+                if(count>0){
+                    result = true;
+                }
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return result;
+    }
+    */
 }

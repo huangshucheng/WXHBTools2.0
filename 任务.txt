@@ -44,5 +44,6 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 10.疯狂模式
 11.提示添加到白名单
 12.开启红包快手后，回到app
+13.数据库存储，卸载后可以重新读取数据
 
 //---------------------------------------//
