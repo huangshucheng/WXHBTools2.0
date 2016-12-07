@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/msg_pop_five"
+            android:id="@+id/open_service_layout">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/btn_selected"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="305dp"
+                android:layout_marginLeft="250dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/wechat_pay_Image"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/btn_weixinzhifu"
+                android:layout_marginTop="290dp"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bat_pop_yellow_6"
+                android:background="@android:color/transparent"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="360dp"
+                android:onClick="super_vip_click"/>
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_close"
+            android:onClick="closeOpenSuperVip"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/open_service_layout"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

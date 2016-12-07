@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">红包快手</string>
+    <string name="Text_1">自动抢红包助手，福利来啦~</string>
+    <string name="Text_2">点击开启红包助手\n○ 微信红包助手\n○ 开启服务\n○ 回到桌面\n○ 让手机自动抢红包吧\n以后再也不用担心手慢抢不过别人咯~</string>
+    <string name="app_description">点击开启服务开始自动抢红包吧！</string>
+    <string name="service_off">点击关闭红包助手</string>
+    <string name="service_on">点击开启红包助手</string>
+
+    <string name="action_settings">设置</string>
+    <string name="action_share">分享</string>
+    <string name="action_help">帮助</string>
+
+    <string name="action_grasp">抢包数(个)</string>
+    <string name="action_total">共计(元)</string>
+    <string name="action_totalall">共计</string>
+    <string name="action_today">今日</string>
+    <string name="num_1">210</string>
+    <string name="num_2">20</string>
+    <string name="num_3">41451</string>
+    <string name="num_4">502</string>
+    <string name="action_isGrasping">正在抢红包中...</string>
+    <string name="action_clickToGradp">点击按钮开始抢红包</string>
+    <string name="title_activity_setting">设置</string>
+
+    <string name="marquee_word_1">喜报:恭喜尾号为4125的用户抢到105个红包,总金额96.36元</string>
+    <string name="marquee_word_2">喜报:恭喜尾号为9356的用户抢到121个红包,总金额100.62元</string>
+    <string name="marquee_word_3">喜报:恭喜尾号为7563的用户抢到165个红包,总金额130.01元</string>
+    <string name="marquee_word_4">喜报:恭喜尾号为4546的用户抢到184个红包,总金额150.32元</string>
+    <string name="marquee_word_5">喜报:恭喜尾号为7834的用户抢到196个红包,总金额165.45元</string>
+    <string name="marquee_word_6">喜报:恭喜尾号为7454的用户抢到205个红包,总金额172.45元</string>
+    <string name="marquee_word_7">喜报:恭喜尾号为4566的用户抢到235个红包,总金额201.45元</string>
+    <string name="marquee_word_8">喜报:恭喜尾号为7656的用户抢到265个红包,总金额250.45元</string>
+    <string name="marquee_word_9">喜报:恭喜尾号为8765的用户抢到298个红包,总金额255.45元</string>
+    <string name="marquee_word_10">喜报:恭喜尾号为2387的用户抢到325个红包,总金额305.45元</string>
+    <string name="marquee_word_11">喜报:恭喜尾号为6545的用户抢到350个红包,总金额315.45元</string>
+    <string name="marquee_word_12">喜报:恭喜尾号为8764的用户抢到349个红包,总金额346.45元</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="left_days_count">5</string>
+    <!--支付相关-->
+    <string name="app_tip">提示</string>
+    <string name="getting_prepayid">正在获取预支付订单...</string>
+    <string name="get_prepayid_fail" formatted="false">支付失败！</string>
+    <string name="get_prepayid_succ">获取prepayid成功</string>
+    <string name="wx_pay">微信支付</string>
+    <string name="send_payorder">发送支付订单！</string>
+
+    <string name="share_1">点我收钱啦,天上掉钱啦，红包快手喊你收钱啦!</string>
+    <string name="share_2">我看你五行缺钱,算了一挂，看来你需要红包快手冲冲喜!</string>
+    <string name="share_3">还在怕没钱买iPhone7,红包快手帮你抢抢抢!</string>
+    <string name="share_4">像葛大爷一样躺着收钱,红包快手让你就是这么任性又有钱!</string>
+
+    <string name="days"> 天</string>
+    <string name="forever"> 永久使用</string>
+    <string name="shareForDays">亲,没有天数了,赶快去分享获得天数吧!</string>
+
+</resources>

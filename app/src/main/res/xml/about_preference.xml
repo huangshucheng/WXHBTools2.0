@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context="com.junyou.hbks.AboutActivity"
+    android:icon="@null">
+    <PreferenceCategory
+        android:title=""
+        android:layout="@layout/preference_category">
+        <Preference
+            android:key="pref_dianzan"
+            android:title="亲~抢了那么多红包，点个赞~"
+            android:summary="去给红包快手点赞吧~"
+            android:layout="@layout/preference_checkboxarrow"/>
+        <Preference
+            android:key="pref_update"
+            android:title="版本更新"
+            android:summary="当前版本:V1.0"
+            android:layout="@layout/preference_checkboxarrow"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

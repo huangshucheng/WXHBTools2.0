@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/msg_pop_two"
+            android:id="@+id/download_link_layout">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_ad_iamge"
+                android:src="@mipmap/ad_img"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/down_text_1"
+                android:text="为了开开心心抢红包，开启功能 !"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorwhite"
+                android:layout_below="@+id/id_ad_iamge"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下载骏游连连看"
+                android:textColor="@color/colorwhite"
+                android:layout_below="@id/down_text_1"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_share_download"
+                android:src="@mipmap/bat_pop_yellow"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/id_ad_iamge"
+                android:layout_marginTop="120dp"
+                android:onClick="opendownloadClick"/>
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_share_close"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_close"
+            android:onClick="closeDownloadClick"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/download_link_layout"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

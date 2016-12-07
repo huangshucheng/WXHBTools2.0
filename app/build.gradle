@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    useLibrary 'org.apache.http.legacy'
+    compileSdkVersion 23
+    buildToolsVersion "24.0.1"
+
+    defaultConfig {
+        applicationId "com.junyou.hbks"
+        minSdkVersion 14
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //多渠道打包,添加渠道ID，在友盟官网修改渠道名称
+    productFlavors {
+        "000023"     {}               //360平台
+        "000002"     {}               //机锋
+        "000005"     {}               //安智
+        "000007"     {}               //百度91助手
+        "000009"     {}               //应用汇
+        "000116"     {}               //豌豆荚
+        "000225"     {}               //pp助手(和UC合并)
+        "000800"     {}               //搜狗手机助手
+        "150001"     {}               //安贝市场
+        "150002"     {}               //安粉网
+        "150003"     {}               //安卓之家
+        "150004"     {}               //安卓园
+        "150005"     {}               //应用贝
+
+        "100061"     {}                 //应用宝
+        "000066"     {}                 //小米应用商店
+        "000054"     {}                 //华为开发者联盟
+        "000020"     {}                 //OPPO开放平台  可可游戏中心(OPPO)
+        "000084"     {}                 //金立开发者平台
+        "000008"     {}                 //木蚂蚁开发者平台
+        "000368"     {}                 //voio开发者平台,步步高应用商店(vivo)
+        "000016"     {}                 //联想
+        productFlavors.all {
+            flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile files('D:/androidStudio/WXHBTools/gradle/wrapper/httpclient-4.3.6.jar')
+    compile files('D:/androidStudio/WXHBTools/gradle/wrapper/jdom.jar')
+    compile files('D:/androidStudio/WXHBTools/gradle/wrapper/mobclickhelper.jar')
+    compile files('D:/androidStudio/WXHBTools/gradle/wrapper/libammsdk.jar')
+    //compile files('D:/androidStudio/WXHBTools/gradle/wrapper/umeng-analytics-v6.0.1.jar')
+}

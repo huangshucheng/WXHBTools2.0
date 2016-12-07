@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/msg_pop_four"
+            android:id="@+id/receive_layout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/receive_time_text"
+                android:text="1天"
+                android:textSize="30dp"
+                android:textColor="@color/colorBG"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="240dp"
+                android:layout_centerHorizontal="true"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bat_pop_yellow_line"
+                android:background="@android:color/transparent"
+                android:layout_centerHorizontal="false"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="305dp"
+                android:layout_marginLeft="40dp"
+                android:onClick="receive_confirm_click" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/bat_pop_yellow_three"
+                android:background="@android:color/transparent"
+                android:layout_centerHorizontal="false"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="300dp"
+                android:layout_marginLeft="157dp"
+                android:onClick="receive_getmore_click"/>
+
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_close"
+            android:onClick="closeReceiveTime"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/receive_layout"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

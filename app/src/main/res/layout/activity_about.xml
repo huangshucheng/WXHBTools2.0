@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.junyou.hbks.AboutActivity">
+
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBG"
+        tools:context="com.junyou.hbks.AboutActivity"
+        android:id="@+id/about_up_bg">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:id="@+id/about_bar"
+            android:text="关于"
+            android:textColor="#fff"
+            android:gravity="left|center_vertical|center_horizontal"
+            android:elegantTextHeight="false"
+            android:textSize="18sp"
+            android:layout_toRightOf="@+id/about_preference_back" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/about_preference_back"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:clickable="true"
+            android:onClick="about_performBack"
+            android:layout_alignBottom="@+id/about_bar"
+            android:src="@mipmap/ic_back"
+            android:padding="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/about_up_bg"
+        android:id="@+id/about_icon_bg">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:src="@mipmap/ic_launcher"
+            android:background="@android:color/transparent" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/preferences_fragment"
+        tools:layout="@android:layout/simple_list_item_1"
+        android:layout_below="@id/about_icon_bg"
+        android:background="@android:color/transparent"/>
+
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/about_icon_clock"-->
+        <!--android:src="@mipmap/under_icon_clock_good"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:paddingRight="10dp"-->
+        <!--android:onClick="about_getMoreTime"/>-->
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/about_icon_tool"-->
+        <!--android:src="@mipmap/under_icon_tooltip"-->
+        <!--android:layout_above="@+id/about_icon_clock"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:paddingRight="30dp"-->
+        <!--android:layout_marginBottom="-10dp"-->
+        <!--android:onClick="about_getMoreTime"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/copyright_text"
+        android:text="Copyright @2008-2016"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="480dp"
+        android:textSize="12dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="杭州骏游科技股份有限公司"
+        android:textSize="12dp"
+        android:layout_below="@+id/copyright_text"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

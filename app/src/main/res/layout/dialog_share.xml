@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/msg_pop_three"
+            android:id="@+id/open_service_layout">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_pengyouquan"
+                android:src="@mipmap/icon_pengyouquan"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="300dp"
+                android:layout_marginLeft="100dp"
+                android:onClick="sharePengYouQuanClick"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_weixin"
+                android:src="@mipmap/icon_weixin"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="300dp"
+                android:layout_toRightOf="@+id/id_pengyouquan"
+                android:layout_marginLeft="35dp"
+                android:onClick="shareWeiXinClick"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_text_pyq"
+                android:text="朋友圈"
+                android:textSize="12dp"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/id_pengyouquan"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="100dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/id_text_weixin"
+                android:text="微信"
+                android:textSize="12dp"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/id_pengyouquan"
+                android:layout_toRightOf="@+id/id_text_pyq"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="48dp"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/icon_close"
+            android:onClick="closeOpenShare"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/open_service_layout"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

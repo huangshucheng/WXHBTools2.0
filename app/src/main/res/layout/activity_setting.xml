@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.junyou.hbks.SettingActivity">
+
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBG"
+        tools:context="com.junyou.hbks.SettingActivity"
+        android:id="@+id/up_bg">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:id="@+id/settings_bar"
+            android:text="@string/action_settings"
+            android:textColor="#fff"
+            android:gravity="left|center_vertical|center_horizontal"
+            android:elegantTextHeight="false"
+            android:textSize="18sp"
+            android:layout_toRightOf="@+id/preference_back" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/preference_back"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:clickable="true"
+            android:onClick="performBack"
+            android:layout_alignBottom="@+id/settings_bar"
+            android:src="@mipmap/ic_back"
+            android:padding="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/up_bg"
+        android:id="@+id/vip_bar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有任何限制,可以一直抢红包了哦"
+            android:layout_centerHorizontal="true"
+            android:textSize="15dp"
+            android:layout_marginTop="40dp"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_sp_vip"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/bat_pop_yellow_tow"
+            android:background="@android:color/transparent"
+            android:onClick="superVipClick"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_red_point"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="false"
+           android:layout_toRightOf="@+id/id_sp_vip"
+            android:layout_marginBottom="28dp"
+            android:layout_marginLeft="-70dp"/>
+
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/preferences_fragment"
+        tools:layout="@android:layout/simple_list_item_1"
+        android:layout_below="@id/vip_bar"/>
+
+</RelativeLayout>
