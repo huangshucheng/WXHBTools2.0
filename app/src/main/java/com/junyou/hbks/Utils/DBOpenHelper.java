@@ -24,9 +24,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        db.execSQL("CREATE TABLE IF NOT EXISTS exam_type (id integer primary key autoincrement, type_name varchar(100), type_id INTEGER");
         Log.i("TAG","create a database");
-        String sql = "create table user(id int,name varchar(20),coinNum int,pointNum int,timeNum int)";
+//        String sql = "create table user(id int,name varchar(20),coinNum int,pointNum int,timeNum int)";
+        String sql = "create table user(id int,coinNum int,pointNum int,timeNum int)";
         //执行创建数据库操作
         db.execSQL(sql);
     }

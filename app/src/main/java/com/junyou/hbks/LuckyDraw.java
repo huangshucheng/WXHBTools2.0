@@ -16,6 +16,8 @@ import com.junyou.hbks.luckydraw.AngleUtil;
 import com.junyou.hbks.luckydraw.LuckyDrawLayout;
 import com.junyou.hbks.luckydraw.RotatePlate;
 
+import org.w3c.dom.Text;
+
 public class LuckyDraw extends AppCompatActivity implements RotatePlate.AnimationEndListener{
 
     private RotatePlate mRotateP;
@@ -27,6 +29,7 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
 
     private TextView coint_num_text;
     private TextView point_num_text;
+    private TextView user_account_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
 
         coint_num_text = (TextView) findViewById(R.id.coint_num_text);
         point_num_text = (TextView) findViewById(R.id.point_num_text);
+        user_account_text = (TextView) findViewById(R.id.user_account);
 
         mLuckyDrawL.post(new Runnable() {
             @Override
@@ -93,6 +97,9 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
         if (point_num_text != null){
             point_num_text.setText("积分: " + LocalSaveUtil.getPointNum());
         }
+        if (user_account_text != null){
+            user_account_text.setText("账户: " + LocalSaveUtil.getAccount());
+        }
         Log.i("TAG","resume");
     }
 
@@ -123,7 +130,7 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
         }
     }
 
-    public void convert_twoMonth(View view){
+    public void convert_threeMonth(View view){
         Log.i("TAG","three month");
         if (coint_num_text != null){
             LocalSaveUtil.setCoinNum(10 + LocalSaveUtil.getCoinNum());
@@ -134,6 +141,7 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
     }
 
     public void convert_allLife(View view){
-        Log.i("TAG","all life");
+        int idNum = (int) ((Math.random() * 9 + 1) * 100000);
+        Log.i("TAG","all life"+ "id:" + idNum);
     }
 }

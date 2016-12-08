@@ -93,6 +93,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/user_account"
             android:text="账户:123456789"
             android:textColor="#161616"
             android:textSize="15dp"
@@ -220,7 +221,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="25dp"
-                        android:onClick="convert_twoMonth"/>
+                        android:onClick="convert_threeMonth"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/mainavt_layout_3"

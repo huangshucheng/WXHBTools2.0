@@ -3,6 +3,7 @@ package com.junyou.hbks.Utils;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import com.junyou.hbks.Constants;
 
@@ -36,7 +37,7 @@ public class TimeManager {
             editor.apply();
             //设置拥有时间
 //            setLeftTime(2880);      //48*60分钟 2天时间(单位：分钟)
-            setLeftTime(4320);       //3天
+            setLeftTime(LocalSaveUtil.getLeftTime());       //3天
 //            setLeftTime("1");     //
         }
     }
@@ -102,8 +103,6 @@ public class TimeManager {
         int d = m / 60 / 24;
         int h = m / 60 - d * 24;
         int min = m - d * 24 * 60 - h * 60;
-//        Log.i("TAG" , "days:"+ d + "  hours:"+ h + " minutes:" + min);
-//        return "" + days + "天 " + hours + "小时";
 //       return "" + d + "天" + h + "小时" + min + "分钟";
         return "" + d + "天" + h + "小时";
     }
@@ -121,12 +120,11 @@ public class TimeManager {
 
     //设置剩余时间
     public static void setLeftTime(int lefttime){
-        if (null != editor)
-        {
-            editor.putInt(TOTAL_TIME,lefttime);
-            editor.apply();
-//            Log.i("TAG" , "设置总时间:" + lefttime);
-        }
+        LocalSaveUtil.setLeftTime(lefttime);
+    }
+    //获取剩余时间
+    public static int getLeftTime(){
+        return  LocalSaveUtil.getLeftTime();
     }
     //是否没时间了
     public static boolean isTimeout(){
@@ -134,6 +132,7 @@ public class TimeManager {
             int totalTime = getLeftTime(); //总时间
             int useTime   = getDiffTime();   //使用时间
             int leftTime = totalTime - useTime;             //时间差
+//            Log.i("TAG","总:" + totalTime + " 使用:" + useTime + " 差:" + leftTime);
             if (leftTime <= 0){
                 setFirstTime();
                 setLeftTime(0);
@@ -201,15 +200,6 @@ public class TimeManager {
     public static int getUseDay(){
         int use_day = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getInt(Constants.USE_DAY,1);
         return use_day;
-    }
-
-    //获取剩余时间
-    public static int getLeftTime(){
-        if (null != activity){
-            int leftTime = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getInt(TOTAL_TIME,0);
-            return leftTime;
-        }
-        return  0;
     }
 
     private final static ThreadLocal<SimpleDateFormat> dateFormater = new ThreadLocal<SimpleDateFormat>() {
