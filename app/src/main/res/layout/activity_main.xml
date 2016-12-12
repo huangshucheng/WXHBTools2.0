@@ -13,7 +13,7 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/mainavt_layout"
         android:id="@+id/layout_header"
-        android:background="#f23b3b"
+        android:background="#f24d3c"
         android:layout_alignParentTop="true">
         <!--设置按钮-->
 
@@ -21,64 +21,55 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/top_img_radpacket_on"
+            android:src="@mipmap/nome_bg_radpacket_default_off"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="45dp"
-            android:id="@+id/top_img_show"/>
+            android:layout_above="@+id/center_count_bg"
+            android:id="@+id/top_img_show"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
+            android:layout_marginBottom="20dp"/>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageButton_setting"
-                android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/imageButton_help"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="20dp"
-                android:src="@mipmap/icon_set"
-                android:background="@android:color/transparent"
-                android:scaleX="1.1"
-                android:scaleY="1.1"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/icon_red_point"
-                android:layout_alignParentTop="false"
-                android:layout_toRightOf="@+id/imageButton_setting"
-                android:layout_alignParentRight="false"
-                android:layout_marginLeft="-34dp"
-                android:layout_marginTop="15dp"/>
-            <!--帮助按钮-->
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+            <!--帮助-->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageButton_help"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="35dp"
+                android:src="@mipmap/icon_help_pressed"
+                android:background="@android:color/transparent" />
+            <!--个人中心-->
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton_setting"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="60px"
                 android:layout_marginTop="18dp"
-                android:src="@mipmap/icon_help"
-                android:background="@android:color/transparent"
-                android:scaleX="1.1"
-                android:scaleY="1.1"/>
+                android:src="@mipmap/icon_personal_press"
+                android:background="@android:color/transparent" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:background="@mipmap/top_img"
-            android:layout_marginTop="75dp">
+            android:layout_alignParentBottom="true"
+            android:id="@+id/center_count_bg">
             <!--红包个数标签-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
                 android:textSize="28sp"
                 android:id="@+id/packt_num_text"/>
@@ -88,8 +79,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="false"
                 android:text="0.00"
-                android:layout_marginLeft="120dp"
-                android:layout_marginTop="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
                 android:textSize="28sp"
                 android:id="@+id/money_num_text"/>
@@ -98,8 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="false"
-                android:text="红包个数"
-                android:layout_marginLeft="35dp"
+                android:text="红包个数(个)"
+                android:layout_marginLeft="60dp"
                 android:layout_below="@+id/packt_num_text"
                 android:textColor="#ffffff"
                 android:textSize="12sp" />
@@ -107,177 +99,296 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="false"
-                android:text="金额"
+                android:text="金额(元)"
                 android:layout_below="@+id/money_num_text"
-                android:layout_marginLeft="140dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="60dp"
                 android:textColor="#ffffff"
                 android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="3dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:background="@color/colordark"
+                android:alpha="0.2">
+            </LinearLayout>
         </RelativeLayout>
-
-
-    </RelativeLayout>
-
-    <!--通告-->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/id_trumpet"
-        android:src="@mipmap/icon_trumpet"
-        android:layout_above="@+id/should_openServer"
-        android:layout_toLeftOf="@+id/marquee_text"
-        android:layout_marginBottom="3dp"/>
-    <!--我要的跑马灯呢?-->
-    <!--android:layout_toRightOf="@id/id_trumpet"-->
-    <TextView
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="@string/marquee_word_1"
-        android:id="@+id/marquee_text"
-        android:singleLine="true"
-        android:textColor="@color/colorwhite"
-        android:layout_above="@+id/should_openServer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="3dp"
-        android:ellipsize="marquee"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"/>
-    <!--背景色-->
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        tools:layout="@android:layout/simple_list_item_1"
-        android:background="#f2db6f"
-        android:layout_alignParentTop="false"
-        android:layout_above="@+id/mainavt_layout">
-    </LinearLayout>
-
-    <!--开启辅助提示-->
-    <RelativeLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/should_openServer"
-        android:background="#f2db6f"
-        android:layout_alignParentBottom="true"
-        android:onClick="openSettings">
-        <TextView
+        <!--通告-->
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tip_opensettings_text"
-            android:text="需要开启辅助功能才能自动抢红包 ,立即开启"
-            android:textSize="12dp"
-            android:textColor="#8d3817"
-            android:layout_marginTop="7dp"
-            android:layout_centerHorizontal="true"/>
+            android:id="@+id/id_trumpet"
+            android:src="@mipmap/icon_trumpet"
+            android:layout_above="@+id/center_count_bg"
+            android:layout_toLeftOf="@+id/marquee_text"
+            android:layout_marginBottom="9dp"/>
+        <!--我要的跑马灯呢?-->
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/marquee_word_1"
+            android:id="@+id/marquee_text"
+            android:singleLine="true"
+            android:textColor="@color/colorwhite"
+            android:layout_above="@+id/center_count_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="3dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginBottom="5dp"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/open_fuzhu_btn"
+            android:src="@mipmap/button_openfz_default"
+            android:background="@android:color/transparent"
+            android:layout_above="@+id/marquee_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:onClick="openSettings"/>
+    </RelativeLayout>
+
+    <!--背景色-->
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="6dp"-->
+        <!--tools:layout="@android:layout/simple_list_item_1"-->
+        <!--android:background="#f2db6f"-->
+        <!--android:layout_alignParentTop="false"-->
+        <!--android:layout_above="@+id/mainavt_layout">-->
+    <!--</LinearLayout>-->
+
+    <!--开启辅助提示-->
+    <!--<RelativeLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:id="@+id/should_openServer"-->
+        <!--android:background="#f2db6f"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:onClick="openSettings">-->
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:text="立即开启"-->
-            <!--android:layout_toRightOf="@+id/tip_opensettings_text"-->
+            <!--android:id="@+id/tip_opensettings_text"-->
+            <!--android:text="需要开启辅助功能才能自动抢红包 ,立即开启"-->
             <!--android:textSize="12dp"-->
-            <!--android:layout_marginTop="12dp"-->
-            <!--android:textColor="#178857"/>-->
-    </RelativeLayout>
+            <!--android:textColor="#8d3817"-->
+            <!--android:layout_marginTop="7dp"-->
+            <!--android:layout_centerHorizontal="true"/>-->
+    <!--</RelativeLayout>-->
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="230dp"
         android:id="@+id/mainavt_layout"
         tools:layout="@android:layout/simple_list_item_1"
         android:background="#f2f2f2"
         android:layout_alignParentBottom="true">
-        <RelativeLayout
-            android:id="@+id/mainavt_layout_1"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#f1eceb"
-            android:layout_marginTop="0dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/icon_weixin"
-            android:layout_marginLeft="10dp"/>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="微信红包"
-                android:layout_margin="2dp"
-                android:textColor="#161616"
-                android:textSize="15dp"
-                android:paddingLeft="50dp"/>
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="自动抢   开启"
-                android:layout_margin="2dp"
-                android:textColor="#dfaa6a"
-                android:paddingLeft="50dp"
-                android:textSize="12dp"
-                android:id="@+id/wechat_auto"/>
-        </LinearLayout>
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingRight="20dp"
-            android:id="@+id/open_wechat_switch"
-            android:checked="true"/>
-        </RelativeLayout>
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/mainavt_layout_1"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:background="#f1eceb"-->
+            <!--android:layout_marginTop="0dp">-->
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@mipmap/icon_weixin"-->
+            <!--android:layout_marginLeft="10dp"/>-->
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="10dp">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="微信红包"-->
+                <!--android:layout_margin="2dp"-->
+                <!--android:textColor="#161616"-->
+                <!--android:textSize="15dp"-->
+                <!--android:paddingLeft="50dp"/>-->
+            <!--<TextView android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="自动抢   开启"-->
+                <!--android:layout_margin="2dp"-->
+                <!--android:textColor="#dfaa6a"-->
+                <!--android:paddingLeft="50dp"-->
+                <!--android:textSize="12dp"-->
+                <!--android:id="@+id/wechat_auto"/>-->
+        <!--</LinearLayout>-->
+        <!--<Switch-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:paddingRight="20dp"-->
+            <!--android:id="@+id/open_wechat_switch"-->
+            <!--android:checked="true"/>-->
+        <!--</RelativeLayout>-->
 
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/mainavt_layout_2"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:background="#f1eceb"-->
+            <!--android:layout_marginTop="1dp">-->
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:src="@mipmap/icon_qq"-->
+                <!--android:layout_marginLeft="10dp"/>-->
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginLeft="10dp">-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="QQ红包"-->
+                    <!--android:layout_margin="2dp"-->
+                    <!--android:textColor="#161616"-->
+                    <!--android:textSize="15dp"-->
+                    <!--android:paddingLeft="50dp"/>-->
+                <!--<TextView android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="自动抢   开启"-->
+                    <!--android:layout_margin="2dp"-->
+                    <!--android:textColor="#dfaa6a"-->
+                    <!--android:paddingLeft="50dp"-->
+                    <!--android:textSize="12dp"-->
+                    <!--android:id="@+id/qq_auto"/>-->
+            <!--</LinearLayout>-->
+            <!--<Switch-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:paddingRight="20dp"-->
+                <!--android:id="@+id/open_qq_switch"-->
+                <!--android:checked="true"/>-->
+        <!--</RelativeLayout>-->
         <RelativeLayout
-            android:id="@+id/mainavt_layout_2"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#f1eceb"
-            android:layout_marginTop="1dp">
-            <ImageView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+            <RelativeLayout
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/icon_qq"
-                android:layout_marginLeft="10dp"/>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp">
+                android:background="@mipmap/back_img_whait_default"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:onClick="getMoreTime">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_draw"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="QQ红包"
-                    android:layout_margin="2dp"
-                    android:textColor="#161616"
-                    android:textSize="15dp"
-                    android:paddingLeft="50dp"/>
-                <TextView android:layout_width="wrap_content"
+                    android:text="每日分享"
+                    android:id="@+id/daily_share_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="25dp"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="自动抢   开启"
-                    android:layout_margin="2dp"
-                    android:textColor="#dfaa6a"
-                    android:paddingLeft="50dp"
-                    android:textSize="12dp"
-                    android:id="@+id/qq_auto"/>
-            </LinearLayout>
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingRight="20dp"
-                android:id="@+id/open_qq_switch"
-                android:checked="true"/>
+                    android:text="立即加三小时"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_below="@+id/daily_share_text"
+                    android:layout_marginTop="4dp"
+                    android:textSize="12dp"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/back_img_whait_default"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:onClick="luckyDrawClick">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_draw"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="每日抽奖"
+                    android:id="@+id/daily_draw_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="25dp"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="免费获取VIP"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="17dp"
+                    android:layout_below="@+id/daily_draw_text"
+                    android:layout_marginTop="4dp"
+                    android:textSize="12dp"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/back_img_whait_default"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:onClick="superVipClick">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_hao"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我是土豪"
+                    android:id="@+id/buy_vip_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="25dp"
+                    android:textSize="15dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="直接购买VIP"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="17dp"
+                    android:layout_below="@+id/buy_vip_text"
+                    android:layout_marginTop="4dp"
+                    android:textSize="12dp"/>
+            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 
@@ -285,12 +396,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/under_clock"
-        android:background="@mipmap/under_icon_clock_good"
+        android:background="@mipmap/under_icon_clock_on"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="12dp"
-        android:onClick="getMoreTime">
-
+        android:layout_marginBottom="5dp">
+        <!--android:onClick="getMoreTime"-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -298,50 +409,57 @@
             android:text="永久使用"
             android:textSize="16dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:singleLine="true"
-            android:textColor="@color/colorBG"/>
+            android:textColor="@color/colorwhite"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可使用时长"
+            android:textSize="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/left_days_text"
+            android:textColor="@color/colorgray"/>
     </RelativeLayout>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/under_icon_tool"
-        android:src="@mipmap/under_icon_tooltip"
-        android:onClick="getMoreTime"
+        android:src="@mipmap/under_icon_cj"
         android:layout_above="@+id/under_clock"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="-13dp" />
+        android:layout_marginBottom="-5dp" />
+    <!--android:onClick="getMoreTime"-->
+    <!--<ImageButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@mipmap/bat_pop_yellow_three"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="15dp"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:onClick="superVipClick"/>-->
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/signedIn_btn"-->
+        <!--android:text="签到"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:clickable="true"-->
+        <!--android:onClick="signedInClick"/>-->
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/bat_pop_yellow_three"
-        android:background="@android:color/transparent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:onClick="superVipClick"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/signedIn_btn"
-        android:text="签到"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:clickable="true"
-        android:onClick="signedInClick"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/luckyDraw_btn"
-        android:text="抽奖"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="false"
-        android:layout_marginBottom="80dp"
-        android:layout_marginLeft="30dp"
-        android:clickable="true"
-        android:onClick="luckyDrawClick"/>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/luckyDraw_btn"-->
+        <!--android:text="抽奖"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="false"-->
+        <!--android:layout_marginBottom="80dp"-->
+        <!--android:layout_marginLeft="30dp"-->
+        <!--android:clickable="true"-->
+        <!--android:onClick="luckyDrawClick"/>-->
 </RelativeLayout>

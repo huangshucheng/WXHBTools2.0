@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     private ImageButton setting_imagebtn;
     private ImageButton help_imagebtn;
     private Button signed_btn;  //签到按钮
+    private ImageButton open_fuzhubtn;
 
     private RelativeLayout shouldOpenServer_layout;
 
@@ -110,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 
     //sdk 相关
     private IWXAPI wxAPI;
+
+    private static boolean setting_flags = true;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -137,17 +140,17 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
        */
         //-----------------------new items--------------------------//
         //开关
-        openWechat_switch = (Switch) findViewById(R.id.open_wechat_switch);
+//        openWechat_switch = (Switch) findViewById(R.id.open_wechat_switch);
         if (openWechat_switch != null){
             openWechat_switch.setOnCheckedChangeListener(wechat_swtich_listener);
         }
-        openQQ_switch = (Switch) findViewById(R.id.open_qq_switch);
+//        openQQ_switch = (Switch) findViewById(R.id.open_qq_switch);
         if (openQQ_switch != null){
             openQQ_switch.setOnCheckedChangeListener(qq_switch_listener);
         }
 
-        wechat_auto_text = (TextView)findViewById(R.id.wechat_auto);
-        qq_auto_text = (TextView) findViewById(R.id.qq_auto);
+//        wechat_auto_text = (TextView)findViewById(R.id.wechat_auto);
+//        qq_auto_text = (TextView) findViewById(R.id.qq_auto);
 
         //设置和帮助按钮
         setting_imagebtn = (ImageButton) findViewById(R.id.imageButton_setting);
@@ -158,8 +161,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         if (help_imagebtn != null){
             help_imagebtn.setOnClickListener(onClickHelp);
         }
-
-        signed_btn = (Button) findViewById(R.id.signedIn_btn);
+        open_fuzhubtn = (ImageButton) findViewById(R.id.open_fuzhu_btn);
+//        signed_btn = (Button) findViewById(R.id.signedIn_btn);
         //顶部图片
         top_image = (ImageView) findViewById(R.id.top_img_show);
 
@@ -168,10 +171,10 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         num_money = (TextView) findViewById(R.id.money_num_text);
 
         //剩余天数标签
-        left_days_text = (TextView) findViewById(R.id.left_days_text);
+//        left_days_text = (TextView) findViewById(R.id.left_days_text);
 
         //布局获取
-        shouldOpenServer_layout = (RelativeLayout) findViewById(R.id.should_openServer);
+//        shouldOpenServer_layout = (RelativeLayout) findViewById(R.id.should_openServer);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //跑马灯文本
         marquee_text = (TextView) findViewById(R.id.marquee_text);
@@ -770,11 +773,14 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                 shouldOpenServer_layout.setVisibility(View.INVISIBLE);
             }
             if (top_image != null){
-                top_image.setImageResource(R.mipmap.top_img_radpacket_yes);
+                top_image.setImageResource(R.mipmap.nome_bg_radradpacket_selected_on);
             }
             showSwitchStatus();
             if (mainLayoutHeader != null){
                 mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOn));
+            }
+            if (open_fuzhubtn != null){
+                open_fuzhubtn.setImageResource(R.mipmap.button_grasping);
             }
         } else
         {
@@ -784,11 +790,14 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                 shouldOpenServer_layout.setVisibility(View.VISIBLE);
             }
             if (top_image != null){
-                top_image.setImageResource(R.mipmap.top_img_radpacket_on);
+                top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
             }
             showSwitchStatus();
             if (mainLayoutHeader != null){
                 mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
+            }
+            if (open_fuzhubtn != null){
+                open_fuzhubtn.setImageResource(R.mipmap.button_openfz_default);
             }
         }
     }
@@ -1068,6 +1077,35 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                     .setNegativeButton("取消",null)
                     .show();
 */
+        }else{
+            //todo 已经打开了辅助  切换图片等逻辑
+            if (setting_flags){
+                //close
+                if(null != open_fuzhubtn){
+                    open_fuzhubtn.setImageResource(R.mipmap.button_start_nor);
+                }
+                if (top_image != null){
+                    top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
+                }
+                if (mainLayoutHeader != null){
+                    mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
+                }
+                setting_flags = !setting_flags;
+                Log.i("TAG","closeing....");
+            }else{
+                //open
+                if(null != open_fuzhubtn){
+                    open_fuzhubtn.setImageResource(R.mipmap.button_grasping);
+                }
+                if (top_image != null){
+                    top_image.setImageResource(R.mipmap.nome_bg_radradpacket_selected_on);
+                }
+                if (mainLayoutHeader != null){
+                    mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOn));
+                }
+                setting_flags = !setting_flags;
+                Log.i("TAG","openning....");
+            }
         }
     }
 
@@ -1078,7 +1116,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         if (null != dialog_openShare)
             dialog_openShare.show();
         UmengUtil.YMclk_share(this);
-    }
+}
 
     public void superVipClick(View view)
     {
