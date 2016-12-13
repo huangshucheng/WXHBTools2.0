@@ -3,43 +3,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/draw_icon_delete"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        android:background="@android:color/transparent"
-        android:onClick="close_luckydraw_click"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:background="@android:color/transparent">-->
+        <ImageButton
+            android:id="@+id/luckydraw_close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/draw_icon_delete"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="32dp"
+            android:background="@android:color/transparent"
+             />
+        <!--android:onClick="close_luckydraw_click"-->
+        <com.junyou.hbks.luckydraw.LuckyDrawLayout
+            android:id="@+id/lucky_draw_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:layout_centerHorizontal="true" />
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/open_service_layout">-->
-            <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/id_serivce_iamge"-->
-                <!--android:src="@mipmap/msg_pop_one"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_centerVertical="true" />-->
+        <com.junyou.hbks.luckydraw.RotatePlate
+            android:id="@+id/lucky_draw_plate_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:layout_centerHorizontal="true" />
 
-            <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:src="@mipmap/bat_pop_red"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_alignParentTop="false"-->
-                <!--android:layout_marginTop="330dp"-->
-                <!--android:onClick="openServiceClick"/>-->
-        <!--</RelativeLayout>-->
+        <ImageView
+            android:id="@+id/go_rotate_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/node"
+            android:clickable="true"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:scaleType="center"
+            android:layout_centerHorizontal="true" />
 
-    <!--</RelativeLayout>-->
+        <RelativeLayout
+            android:id="@+id/hit_user"
+            android:layout_below="@+id/lucky_draw_plate_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-5dp">
+            <TextView
+                android:id="@+id/hit_user_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:text="xxx 一个月VIP,   xxx 一个月VIP,  xxx 终身VIP,  xxx 终身VIP,  xxx 终身VIP , xxx 三个月VIP"
+                android:padding="5dp"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:layout_marginLeft="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+                <requestFocus/>
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="中奖名单"
+                android:textColor="#ffffff"
+                android:background="@drawable/hit_backgroud"
+                android:padding="3dp"
+                android:layout_alignTop="@+id/hit_user_tv"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
+
 </RelativeLayout>

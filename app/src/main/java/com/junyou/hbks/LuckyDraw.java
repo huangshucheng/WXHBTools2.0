@@ -103,12 +103,12 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
         Log.i("TAG","resume");
     }
 
-    public void rotationClick(View view){
-        mRotateP.startRotate(-1);
-//        mRotateP.startRotateNull(-1);//每次都转到谢谢惠顾
-        mLuckyDrawL.setDelayTime(100);
-        mGoBtn.setEnabled(false);
-    }
+//    public void rotationClick(View view){
+//        mRotateP.startRotate(-1);
+////        mRotateP.startRotateNull(-1);//每次都转到谢谢惠顾
+//        mLuckyDrawL.setDelayTime(100);
+//        mGoBtn.setEnabled(false);
+//    }
 
     public void superVipClick(View view)
     {

@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     public  Dialog dialog_receiveTime;
     private Dialog dialog_tryDays;
     private Dialog dialog_open_vip;
-    private Dialog dialog_luckydraw;
 
     //广播消息
     private Intent bor_intent;
@@ -1512,22 +1511,17 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 
     public void luckyDrawClick(View view){
         try {
-            Intent helpAvt = new Intent(MainActivity.this,LuckyDraw.class);
-            startActivity(helpAvt);
-//            dialog_luckydraw = new LuckyDrawDialog(this,R.style.dialog_fullscreen);
-//            if (dialog_luckydraw != null){
-//                dialog_luckydraw.show();
-//            }
+//            Intent helpAvt = new Intent(MainActivity.this,LuckyDraw.class);
+//            startActivity(helpAvt);
+            Dialog dialog_luckydraw = new LuckyDrawDialog(this,R.style.dialog_fullscreen);
+            if (dialog_luckydraw != null){
+                dialog_luckydraw.show();
+                dialog_luckydraw.setCanceledOnTouchOutside(false);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
     //-----------------------------------------大转盘-------------------------------------//
-    public void close_luckydraw_click(View view) {
-        Log.i("TAG","close....");
-        if (dialog_luckydraw != null){
-            dialog_luckydraw.dismiss();
-        }
-    }
 }
