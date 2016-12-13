@@ -57,9 +57,9 @@ public class LocalSaveUtil {
             while(cursor.moveToNext()){
                 coinNum = cursor.getInt(cursor.getColumnIndex("coinNum"));
                 Log.i("TAG","coin from db:" + coinNum);
+                cursor.close();
                 return coinNum;
             }
-            cursor.close();
         }
         return  0;
     }
@@ -82,9 +82,9 @@ public class LocalSaveUtil {
             while(cursor.moveToNext()){
                 pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
                 Log.i("TAG","point from db: " + pointNum);
+                cursor.close();
                 return pointNum;
             }
-            cursor.close();
         }
         return  0;
     }
@@ -118,9 +118,9 @@ public class LocalSaveUtil {
             while(cursor.moveToNext()){
                 pointNum = cursor.getInt(cursor.getColumnIndex("id"));
                 Log.i("TAG","id from db: " + pointNum);
+                cursor.close();
                 return pointNum;
             }
-            cursor.close();
         }
         return 0 ;
     }
@@ -132,9 +132,9 @@ public class LocalSaveUtil {
             while(cursor.moveToNext()){
                 leftTime = cursor.getInt(cursor.getColumnIndex("timeNum"));
 //                Log.i("TAG","timeNum from db: " + leftTime);
+                cursor.close();
                 return leftTime;
             }
-            cursor.close();
         }
         return 0;
     }
@@ -158,8 +158,10 @@ public class LocalSaveUtil {
             num = cursor.getCount();
 //            Log.i("TAG","数据条数：" + num);
             if (num>0){
+                cursor.close() ;
                 return false;
             }else{
+                cursor.close() ;
                 return true;
             }
         }catch (Exception e){

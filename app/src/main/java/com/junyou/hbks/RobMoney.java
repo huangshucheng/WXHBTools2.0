@@ -172,6 +172,12 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
             return;
         }
 
+        boolean isflagOn = getSharedPreferences("config",MODE_MULTI_PROCESS).getBoolean(Constants.ISOPEN_FLAG,true);
+        if (!isflagOn){
+//            Log.i("TAG", "不能抢红包了...");
+            return;
+        }
+
         boolean isServiceOn = getSharedPreferences("config",MODE_MULTI_PROCESS).getBoolean(Constants.IS_SERVICE_ON,true);
         if (!isServiceOn){
 //            Log.i("TAG", "不能抢红包了，没日期了");

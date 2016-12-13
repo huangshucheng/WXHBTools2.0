@@ -50,6 +50,7 @@ import com.junyou.hbks.Utils.TimeUtils;
 import com.junyou.hbks.Utils.UmengUtil;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WXPayUtil;
+import com.junyou.hbks.luckydraw.LuckyDrawDialog;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     public  Dialog dialog_receiveTime;
     private Dialog dialog_tryDays;
     private Dialog dialog_open_vip;
+    private Dialog dialog_luckydraw;
 
     //广播消息
     private Intent bor_intent;
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         num_money = (TextView) findViewById(R.id.money_num_text);
 
         //剩余天数标签
-//        left_days_text = (TextView) findViewById(R.id.left_days_text);
+        left_days_text = (TextView) findViewById(R.id.left_days_text);
 
         //布局获取
 //        shouldOpenServer_layout = (RelativeLayout) findViewById(R.id.should_openServer);
@@ -186,9 +188,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         refrishMarqueeText();
         showDialog();
         //showLeftDays();
-        showSwitchStatus();
+//        showSwitchStatus();
 //      openNotifocation();
-//        setCurTime("");
         LocalSaveUtil.init(this);
         TimeManager.init(this);
         newShowLeftDays();
@@ -765,34 +766,44 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 
     private void updateServiceStatus()
     {
-        if (isServiceEnabled())
-        {
+        if (isServiceEnabled()) {
             Log.i("TAG","service is on");
-//            Toast.makeText(getApplicationContext(), "红包快手已经开启", Toast.LENGTH_SHORT).show();
-            if (shouldOpenServer_layout != null){
-                shouldOpenServer_layout.setVisibility(View.INVISIBLE);
+            SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
+            boolean isflag = sharedP.getBoolean(Constants.ISOPEN_FLAG,true);
+            if (isflag && sharedPreferences.getBoolean("pref_watch_notification",true)){
+                setImagesOnOrOff(true);
+            }else{
+                if (top_image != null){
+                    top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
+                }
+                if (mainLayoutHeader != null){
+                    mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
+                }
+                if (open_fuzhubtn != null){
+                    open_fuzhubtn.setImageResource(R.mipmap.button_start_nor);
+                }
             }
+        } else {
+            Log.i("TAG","service is off");
+            setImagesOnOrOff(false);
+        }
+    }
+
+    private void setImagesOnOrOff(boolean flag){
+        if (flag){
             if (top_image != null){
                 top_image.setImageResource(R.mipmap.nome_bg_radradpacket_selected_on);
             }
-            showSwitchStatus();
             if (mainLayoutHeader != null){
                 mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOn));
             }
             if (open_fuzhubtn != null){
                 open_fuzhubtn.setImageResource(R.mipmap.button_grasping);
             }
-        } else
-        {
-            Log.i("TAG","service is off");
-//            Toast.makeText(getApplicationContext(), "红包快手已经关闭", Toast.LENGTH_SHORT).show();
-            if (shouldOpenServer_layout != null){
-                shouldOpenServer_layout.setVisibility(View.VISIBLE);
-            }
+        }else{
             if (top_image != null){
                 top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
             }
-            showSwitchStatus();
             if (mainLayoutHeader != null){
                 mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
             }
@@ -1047,10 +1058,11 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 
     public void openSettings(View view)
     {
+        SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedP.edit();
         if (!isServiceEnabled())
         {
-            if (null != dialog_openSvs)
-            {
+            if (null != dialog_openSvs) {
                 dialog_openSvs.show();
             }
             UmengUtil.YMclk_fuzhu(MainActivity.this);
@@ -1079,32 +1091,31 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 */
         }else{
             //todo 已经打开了辅助  切换图片等逻辑
-            if (setting_flags){
-                //close
-                if(null != open_fuzhubtn){
-                    open_fuzhubtn.setImageResource(R.mipmap.button_start_nor);
+            if (null !=sharedPreferences && sharedPreferences.getBoolean("pref_watch_notification",true))
+            {
+                if (setting_flags){
+                    //已经打开，点击关闭
+                    if (top_image != null){
+                        top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
+                    }
+                    if (mainLayoutHeader != null){
+                        mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
+                    }
+                    if (open_fuzhubtn != null){
+                        open_fuzhubtn.setImageResource(R.mipmap.button_start_nor);
+                    }
+                    setting_flags = !setting_flags;
+                    editor.putBoolean(Constants.ISOPEN_FLAG,false);
+                    editor.apply();
+                    Log.i("TAG","closeing....");
+                }else{
+                    //已经关闭，点击打开
+                    setImagesOnOrOff(true);
+                    setting_flags = !setting_flags;
+                    editor.putBoolean(Constants.ISOPEN_FLAG,true);
+                    editor.apply();
+                    Log.i("TAG","openning....");
                 }
-                if (top_image != null){
-                    top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
-                }
-                if (mainLayoutHeader != null){
-                    mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
-                }
-                setting_flags = !setting_flags;
-                Log.i("TAG","closeing....");
-            }else{
-                //open
-                if(null != open_fuzhubtn){
-                    open_fuzhubtn.setImageResource(R.mipmap.button_grasping);
-                }
-                if (top_image != null){
-                    top_image.setImageResource(R.mipmap.nome_bg_radradpacket_selected_on);
-                }
-                if (mainLayoutHeader != null){
-                    mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOn));
-                }
-                setting_flags = !setting_flags;
-                Log.i("TAG","openning....");
             }
         }
     }
@@ -1503,8 +1514,20 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         try {
             Intent helpAvt = new Intent(MainActivity.this,LuckyDraw.class);
             startActivity(helpAvt);
+//            dialog_luckydraw = new LuckyDrawDialog(this,R.style.dialog_fullscreen);
+//            if (dialog_luckydraw != null){
+//                dialog_luckydraw.show();
+//            }
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    //-----------------------------------------大转盘-------------------------------------//
+    public void close_luckydraw_click(View view) {
+        Log.i("TAG","close....");
+        if (dialog_luckydraw != null){
+            dialog_luckydraw.dismiss();
         }
     }
 }

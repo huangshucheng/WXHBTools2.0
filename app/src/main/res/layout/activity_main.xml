@@ -41,7 +41,7 @@
                 android:id="@+id/imageButton_help"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="18dp"
-                android:layout_marginLeft="35dp"
+                android:layout_marginLeft="20dp"
                 android:src="@mipmap/icon_help_pressed"
                 android:background="@android:color/transparent" />
             <!--个人中心-->
@@ -51,7 +51,7 @@
                 android:id="@+id/imageButton_setting"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="60px"
+                android:layout_marginRight="40px"
                 android:layout_marginTop="18dp"
                 android:src="@mipmap/icon_personal_press"
                 android:background="@android:color/transparent" />
