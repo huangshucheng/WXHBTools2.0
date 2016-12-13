@@ -26,7 +26,6 @@ public class PersonalFragment extends PreferenceFragment {
     private CheckBoxPreference weixinGrasp_Preference;
     private CheckBoxPreference qqGrasp_Preference;
 
-
     private static PersonalFragment instance;
 
     private static Activity activity;
