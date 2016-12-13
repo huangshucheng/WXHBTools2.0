@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import android.os.Handler;
 
+import com.junyou.hbks.Utils.LocalSaveUtil;
 import com.junyou.hbks.Utils.TimeManager;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WeChatHttpClient;
@@ -74,7 +75,17 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                                 editor.putBoolean(Constants.IS_ALLLIFEUSE,true);    //终身使用
                                 editor.apply();
                                 UmengUtil.YMmoney_count(WXPayEntryActivity.this,2);
-                            }
+                            }else
+                                {
+                                    for (int i = 1 ; i < 100 ; i++)
+                                    {
+                                        if (orderAmount.equals(String.valueOf(i) + "00"))
+                                        {
+                                            //i个金币
+                                            LocalSaveUtil.setCoinNum(i + LocalSaveUtil.getCoinNum());
+                                        }
+                                    }
+                                }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
