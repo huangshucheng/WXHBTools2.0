@@ -681,8 +681,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         {
 //            Log.i("TAG","setting");
             try {
-                Intent settingAvt = new Intent(MainActivity.this,SettingActivity.class);
-                settingAvt.putExtra("title", "设置");
+                Intent settingAvt = new Intent(MainActivity.this,PersonalCenterActivity.class); //PersonalCenterActivity,SettingActivity
+                settingAvt.putExtra("title", "个人中心");
                 settingAvt.putExtra("frag_id", "GeneralSettingsFragment");
                 startActivity(settingAvt);
                 UmengUtil.YMclk_setting(MainActivity.this);
