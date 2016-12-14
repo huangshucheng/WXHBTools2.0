@@ -11,11 +11,14 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,9 @@ public class PersonalCenterActivity extends AppCompatActivity {
 
     private TextView coins_number; //金币数
     private TextView integral_number; //积分数
+    private TextView user_type; //用户类型
+//    private ImageView vip_mouth_img; //显示用户vip图片
+    private TextView time_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +47,16 @@ public class PersonalCenterActivity extends AppCompatActivity {
 
         coins_number = (TextView) findViewById(R.id.coins_number);
         integral_number = (TextView) findViewById(R.id.integral_number);
-
+        user_type = (TextView) findViewById(R.id.user_type);
+        time_text = (TextView) findViewById(R.id.time_text);
 //        if (coins_number != null){
 //            coins_number.setText("" + LocalSaveUtil.getCoinNum());
 //        }
 //        if (integral_number != null){
 //            integral_number.setText("" + LocalSaveUtil.getPointNum());
 //        }
-
+        initTime();
+        new TimeThread().start();
     }
 
     public static PersonalCenterActivity getInstance() {
@@ -81,6 +89,77 @@ public class PersonalCenterActivity extends AppCompatActivity {
         }
 //        fragmentTransaction.commit(); //  fixed 会出错
         fragmentTransaction.commitAllowingStateLoss();
+    }
+    class TimeThread extends Thread {
+        @Override
+        public void run() {
+            do {
+                try {
+                    Thread.sleep(1000);
+                    Message msg = new Message();
+                    msg.what = 1;  //消息(一个整型值)
+                    mHandler.sendMessage(msg);// 每隔1秒发送一个msg给mHandler
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } while (true);
+        }
+    }
+    //在主线程里面处理消息并更新UI界面
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    SharedPreferences sharedP = getSharedPreferences("config",MODE_MULTI_PROCESS);
+                    if (sharedP.getBoolean(Constants.IS_ALLLIFEUSE,false)){
+                        //终身使用
+                        setCurTime(getResources().getString(R.string.forever));
+                        return;
+                    }
+                    int totalTime = TimeManager.getLeftTime();
+                    int useTime = TimeManager.getDiffTime();
+                    int leftTime = totalTime - useTime;
+//                    Log.i("TAG","总时间:" + totalTime + "  使用时间:" + useTime + "  剩余时间:" + TimeManager.minutesToDays(leftTime));
+                    setCurTime("" + TimeManager.minutesToDays(leftTime)); //更新时间
+                    if (TimeManager.isTimeout()){
+                        //没有时间了
+                        setCurTime("时间用完");
+//                         Log.i("TAG","没有时间了");
+                    }
+                    break;
+            }
+        }
+    };
+
+    private void initTime(){
+        SharedPreferences sharedP = getSharedPreferences("config",MODE_PRIVATE);
+        if (sharedP.getBoolean(Constants.IS_ALLLIFEUSE,false)){
+            //终身使用
+            setCurTime(getResources().getString(R.string.forever));
+            return;
+        }
+        int totalTime = TimeManager.getLeftTime();
+        int useTime = TimeManager.getDiffTime();
+        int leftTime = totalTime - useTime;
+//      Log.i("TAG","总时间:" + totalTime + "  使用时间:" + useTime + "  剩余时间:" + TimeManager.minutesToDays(leftTime));
+        setCurTime("" + TimeManager.minutesToDays( leftTime)); //更新时间
+        if (TimeManager.isTimeout()){
+            //没有时间了
+            setCurTime( "时间用完");
+        }
+    }
+    private void setCurTime(CharSequence curtime) {
+        if (null != time_text){
+            time_text.setText(curtime);
+        }
+    }
+    private void changeUI(){
+        if (user_type != null)
+        {
+            //使用钱买过的用户就是vip用户
+        }
     }
 
     @Override

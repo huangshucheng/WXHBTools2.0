@@ -122,6 +122,7 @@
                     android:layout_toRightOf="@+id/yiyuan_label"
                     android:layout_marginLeft="38dp"
                     android:background="#D9D9D9"
+                    android:id="@+id/number_bg_1"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -139,9 +140,9 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@mipmap/jian_button"
-                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="148dp"
+                    android:layout_toLeftOf="@+id/number_bg_1"
+                    android:layout_marginRight="-50dp"
                     android:onClick="jinbi_jian"
                     />
                 <ImageButton
@@ -149,9 +150,9 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@mipmap/jia_button"
-                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="218dp"
+                    android:layout_marginLeft="-15dp"
+                    android:layout_toRightOf="@+id/number_bg_1"
                     android:onClick="jinbi_add"
                     />
                 <ImageButton
@@ -160,6 +161,8 @@
                     android:background="@android:color/transparent"
                     android:src="@mipmap/btn_exchange"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
                     android:onClick="jinbi_exchange"
                     />
             </RelativeLayout>
