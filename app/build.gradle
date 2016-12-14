@@ -66,9 +66,9 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
-    compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/httpclient-4.3.6.jar')
-    compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/jdom.jar')
-    compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/libammsdk.jar')
-    compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/mobclickhelper.jar')
-//    compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/umeng-analytics-v6.0.1.jar')
+    compile files('D:/porject/WXHBTools2.0/gradle/wrapper/httpclient-4.3.6.jar')
+    compile files('D:/porject/WXHBTools2.0/gradle/wrapper/jdom.jar')
+    compile files('D:/porject/WXHBTools2.0/gradle/wrapper/libammsdk.jar')
+    compile files('D:/porject/WXHBTools2.0/gradle/wrapper/mobclickhelper.jar')
+//    compile files('D:/porject/WXHBTools2.0/gradle/wrapper/umeng-analytics-v6.0.1.jar')
 }

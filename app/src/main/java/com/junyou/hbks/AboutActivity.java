@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.junyou.hbks.Utils.ShareHelper;
-import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics .MobclickAgent;
 
 import com.junyou.hbks.fragments.AboutFragment;
 
