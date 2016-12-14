@@ -149,7 +149,7 @@
                 android:src="@mipmap/btn_exchange"
                 android:layout_toRightOf="@+id/draw_bg_1"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="40dp" />
+                android:layout_marginLeft="25dp" />
             </RelativeLayout>
             <!--第二排-->
             <RelativeLayout
