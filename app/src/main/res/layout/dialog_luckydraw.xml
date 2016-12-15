@@ -128,9 +128,10 @@
                 android:textColor="#1a0101"
                 android:textSize="15sp"
                 android:layout_centerInParent="true"
-                android:id="@+id/draw_coin_number" />
+                android:id="@+id/draw_buycoin_number" />
             </RelativeLayout>
             <ImageButton
+                android:id="@+id/draw_dec_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -139,6 +140,7 @@
                 android:layout_toLeftOf="@+id/draw_bg_1"
                 android:layout_marginRight="-42dp"/>
             <ImageButton
+                android:id="@+id/draw_plus_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -147,6 +149,7 @@
                 android:layout_toRightOf="@+id/draw_bg_1"
                 android:layout_marginLeft="-12dp"/>
             <ImageButton
+                android:id="@+id/draw_change_first"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -222,6 +225,7 @@
                     android:layout_toRightOf="@+id/draw_title_4"
                     android:layout_marginLeft="85dp" />
                 <ImageButton
+                    android:id="@+id/draw_change_second"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -273,6 +277,7 @@
                     android:layout_toRightOf="@+id/draw_title_6"
                     android:layout_marginLeft="85dp" />
                 <ImageButton
+                    android:id="@+id/draw_change_third"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -317,6 +322,7 @@
                     android:layout_toRightOf="@+id/draw_title_8"
                     android:layout_marginLeft="100dp" />
                 <ImageButton
+                    android:id="@+id/draw_change_fourth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"

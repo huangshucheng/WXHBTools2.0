@@ -103,7 +103,6 @@ public class VipActivity extends AppCompatActivity {
 //                        editor.putString(Constants.MONEY_NUM,"1");
                             editor.apply();
                             WXPayUtil.getInstance().new GetPrepayIdTask().execute();
-                            UmengUtil.YMclk_one_vip(this);
                         }
                         UmengUtil.YMpurchase_num(this);
                     } catch (Exception e) {
