@@ -37,7 +37,7 @@ public class RotatePlate extends View {
 
     public static final int FLING_VELOCITY_DOWNSCALE = 4;
 
-    private int[] images = new int[]{R.mipmap.draw_centent_onehours_under,R.mipmap.image_one,R.mipmap.draw_centent_threehours,R.mipmap.draw_centent_onemouth,R.mipmap.draw_centent_threemouth,R.mipmap.draw_centent_lifelong_under};
+    private int[] images = new int[]{R.mipmap.draw_centent_onehours_under,R.mipmap.draw_centent_fight,R.mipmap.draw_centent_threehours_under,R.mipmap.draw_centent_onemouth_under,R.mipmap.draw_centent_threemouth_under,R.mipmap.draw_centent_lifelong_under};
 //    private String[] strs = {"华为手机","谢谢惠顾","iPhone 6s","mac book","魅族手机","小米手机"};
     private String[] strs = {"一小时使用时间","谢谢惠顾","三小时使用时间","一个月VIP","三个月VIP","终身VIP"};
     private List<Bitmap> bitmaps = new ArrayList<>();
@@ -62,8 +62,10 @@ public class RotatePlate extends View {
         mDetector = new GestureDetectorCompat(context,new RotatePanGestureListener());
         scroller = ScrollerCompat.create(context);
 
-        dPaint.setColor(Color.rgb(255,133,132));
-        sPaint.setColor(Color.rgb(254,104,105));
+//        dPaint.setColor(Color.rgb(255,133,132));
+//        sPaint.setColor(Color.rgb(254,104,105));
+        dPaint.setColor(Color.rgb(172,54,54));
+        sPaint.setColor(Color.rgb(128,38,38));
         textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(AngleUtil.dip2px(context,16));
         setClickable(true);
@@ -130,10 +132,10 @@ public class RotatePlate extends View {
             InitAngle += 60;
         }
 
-        for(int i=0;i<6;i++){
-            drawText(InitAngle+30,strs[i], 2*radius, textPaint, canvas,rectF);
-            InitAngle += 60;
-        }
+//        for(int i=0;i<6;i++){
+//            drawText(InitAngle+30,strs[i], 2*radius, textPaint, canvas,rectF);
+//            InitAngle += 60;
+//        }
     }
 
     private void drawText(float startAngle, String string,int mRadius,Paint mTextPaint,Canvas mCanvas,RectF mRange)
@@ -142,24 +144,25 @@ public class RotatePlate extends View {
         path.addArc(mRange, startAngle, 60);
         float textWidth = mTextPaint.measureText(string);
 
-        float hOffset = (float) (mRadius * Math.PI / 6 / 2 - textWidth / 2);
-        float vOffset = mRadius / 2 / 4;
+        float hOffset = (float) (mRadius * Math.PI / 6 / 2 - textWidth / 2);//水平
+        float vOffset = mRadius / 3 / 4;//垂直
         mCanvas.drawTextOnPath(string, path, hOffset, vOffset, mTextPaint);
     }
 
     private void drawIcon(int xx,int yy,int mRadius,float startAngle, int i,Canvas mCanvas)
     {
-
         int imgWidth = mRadius / 4;
-
         float angle = (float) Math.toRadians(60 +startAngle);
 
-        float x = (float) (xx + mRadius / 2 * Math.cos(angle));
-        float y = (float) (yy + mRadius / 2  * Math.sin(angle));
+//        float x = (float) (xx + mRadius / 2 * Math.cos(angle));
+//        float y = (float) (yy + mRadius / 2  * Math.sin(angle));
 
+        float x = (float) (xx + mRadius /1.5 * Math.cos(angle));
+        float y = (float) (yy + mRadius / 1.5  * Math.sin(angle));
         // 确定绘制图片的位置
-        RectF rect = new RectF(x - imgWidth *3/ 4, y - imgWidth*3 / 4, x + imgWidth
-                *3/ 4, y + imgWidth*3/4);
+//        RectF rect = new RectF(x - imgWidth *3/ 4, y - imgWidth*3 / 4, x + imgWidth *3/ 4, y + imgWidth*3/4);
+        RectF rect = new RectF(x - imgWidth , y - imgWidth*3 / 4, x + imgWidth, y + imgWidth*3/4);
+//        RectF rect = new RectF(x - imgWidth , y - imgWidth, x + imgWidth , y + imgWidth);
 
         Bitmap bitmap = bitmaps.get(i);
 
@@ -171,10 +174,10 @@ public class RotatePlate extends View {
         this.invalidate();
     }
 
-    public void setStr(String... strs){
-        this.strs = strs;
-        this.invalidate();
-    }
+//    public void setStr(String... strs){
+//        this.strs = strs;
+//        this.invalidate();
+//    }
 
 
     public void startRotateNull(int pos){

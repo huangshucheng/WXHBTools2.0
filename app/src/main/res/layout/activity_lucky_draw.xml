@@ -28,17 +28,17 @@
         android:scaleY="0.7"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:id="@+id/go_rotate_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/node"
-        android:clickable="true"
-        android:onClick="rotationClick"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
-        android:scaleType="center"
-        android:layout_centerHorizontal="true" />
+    <!--<ImageView-->
+        <!--android:id="@+id/go_rotate_btn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&lt;!&ndash;android:src="@mipmap/node"&ndash;&gt;-->
+        <!--android:clickable="true"-->
+        <!--android:onClick="rotationClick"-->
+        <!--android:scaleX="0.7"-->
+        <!--android:scaleY="0.7"-->
+        <!--android:scaleType="center"-->
+        <!--android:layout_centerHorizontal="true" />-->
 
     <RelativeLayout
         android:id="@+id/hit_user"

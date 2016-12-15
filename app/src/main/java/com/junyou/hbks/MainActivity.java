@@ -1212,10 +1212,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             */
             //使用sdk分享
             WXWebpageObject webpage = new WXWebpageObject();
-//            webpage.webpageUrl = "http://www.zjhzjykj.com/images/hbks.apk";     //网址替换掉就可以了
-//            webpage.webpageUrl = "http://www.wandoujia.com/apps/cn.swiftpass.wxpay";     //todo 网址替换掉就可以了
 
-           // webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";//vivo
+//            webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";//vivo
+//            webpage.webpageUrl = "http://openbox.mobilem.360.cn/qcms/view/t/detail?sid=3540668&from=groupmessage&isappinstalled=1";//360
             webpage.webpageUrl = "http://www.zjhzjykj.com";
             WXMediaMessage msg = new WXMediaMessage(webpage);
             msg.title = "红包快手 "+share_lists[num];
@@ -1277,9 +1276,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             */
             //使用sdk分享
             WXWebpageObject webpage = new WXWebpageObject();
-//            webpage.webpageUrl = "http://www.zjhzjykj.com/images/hbks.apk";
-//            webpage.webpageUrl = "http://www.wandoujia.com/apps/cn.swiftpass.wxpay";  //todo 换网址
-            //webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";   //vivo
+//            webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";   //vivo
+//            webpage.webpageUrl = "http://openbox.mobilem.360.cn/qcms/view/t/detail?sid=3540668&from=groupmessage&isappinstalled=1";//360
             webpage.webpageUrl = "http://www.zjhzjykj.com";
             WXMediaMessage msg = new WXMediaMessage(webpage);
             msg.title = "红包快手";

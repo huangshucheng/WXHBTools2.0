@@ -6,7 +6,8 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    android:scrollbars="none">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,67 +29,352 @@
             android:id="@+id/lucky_draw_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:layout_marginTop="20dp"/>
 
         <com.junyou.hbks.luckydraw.RotatePlate
             android:id="@+id/lucky_draw_plate_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:layout_marginTop="48dp"/>
 
         <ImageView
             android:id="@+id/go_rotate_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/node"
+            android:src="@mipmap/draw_btn_start"
             android:clickable="true"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
             android:scaleType="center"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:layout_marginTop="15dp"/>
 
-        <RelativeLayout
-            android:id="@+id/hit_user"
-            android:layout_below="@+id/lucky_draw_plate_layout"
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="-5dp">
+            android:id="@+id/draw_rad_msg"
+            android:src="@mipmap/draw_rad_msg_tooltip2"
+            android:layout_below="@+id/go_rotate_btn"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="75dp"
+            android:scaleType="fitXY"/>
+<!--整个框-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/gray_bg"
+            android:background="@mipmap/drad_bg_ticket"
+            android:layout_below="@+id/draw_rad_msg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-26dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp">
+            <!--第一排-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/draw_innerbg_first"
+            android:background="@android:color/transparent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
             <TextView
-                android:id="@+id/hit_user_tv"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/text_background"
-                android:text="xxx 一个月VIP,   xxx 一个月VIP,  xxx 终身VIP,  xxx 终身VIP,  xxx 终身VIP , xxx 三个月VIP"
-                android:padding="5dp"
+                android:text="您有金币"
+                android:textSize="16sp"
+                android:textColor="#9e2a21"
                 android:layout_centerVertical="true"
-                android:gravity="center"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:layout_marginLeft="10dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-                <requestFocus/>
-            </TextView>
+                android:layout_marginLeft="12dp"
+                android:id="@+id/coin_word_text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="0"
+                android:layout_toRightOf="@+id/coin_word_text"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:textColor="#9e2a21"
+                android:id="@+id/draw_coinNum_text"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="中奖名单"
-                android:textColor="#ffffff"
-                android:background="@drawable/hit_backgroud"
-                android:padding="3dp"
-                android:layout_alignTop="@+id/hit_user_tv"
                 android:layout_centerVertical="true"
-                />
+                android:text="+"
+                android:layout_toRightOf="@+id/draw_coinNum_text"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:textColor="#9e2a21"
+                android:id="@+id/draw_plus"/>
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/draw_bg_1"
+                android:layout_toRightOf="@+id/draw_plus"
+                android:layout_marginLeft="30dp"
+                android:background="#D9D9D9">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="#1a0101"
+                android:textSize="15sp"
+                android:layout_centerInParent="true"
+                android:id="@+id/draw_buycoin_number" />
+            </RelativeLayout>
+            <ImageButton
+                android:id="@+id/draw_dec_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/jian_button"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/draw_bg_1"
+                android:layout_marginRight="-42dp"/>
+            <ImageButton
+                android:id="@+id/draw_plus_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/jia_button"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/draw_bg_1"
+                android:layout_marginLeft="-12dp"/>
+            <ImageButton
+                android:id="@+id/draw_change_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/btn_exchange"
+                android:layout_toRightOf="@+id/draw_bg_1"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="12dp"/>
+            </RelativeLayout>
+            <!--第二排-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/draw_innerbg_second"
+                android:background="@android:color/transparent"
+                android:layout_below="@+id/draw_innerbg_first">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_1"
+                    android:text="积分兑换VIP"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_2"
+                    android:text="已有积分:"
+                    android:textColor="#9e2a21"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/draw_title_1"
+                    android:layout_marginLeft="50dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_3"
+                    android:text="0"
+                    android:textColor="#9e2a21"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/draw_title_2"
+                    android:layout_marginLeft="8dp"/>
+            </RelativeLayout>
+            <!--第三排-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/draw_innerbg_third"
+                android:background="@android:color/transparent"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/draw_innerbg_second">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_4"
+                    android:text="一个月VIP"
+                    android:textColor="#4f4f4f"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_5"
+                    android:text="8分"
+                    android:textColor="#4f4f4f"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/draw_title_4"
+                    android:layout_marginLeft="85dp" />
+                <ImageButton
+                    android:id="@+id/draw_change_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/draw_btn_exchange"
+                    android:layout_toRightOf="@+id/draw_title_5"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="12dp"/>
+                <LinearLayout
+                    android:layout_width="223dp"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="#646464"
+                    android:layout_alignParentBottom="true">
+                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="223dp"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_marginLeft="8dp"-->
+                    <!--android:background="#646464"-->
+                    <!--android:layout_alignParentTop="true">-->
+                <!--</LinearLayout>-->
+            </RelativeLayout>
+            <!--第四排-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/draw_innerbg_fourth"
+                android:background="@android:color/transparent"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/draw_innerbg_third">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_6"
+                    android:text="三个月VIP"
+                    android:textColor="#4f4f4f"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_7"
+                    android:text="12分"
+                    android:textColor="#4f4f4f"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/draw_title_6"
+                    android:layout_marginLeft="85dp" />
+                <ImageButton
+                    android:id="@+id/draw_change_third"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/draw_btn_exchange"
+                    android:layout_toRightOf="@+id/draw_title_7"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginRight="12dp"/>
+                <LinearLayout
+                    android:layout_width="223dp"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="#646464"
+                    android:layout_alignParentBottom="true">
+                </LinearLayout>
+            </RelativeLayout>
+            <!--第五排-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/draw_innerbg_fifth"
+                android:background="@android:color/transparent"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/draw_innerbg_fourth">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_8"
+                    android:text="终身VIP"
+                    android:textColor="#4f4f4f"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/draw_title_9"
+                    android:text="20分"
+                    android:textColor="#4f4f4f"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/draw_title_8"
+                    android:layout_marginLeft="100dp" />
+                <ImageButton
+                    android:id="@+id/draw_change_fourth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/draw_btn_exchange"
+                    android:layout_toRightOf="@+id/draw_title_9"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="41dp"
+                    android:layout_marginRight="12dp"/>
+            </RelativeLayout>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@id/gray_bg">
+        </RelativeLayout>
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/hit_user"-->
+            <!--android:layout_below="@+id/lucky_draw_plate_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:layout_marginTop="-5dp">-->
+            <!--<TextView-->
+                <!--android:id="@+id/hit_user_tv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/text_background"-->
+                <!--android:text="xxx 一个月VIP,   xxx 一个月VIP,  xxx 终身VIP,  xxx 终身VIP,  xxx 终身VIP , xxx 三个月VIP"-->
+                <!--android:padding="5dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:gravity="center"-->
+                <!--android:singleLine="true"-->
+                <!--android:ellipsize="marquee"-->
+                <!--android:marqueeRepeatLimit="marquee_forever"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:focusable="true"-->
+                <!--android:focusableInTouchMode="true">-->
+                <!--<requestFocus/>-->
+            <!--</TextView>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="中奖名单"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:background="@drawable/hit_backgroud"-->
+                <!--android:padding="3dp"-->
+                <!--android:layout_alignTop="@+id/hit_user_tv"-->
+                <!--android:layout_centerVertical="true" />-->
+        <!--</RelativeLayout>-->
     </RelativeLayout>
 </ScrollView>
 

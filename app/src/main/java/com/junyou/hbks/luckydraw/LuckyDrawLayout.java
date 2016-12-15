@@ -9,7 +9,11 @@ import android.view.View;
 
 public class LuckyDrawLayout extends View {
     private Context context;
+
     private Paint backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint backgroundPaintbig = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint backgroundPaintsmall = new Paint(Paint.ANTI_ALIAS_FLAG);
+
     private Paint whitePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint yellowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int radius;
@@ -29,7 +33,11 @@ public class LuckyDrawLayout extends View {
     public LuckyDrawLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
-        backgroundPaint.setColor(Color.rgb(255,92,93));
+//        backgroundPaint.setColor(Color.rgb(255,92,93));
+        backgroundPaint.setColor(Color.rgb(204,39,38));
+        backgroundPaintbig.setColor(Color.rgb(255,243,233));
+        backgroundPaintsmall.setColor(Color.rgb(242,84,86));
+
         whitePaint.setColor(Color.WHITE);
         yellowPaint.setColor(Color.YELLOW);
     }
@@ -71,13 +79,15 @@ public class LuckyDrawLayout extends View {
         CircleX = getWidth() /2;
         CircleY = getHeight() /2;
 
-        canvas.drawCircle(CircleX,CircleY,radius,backgroundPaint);
-
-        drawSmallCircle(isYellow);
+        canvas.drawCircle(CircleX,CircleY,radius,backgroundPaintbig);//白边
+        canvas.drawCircle(CircleX,CircleY,radius-8,backgroundPaint);    //红色底
+        drawSmallCircle(isYellow);//小点点
+        canvas.drawCircle(CircleX,CircleY,radius-45,backgroundPaintsmall);//最小
     }
 
     private void drawSmallCircle(boolean FirstYellow){
-        int pointDistance = radius - AngleUtil.dip2px(context,10);
+//        int pointDistance = radius - AngleUtil.dip2px(context,10);
+        int pointDistance = radius - AngleUtil.dip2px(context,13);
         for(int i=0;i<=360;i+=20){
             int x = (int) (pointDistance * Math.sin(AngleUtil.change(i))) + CircleX;
             int y = (int) (pointDistance * Math.cos(AngleUtil.change(i))) + CircleY;
