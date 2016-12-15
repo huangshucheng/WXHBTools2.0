@@ -25,7 +25,7 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 1.免费使用三天   OK
 2.增加签到功能（三天使用完后才开始计算）
 	签到，每天获取免费时间一小时
-	分享每次获取三小时
+	分享每次获取三小时 (不用做签到)
 
 3.跑马灯信息重新修改  ok(需要修改)
 4.主界面添加计费点，VIP  OK
@@ -36,6 +36,7 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 金币1元/个,在商城可购买
 抽奖获得积分，积分累计
 8分一个月vip,14分三个月vip,20分终身vip
+每天可以免费抽奖一次，100%获得一个积分，100%不能抽到奖品
 
 8.修改抢红包流程
   点击icon->设置->自动开抢  OK 
@@ -44,6 +45,6 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 10.疯狂模式
 11.提示添加到白名单
 12.开启红包快手后，回到app
-13.数据库存储，卸载后可以重新读取数据
+13.数据库存储，卸载后可以重新读取数据  OK
 
 //---------------------------------------//

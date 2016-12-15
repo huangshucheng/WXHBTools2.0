@@ -31,16 +31,17 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:scaleX="0.9"
-            android:scaleY="0.9"/>
+            android:scaleY="0.9"
+            android:layout_marginTop="20dp"/>
 
         <com.junyou.hbks.luckydraw.RotatePlate
             android:id="@+id/lucky_draw_plate_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             android:layout_centerHorizontal="true"
             android:scaleX="0.9"
-            android:scaleY="0.9"/>
+            android:scaleY="0.9"
+            android:layout_marginTop="48dp"/>
 
         <ImageView
             android:id="@+id/go_rotate_btn"
@@ -51,7 +52,8 @@
             android:scaleType="center"
             android:layout_centerHorizontal="true"
             android:scaleX="0.9"
-            android:scaleY="0.9"/>
+            android:scaleY="0.9"
+            android:layout_marginTop="15dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -59,8 +61,8 @@
             android:id="@+id/draw_rad_msg"
             android:src="@mipmap/draw_rad_msg_tooltip2"
             android:layout_below="@+id/go_rotate_btn"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="75dp"
             android:scaleType="fitXY"/>
 <!--整个框-->
         <RelativeLayout
@@ -70,7 +72,9 @@
             android:background="@mipmap/drad_bg_ticket"
             android:layout_below="@+id/draw_rad_msg"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-5dp">
+            android:layout_marginTop="-26dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp">
             <!--第一排-->
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -149,7 +153,8 @@
                 android:src="@mipmap/btn_exchange"
                 android:layout_toRightOf="@+id/draw_bg_1"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="25dp" />
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="12dp"/>
             </RelativeLayout>
             <!--第二排-->
             <RelativeLayout
@@ -223,7 +228,8 @@
                     android:src="@mipmap/draw_btn_exchange"
                     android:layout_toRightOf="@+id/draw_title_5"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="50dp" />
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="12dp"/>
                 <LinearLayout
                     android:layout_width="223dp"
                     android:layout_height="1dp"
@@ -273,7 +279,8 @@
                     android:src="@mipmap/draw_btn_exchange"
                     android:layout_toRightOf="@+id/draw_title_7"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="42dp" />
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginRight="12dp"/>
                 <LinearLayout
                     android:layout_width="223dp"
                     android:layout_height="1dp"
@@ -316,13 +323,14 @@
                     android:src="@mipmap/draw_btn_exchange"
                     android:layout_toRightOf="@+id/draw_title_9"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="41dp" />
+                    android:layout_marginLeft="41dp"
+                    android:layout_marginRight="12dp"/>
             </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="70dp"
             android:layout_below="@id/gray_bg">
         </RelativeLayout>
 

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.junyou.hbks.R;
 import com.junyou.hbks.SettingActivity;
+import com.junyou.hbks.Utils.LocalSaveUtil;
 import com.junyou.hbks.Utils.UmengUtil;
 
 public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndListener{
@@ -32,7 +33,6 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
 
     private TextView coint_num_text;
     private TextView point_num_text;
-    private TextView user_account_text;
 
     public LuckyDrawDialog(Context context) {
         super(context);
@@ -70,9 +70,9 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
             mGoBtn.setOnClickListener(onClickRotate);
         }
 
-        coint_num_text = (TextView) findViewById(R.id.coint_num_text);
-        point_num_text = (TextView) findViewById(R.id.point_num_text);
-        user_account_text = (TextView) findViewById(R.id.user_account);
+        coint_num_text = (TextView) findViewById(R.id.draw_coinNum_text);
+        point_num_text = (TextView) findViewById(R.id.draw_title_3);
+
         if (mActivity != null && mLuckyDrawL != null){
             mLuckyDrawL.post(new Runnable() {
                 @Override
@@ -108,6 +108,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 }
             });
         }
+        Log.i("TAG","draw,oncreate....");
     }
 
     @Override
@@ -119,8 +120,25 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         }
     }
 
-    private View.OnClickListener onClickRotate = new View.OnClickListener()
-    {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("TAG","draw,onstart....");
+        if (coint_num_text != null){
+            coint_num_text.setText( "" + LocalSaveUtil.getCoinNum());
+        }
+        if (point_num_text != null){
+            point_num_text.setText("" + LocalSaveUtil.getPointNum());
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("TAG","draw,onstop....");
+    }
+
+    private View.OnClickListener onClickRotate = new View.OnClickListener() {
         @Override
         public void onClick(View v)
         {
@@ -136,8 +154,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         }
     };
 
-    private View.OnClickListener onClickClose = new View.OnClickListener()
-    {
+    private View.OnClickListener onClickClose = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             dismiss();
