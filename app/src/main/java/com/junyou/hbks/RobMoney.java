@@ -1013,7 +1013,6 @@ notification.flags |= Notification.FLAG_INSISTENT; // 一直进行，比如音�
                 }
                 lastFetchedHongbaoId = id;
                 lastFetchedTime = now;
-
                 AccessibilityNodeInfo cellNode = mReceiveNode_1.get(size - 1);
                 if (null != cellNode)
                 {
