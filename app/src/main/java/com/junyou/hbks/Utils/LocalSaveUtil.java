@@ -27,8 +27,8 @@ public class LocalSaveUtil {
             ContentValues values = new ContentValues();
             //向ContentValues中存放数据
             values.put("id", idNum);
-            values.put("coinNum",1);
-            values.put("pointNum",0);
+            values.put("coinNum",10);
+            values.put("pointNum",30);
 //            values.put("timeNum",4320);     //三天
             values.put("timeNum",2880);     //两天
 //            values.put("timeNum",1);

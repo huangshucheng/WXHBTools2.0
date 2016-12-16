@@ -1,17 +1,15 @@
 package com.junyou.hbks.luckydraw;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Printer;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,8 +18,8 @@ import android.widget.Toast;
 
 import com.junyou.hbks.Constants;
 import com.junyou.hbks.R;
-import com.junyou.hbks.SettingActivity;
 import com.junyou.hbks.Utils.LocalSaveUtil;
+import com.junyou.hbks.Utils.TimeManager;
 import com.junyou.hbks.Utils.UmengUtil;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WXPayUtil;
@@ -31,6 +29,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
     private RotatePlate mRotateP = null;
     private LuckyDrawLayout mLuckyDrawL = null;
     private ImageView mGoBtn = null;
+    private ImageView mDraw_rad_msg = null;
     private ImageButton mLuckydraw_closeBtn = null;
 
     private ImageButton mDraw_first_btn = null;
@@ -114,7 +113,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 }
             });
         }
-        Log.i("TAG","draw,oncreate....");
+//        Log.i("TAG","draw,oncreate....");
     }
 
     private void initUI(){
@@ -127,6 +126,8 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         if (mGoBtn != null){
             mGoBtn.setOnClickListener(onClickRotate);
         }
+
+        mDraw_rad_msg = (ImageView) findViewById(R.id.draw_rad_msg);
 
         mDraw_first_btn = (ImageButton) findViewById(R.id.draw_change_first);
         if (null != mDraw_first_btn){
@@ -168,7 +169,82 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         if (mGoBtn != null && mLuckyDrawL != null && mActivity !=null){
             mGoBtn.setEnabled(true);
             mLuckyDrawL.setDelayTime(500);
+
+            if (point_num_text != null){
+                point_num_text.setText("" + LocalSaveUtil.getPointNum());
+            }
+
             Toast.makeText(mActivity,"Position = "+position+","+strs[position],Toast.LENGTH_SHORT).show();
+
+            switch (position){
+                case 0:
+                {
+                    //一小时
+                    TimeManager.addToLeftTime(60);
+                    Log.i("TAG","一小时");
+                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
+                    if (dialog_reward != null){
+                        dialog_reward.show();
+                    }
+                }
+                    break;
+                case 1:
+                    //谢谢惠顾
+                {
+                    Log.i("TAG","谢谢惠顾");
+                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
+                    if (dialog_reward != null){
+                        dialog_reward.show();
+                    }
+                }
+                    break;
+                case 2:
+                    //三小时
+                {
+                    Log.i("TAG","三小时");
+                    TimeManager.addToLeftTime(180);
+                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
+                    if (dialog_reward != null){
+                        dialog_reward.show();
+                    }
+                }
+                    break;
+                case 3:
+                    //一个月
+                {
+                    Log.i("TAG","一个月");
+                    TimeManager.addToLeftTime(43200);
+                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
+                    if (dialog_reward != null){
+                        dialog_reward.show();
+                    }
+                }
+                    break;
+                case 4:
+                    //三个月
+                {
+                    Log.i("TAG","三个月");
+                    TimeManager.addToLeftTime(129600);
+                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
+                    if (dialog_reward != null){
+                        dialog_reward.show();
+                    }
+                }
+                    break;
+                case 5:
+                    //终身
+                {
+                    Log.i("TAG","终身");
+                    TimeManager.setLifeLongUse(true);
+                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
+                    if (dialog_reward != null){
+                        dialog_reward.show();
+                    }
+                }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -182,6 +258,16 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         if (point_num_text != null){
             point_num_text.setText("" + LocalSaveUtil.getPointNum());
         }
+        if (TimeManager.getFirstDraw()){
+            //免费抽奖提示
+            if (mDraw_rad_msg!= null){
+                mDraw_rad_msg.setImageResource(R.mipmap.draw_rad_msg_tooltip1);
+            }
+        }else{
+            if (mDraw_rad_msg!= null){
+                mDraw_rad_msg.setImageResource(R.mipmap.draw_rad_msg_tooltip2);
+            }
+        }
     }
 
     @Override
@@ -192,16 +278,45 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
 
     private View.OnClickListener onClickRotate = new View.OnClickListener() {
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
+            //每天第一次抽奖免费，换图标
             Log.i("TAG","rotate....");
-            try {
-                mRotateP.startRotate(-1);
-//        mRotateP.startRotateNull(-1);//每次都转到谢谢惠顾
-                mLuckyDrawL.setDelayTime(100);
-                mGoBtn.setEnabled(false);
-            }catch (Exception e){
-                e.printStackTrace();
+
+            if (TimeManager.getFirstDraw()){
+                //每天第一次进来，免费抽奖
+//                Log.i("TAG","第一次进来抽奖");
+                TimeManager.setFirstDraw(false);
+                if (mDraw_rad_msg!= null){
+                    mDraw_rad_msg.setImageResource(R.mipmap.draw_rad_msg_tooltip2);
+                }
+                    try {
+                        mRotateP.startRotateNull(-1);//100%转到谢谢惠顾
+                        mLuckyDrawL.setDelayTime(100);
+                        mGoBtn.setEnabled(false);
+                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() + 1);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+            }else{
+                //不是第一次进来
+//                Log.i("TAG","不是第一次进来抽奖");
+                if (LocalSaveUtil.getCoinNum() >= 1){
+                    try {
+                        mRotateP.startRotate(-1);
+                        mLuckyDrawL.setDelayTime(100);
+                        mGoBtn.setEnabled(false);
+                        LocalSaveUtil.setCoinNum(LocalSaveUtil.getCoinNum() -1 );
+                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() + 1);
+                        if (coint_num_text != null){
+                            coint_num_text.setText("" + LocalSaveUtil.getCoinNum());
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }else{
+                    Toast.makeText(mActivity, "金币不足，快去获取金币吧!", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     };
@@ -247,14 +362,96 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
             case R.id.draw_change_second:
                 //积分兑换一个月VIP
                 Log.i("TAG","积分兑换一个月VIP");
+            {
+                new AlertDialog.Builder(mActivity)
+                        .setCancelable(false)
+                        .setMessage("确定兑换一个月VIP吗?")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    if (LocalSaveUtil.getPointNum() >= 8 ){
+                                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() - 8);
+                                        if (point_num_text != null){
+                                            point_num_text.setText("" + LocalSaveUtil.getPointNum());
+                                        }
+                                        TimeManager.addToLeftTime(43200);
+                                        Toast.makeText(mActivity, "兑换成功!", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(mActivity, "您的积分不够哦,赶快去获取积分吧!", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消",null)
+                        .show();
+            }
                 break;
             case R.id.draw_change_third:
                 //积分兑换三个月VIP
                 Log.i("TAG","积分兑换三个月VIP");
+            {
+                new AlertDialog.Builder(mActivity)
+                        .setCancelable(false)
+                        .setMessage("确定兑换三个月VIP吗?")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    if (LocalSaveUtil.getPointNum() >= 12){
+                                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() - 12);
+                                        if (point_num_text != null){
+                                            point_num_text.setText("" + LocalSaveUtil.getPointNum());
+                                        }
+                                        TimeManager.addToLeftTime(129600);
+                                        Toast.makeText(mActivity, "兑换成功!", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(mActivity, "您的积分不够哦,赶快去获取积分吧!", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消",null)
+                        .show();
+            }
                 break;
             case R.id.draw_change_fourth:
                 //积分兑换终身VIP
                 Log.i("TAG","积分兑换终身VIP");
+            {
+                new AlertDialog.Builder(mActivity)
+                        .setMessage("确定兑换终身VIP吗?")
+                        .setCancelable(false)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    if (LocalSaveUtil.getPointNum() >= 20){
+                                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() - 20);
+                                        if (point_num_text != null){
+                                            point_num_text.setText("" + LocalSaveUtil.getPointNum());
+                                        }
+                                        SharedPreferences sharedP=  mActivity.getSharedPreferences("config",mActivity.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedP.edit();
+                                        editor.putBoolean(Constants.IS_ALLLIFEUSE,true);    //终身使用
+                                        editor.apply();
+                                        Toast.makeText(mActivity, "兑换成功!", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(mActivity, "您的积分不够哦,赶快去获取积分吧!", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e)
+                                {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("取消",null)
+                        .show();
+            }
                 break;
             case R.id.draw_plus_btn:
                 //加号按钮

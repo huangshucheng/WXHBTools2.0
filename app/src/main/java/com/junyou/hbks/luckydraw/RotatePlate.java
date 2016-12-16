@@ -237,7 +237,7 @@ public class RotatePlate extends View {
         DesRotate -= offRotate;
         DesRotate += 30;
 
-        Log.i("TAG","lap== " + lap +"angle==" + angle + "desR==" + DesRotate);
+//        Log.i("TAG","lap== " + lap +"angle==" + angle + "desR==" + DesRotate);
         ValueAnimator animtor = ValueAnimator.ofInt(InitAngle,DesRotate);
         animtor.setInterpolator(new AccelerateDecelerateInterpolator());
         animtor.setDuration(time);

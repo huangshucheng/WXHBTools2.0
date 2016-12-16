@@ -418,6 +418,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         dialog_openSvs = new Dialog(this,R.style.common_dialog);
         if (dialog_openSvs != null){
             dialog_openSvs.setContentView(view_1);
+            dialog_openSvs.setCancelable(false);
         }
         //打开分享弹窗
         View view_2 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_share,null);

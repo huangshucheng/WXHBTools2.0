@@ -22,8 +22,8 @@ public class TimeManager {
     private static String FIRST_TIME = "first_time";        //第一次进来的时间
     private static String FIRST_TIME_MARK = "first_time_mark";//标记
 
-    public static String TOTAL_TIME = "total_time";
     private static final String DATE_MARK = "date_mark";                //日期记录
+    private static final String FIRST_DRAW = "first_draw";              //每天第一次抽奖
     //初始化
     public static void init(Activity activity) {
         TimeManager.activity = activity;
@@ -160,6 +160,7 @@ public class TimeManager {
                 editor.apply();
             }
             setNewDay(true);
+            setFirstDraw(true);
             return true;
         }else{
             String saveTime = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getString(DATE_MARK,"empty");
@@ -178,8 +179,24 @@ public class TimeManager {
                     editor.apply();
                 }
                 setNewDay(true);
+                setFirstDraw(true);
                 return true;
             }
+        }
+    }
+
+    public static boolean getFirstDraw(){
+        if (null != editor){
+            boolean isFirstDraw = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getBoolean(FIRST_DRAW,true);
+            return  isFirstDraw;
+        }
+        return false;
+    }
+
+    public static void setFirstDraw(boolean isFirstDdraw){
+        if (null != editor){
+            editor.putBoolean(FIRST_DRAW,isFirstDdraw);
+            editor.apply();
         }
     }
 
@@ -224,6 +241,20 @@ public class TimeManager {
         }else{
             if (null != editor){
                 editor.putBoolean(Constants.IS_SERVICE_ON,false);
+                editor.apply();
+            }
+        }
+    }
+
+    public static void setLifeLongUse(boolean isLifeLong){
+        if (isLifeLong){
+            if (null != editor){
+                editor.putBoolean(Constants.IS_ALLLIFEUSE,true);    //终身使用
+                editor.apply();
+            }
+        }else{
+            if (null != editor){
+                editor.putBoolean(Constants.IS_ALLLIFEUSE,false);
                 editor.apply();
             }
         }
