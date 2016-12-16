@@ -37,7 +37,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="wrap_content"
             android:background="#f1eceb"
             android:layout_below="@id/up_bg"
             android:id="@+id/vipbar">
@@ -47,6 +47,8 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/msg_pop_seven_1"
                 android:layout_centerHorizontal="true"
+                android:scaleY="0.8"
+                android:scaleX="0.8"
                 android:layout_marginTop="10dp"/>
         </RelativeLayout>
         <!--android:background="#f1eceb"-->
@@ -90,7 +92,7 @@
                     android:textSize="15sp"
                     android:textColor="#1a0101"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="20dp"
                     android:alpha="0.8"
                     android:id="@+id/jinbi_0"
                     />
@@ -116,20 +118,20 @@
                 <!--</LinearLayout>-->
 
                 <RelativeLayout
-                    android:layout_width="70dp"
+                    android:layout_width="60dp"
                     android:layout_height="25dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/yiyuan_label"
-                    android:layout_marginLeft="38dp"
+                    android:layout_marginLeft="30dp"
                     android:background="#D9D9D9"
                     android:id="@+id/number_bg_1"
                     >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1"
+                        android:text="100"
                         android:textColor="#1a0101"
-                        android:textSize="20dp"
+                        android:textSize="16dp"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/coint_number"
@@ -142,7 +144,7 @@
                     android:src="@mipmap/jian_button"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/number_bg_1"
-                    android:layout_marginRight="-50dp"
+                    android:layout_marginRight="-45dp"
                     android:onClick="jinbi_jian"
                     />
                 <ImageButton
@@ -162,7 +164,7 @@
                     android:src="@mipmap/btn_exchange"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="25dp"
                     android:onClick="jinbi_exchange"
                     />
             </RelativeLayout>
@@ -190,7 +192,7 @@
                     android:layout_centerVertical="true"
                     android:id="@+id/id_one_month_1"
                     android:text="一个月VIP"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="20dp"
                     android:textColor="#1a0101"
                     android:alpha="0.8"
                     android:textSize="15sp"/>
@@ -227,7 +229,7 @@
                     android:layout_centerVertical="true"
                     android:id="@+id/id_one_month_2"
                     android:text="三个月VIP"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="20dp"
                     android:textColor="#1a0101"
                     android:alpha="0.8"
                     android:textSize="15sp"/>
@@ -264,7 +266,7 @@
                     android:layout_centerVertical="true"
                     android:id="@+id/id_one_month_3"
                     android:text="终身VIP"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="20dp"
                     android:textColor="#1a0101"
                     android:alpha="0.8"
                     android:textSize="15sp"/>
@@ -274,7 +276,7 @@
                     android:layout_centerVertical="true"
                     android:text="¥ 18.00"
                     android:layout_toRightOf="@+id/id_one_month_3"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="60dp"
                     android:textSize="15sp"
                     android:textColor="#1a0101"/>
                 <ImageButton
