@@ -29,9 +29,9 @@ public class SignInUtil {
             editor.apply();
             editor.putInt(TIMECOUNT,0);
             editor.apply();
-            Log.i("TAG","first enter...time:"+ getFirstTime());
+//            Log.i("TAG","first enter...time:"+ getFirstTime());
         }else{
-            Log.i("TAG","not first enter...");
+//            Log.i("TAG","not first enter...");
         }
     }
 

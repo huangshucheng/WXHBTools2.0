@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
+
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,17 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent">
-
-        <ImageButton
-            android:id="@+id/luckydraw_close_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/draw_icon_delete"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="32dp"
-            android:background="@android:color/transparent"
-             />
         <!--android:onClick="close_luckydraw_click"-->
         <com.junyou.hbks.luckydraw.LuckyDrawLayout
             android:id="@+id/lucky_draw_layout"
@@ -73,8 +63,8 @@
             android:layout_below="@+id/draw_rad_msg"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-26dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp">
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
             <!--第一排-->
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -82,15 +72,15 @@
             android:id="@+id/draw_innerbg_first"
             android:background="@android:color/transparent"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="false">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="您有金币"
+                android:text="您有金币:"
                 android:textSize="16sp"
                 android:textColor="#9e2a21"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/coin_word_text" />
             <TextView
                 android:layout_width="wrap_content"
@@ -98,7 +88,7 @@
                 android:layout_centerVertical="true"
                 android:text="0"
                 android:layout_toRightOf="@+id/coin_word_text"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="5dp"
                 android:textSize="16sp"
                 android:textColor="#9e2a21"
                 android:id="@+id/draw_coinNum_text"/>
@@ -156,8 +146,7 @@
                 android:src="@mipmap/btn_exchange"
                 android:layout_toRightOf="@+id/draw_bg_1"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="12dp"/>
+                android:layout_marginLeft="24dp" />
             </RelativeLayout>
             <!--第二排-->
             <RelativeLayout
@@ -174,7 +163,8 @@
                     android:textColor="#000000"
                     android:textSize="14sp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp" />
+                    android:layout_marginLeft="30dp"
+                    android:layout_alignParentBottom="true"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,7 +174,8 @@
                     android:textSize="14sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/draw_title_1"
-                    android:layout_marginLeft="50dp"/>
+                    android:layout_marginLeft="30dp"
+                    android:layout_alignParentBottom="true"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -194,7 +185,8 @@
                     android:textSize="14sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/draw_title_2"
-                    android:layout_marginLeft="8dp"/>
+                    android:layout_marginLeft="8dp"
+                    android:layout_alignParentBottom="true"/>
             </RelativeLayout>
             <!--第三排-->
             <RelativeLayout
@@ -223,7 +215,7 @@
                     android:textSize="14sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/draw_title_4"
-                    android:layout_marginLeft="85dp" />
+                    android:layout_marginLeft="67dp" />
                 <ImageButton
                     android:id="@+id/draw_change_second"
                     android:layout_width="wrap_content"
@@ -232,8 +224,7 @@
                     android:src="@mipmap/draw_btn_exchange"
                     android:layout_toRightOf="@+id/draw_title_5"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="12dp"/>
+                    android:layout_marginLeft="56dp" />
                 <LinearLayout
                     android:layout_width="223dp"
                     android:layout_height="1dp"
@@ -275,7 +266,7 @@
                     android:textSize="14sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/draw_title_6"
-                    android:layout_marginLeft="85dp" />
+                    android:layout_marginLeft="60dp" />
                 <ImageButton
                     android:id="@+id/draw_change_third"
                     android:layout_width="wrap_content"
@@ -284,8 +275,7 @@
                     android:src="@mipmap/draw_btn_exchange"
                     android:layout_toRightOf="@+id/draw_title_7"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="42dp"
-                    android:layout_marginRight="12dp"/>
+                    android:layout_marginLeft="55dp" />
                 <LinearLayout
                     android:layout_width="223dp"
                     android:layout_height="1dp"
@@ -310,7 +300,7 @@
                     android:textColor="#4f4f4f"
                     android:textSize="14sp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp" />
+                    android:layout_marginLeft="44dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -320,7 +310,7 @@
                     android:textSize="14sp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/draw_title_8"
-                    android:layout_marginLeft="100dp" />
+                    android:layout_marginLeft="60dp" />
                 <ImageButton
                     android:id="@+id/draw_change_fourth"
                     android:layout_width="wrap_content"
@@ -329,8 +319,7 @@
                     android:src="@mipmap/draw_btn_exchange"
                     android:layout_toRightOf="@+id/draw_title_9"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="41dp"
-                    android:layout_marginRight="12dp"/>
+                    android:layout_marginLeft="54dp" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -377,5 +366,13 @@
         <!--</RelativeLayout>-->
     </RelativeLayout>
 </ScrollView>
-
+    <ImageButton
+        android:id="@+id/luckydraw_close_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/draw_icon_delete"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/transparent" />
 </RelativeLayout>

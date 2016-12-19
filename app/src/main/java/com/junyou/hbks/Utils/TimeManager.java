@@ -21,7 +21,7 @@ public class TimeManager {
 
     private static String FIRST_TIME = "first_time";        //第一次进来的时间
     private static String FIRST_TIME_MARK = "first_time_mark";//标记
-
+    private static final String FIRSTTIME_DRAW = "firsttimedraw";
     private static final String DATE_MARK = "date_mark";                //日期记录
     private static final String FIRST_DRAW = "first_draw";              //每天第一次抽奖
     //初始化
@@ -39,6 +39,8 @@ public class TimeManager {
 //            setLeftTime(2880);      //48*60分钟 2天时间(单位：分钟)
             setLeftTime(LocalSaveUtil.getLeftTime());       //3天
 //            setLeftTime("1");     //
+            setFirstTimeDraw("2016-12-01");
+            setFirstDraw(false);
         }
     }
 
@@ -117,7 +119,6 @@ public class TimeManager {
         setLeftTime(totalTime);
 //        Log.i("TAG","添加后时间："+totalTime);
     }
-
     //设置剩余时间
     public static void setLeftTime(int lefttime){
         LocalSaveUtil.setLeftTime(lefttime);
@@ -144,6 +145,7 @@ public class TimeManager {
             return false;
         }
     }
+
     //是否是新的一天
     public static boolean isNewDayFirstEnter(){
         String curDate = getCurDate();
@@ -160,7 +162,6 @@ public class TimeManager {
                 editor.apply();
             }
             setNewDay(true);
-            setFirstDraw(true);
             return true;
         }else{
             String saveTime = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getString(DATE_MARK,"empty");
@@ -179,7 +180,6 @@ public class TimeManager {
                     editor.apply();
                 }
                 setNewDay(true);
-                setFirstDraw(true);
                 return true;
             }
         }
@@ -187,7 +187,7 @@ public class TimeManager {
 
     public static boolean getFirstDraw(){
         if (null != editor){
-            boolean isFirstDraw = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getBoolean(FIRST_DRAW,true);
+            boolean isFirstDraw = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getBoolean(FIRST_DRAW,false);
             return  isFirstDraw;
         }
         return false;
@@ -208,12 +208,51 @@ public class TimeManager {
         return false;
     }
 
+    public static boolean isDrawNewDay(){
+        String firstTime = getFirstTimeDraw();
+        String curTime = getCurTimeDraw();
+
+        Log.i("TAG","draw firstTime: " + firstTime + ",  curTime: " + curTime);
+
+        if (!"".equals(firstTime) && !"".equals(curTime)){
+            if (!firstTime.equals(curTime)){
+                Log.i("TAG","draw new day...");
+                setFirstDraw(false);
+                return true;
+            }
+        }
+        Log.i("TAG","draw not new day...");
+        return false;
+    }
+
+    public static void setFirstTimeDraw(String firstTime){
+        if (null != editor) {
+            editor.putString(FIRSTTIME_DRAW,""+ firstTime);
+            editor.apply();
+        }
+    }
+
+    public static String getFirstTimeDraw(){
+        if (null != activity){
+            String leaveTime = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getString(FIRSTTIME_DRAW,"");
+            return leaveTime;
+        }
+        return  null;
+    }
+
+    //获取当前系统时间
+    public static String getCurTimeDraw() {
+        long sysTime = System.currentTimeMillis();
+        return  String.valueOf(DateFormat.format("yyyy-MM-dd",sysTime));
+    }
+
     public static void setNewDay(boolean isNewDay){
         if (null != editor){
             editor.putBoolean(Constants.IS_NEW_DAY,isNewDay);
             editor.apply();
         }
     }
+
     public static int getUseDay(){
         int use_day = activity.getSharedPreferences("config",activity.MODE_PRIVATE).getInt(Constants.USE_DAY,1);
         return use_day;
@@ -225,6 +264,7 @@ public class TimeManager {
             return new SimpleDateFormat("yyyy-MM-dd");
         }
     };
+
     //获取当前日期，年-月-日
     public static String getCurDate(){
         Calendar cal = Calendar.getInstance();

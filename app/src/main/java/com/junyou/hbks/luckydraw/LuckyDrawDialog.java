@@ -3,8 +3,11 @@ package com.junyou.hbks.luckydraw;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +46,9 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
     private TextView mDraw_buycoinNum_txt= null;
 
     private static Activity mActivity;
+    private static NotifyPosListener mNotifyListener;
+    private DrawMsgReceiver mMsgReceiver;
+
     //    private String[] strs = {"华为手机","谢谢惠顾","iPhone 6s","mac book","魅族手机","小米手机"};
     private String[] strs = {"一小时使用时间","谢谢惠顾","三小时使用时间","一个月VIP","三个月VIP","终身VIP"};
 //    {"一小时使用时间","谢谢惠顾","三小时使用时间","一个月VIP","三个月VIP","终身VIP"};
@@ -65,6 +71,46 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         mActivity = (Activity) context;
     }
 
+    //广播接收器
+    public class DrawMsgReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getBooleanExtra("draw_broadcast",true)){
+//                Log.i("TAG","receive drawMsgReceiver.......");
+                if (LocalSaveUtil.getCoinNum() >= 1){
+                    try {
+                        mRotateP.startRotate(-1);
+                        mLuckyDrawL.setDelayTime(100);
+                        mGoBtn.setEnabled(false);
+                        LocalSaveUtil.setCoinNum(LocalSaveUtil.getCoinNum() -1 );
+                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() + 1);
+                        if (coint_num_text != null){
+                            coint_num_text.setText("" + LocalSaveUtil.getCoinNum());
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }else{
+//                    Toast.makeText(mActivity, "金币不足，快去获取金币吧!", Toast.LENGTH_SHORT).show();
+                    showDialog();
+                }
+            }
+        }
+    }
+
+    public void showDialog(){
+        new AlertDialog.Builder(mActivity)
+                .setCancelable(true)
+                .setMessage("金币不足，快去获取金币吧!")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("TAG","buy coin...");
+                    }
+                })
+                .show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +121,11 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         mLuckyDrawL.startLuckLight();
         mRotateP = (RotatePlate) findViewById(R.id.lucky_draw_plate_layout);
         mRotateP.setAnimationEndListener(this);
+        //注册广播接收
+        mMsgReceiver = new DrawMsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.junyou.hbks.drawMsgReceiver");
+        mActivity.registerReceiver(mMsgReceiver, intentFilter);
 
         initUI();
 
@@ -174,72 +225,56 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 point_num_text.setText("" + LocalSaveUtil.getPointNum());
             }
 
-            Toast.makeText(mActivity,"Position = "+position+","+strs[position],Toast.LENGTH_SHORT).show();
+            Dialog dialog_reward= new DrawRewardDialog(mActivity,R.style.dialog_fullscreen);
+            if (dialog_reward != null){
+                dialog_reward.show();
+            }
 
+            if (mNotifyListener != null){
+                mNotifyListener.notifyPos(position);
+            }
+
+//            Toast.makeText(mActivity,"Position = "+position+","+strs[position],Toast.LENGTH_SHORT).show();
             switch (position){
                 case 0:
                 {
                     //一小时
-                    TimeManager.addToLeftTime(60);
                     Log.i("TAG","一小时");
-                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
-                    if (dialog_reward != null){
-                        dialog_reward.show();
-                    }
+                    TimeManager.addToLeftTime(60);
                 }
                     break;
                 case 1:
-                    //谢谢惠顾
                 {
+                    //谢谢惠顾
                     Log.i("TAG","谢谢惠顾");
-                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
-                    if (dialog_reward != null){
-                        dialog_reward.show();
-                    }
                 }
                     break;
                 case 2:
-                    //三小时
                 {
+                    //三小时
                     Log.i("TAG","三小时");
                     TimeManager.addToLeftTime(180);
-                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
-                    if (dialog_reward != null){
-                        dialog_reward.show();
-                    }
                 }
                     break;
                 case 3:
-                    //一个月
                 {
+                    //一个月
                     Log.i("TAG","一个月");
                     TimeManager.addToLeftTime(43200);
-                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
-                    if (dialog_reward != null){
-                        dialog_reward.show();
-                    }
                 }
                     break;
                 case 4:
-                    //三个月
                 {
+                    //三个月
                     Log.i("TAG","三个月");
                     TimeManager.addToLeftTime(129600);
-                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
-                    if (dialog_reward != null){
-                        dialog_reward.show();
-                    }
                 }
                     break;
                 case 5:
-                    //终身
                 {
+                    //终身
                     Log.i("TAG","终身");
                     TimeManager.setLifeLongUse(true);
-                    Dialog dialog_reward= new DrawRewardDialog(mActivity);
-                    if (dialog_reward != null){
-                        dialog_reward.show();
-                    }
                 }
                     break;
                 default:
@@ -258,7 +293,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         if (point_num_text != null){
             point_num_text.setText("" + LocalSaveUtil.getPointNum());
         }
-        if (TimeManager.getFirstDraw()){
+        if (TimeManager.isDrawNewDay()){
             //免费抽奖提示
             if (mDraw_rad_msg!= null){
                 mDraw_rad_msg.setImageResource(R.mipmap.draw_rad_msg_tooltip1);
@@ -273,7 +308,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("TAG","draw,onstop....");
+        mActivity.unregisterReceiver(mMsgReceiver);
     }
 
     private View.OnClickListener onClickRotate = new View.OnClickListener() {
@@ -281,14 +316,18 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         public void onClick(View v) {
             //每天第一次抽奖免费，换图标
             Log.i("TAG","rotate....");
+            if (TimeManager.isDrawNewDay()){
+                //新的一天进来,免费抽奖  true  抽了奖，false 没抽奖
+                Log.i("TAG","第一次进来抽奖。。。。");
+                if (!TimeManager.getFirstDraw()){
+                    TimeManager.setFirstDraw(true);
+                    TimeManager.setFirstTimeDraw(TimeManager.getCurTimeDraw());
+                    Log.i("TAG","没有抽奖，现在抽了奖。。。。。");
+                    //免费抽奖
+                    if (mDraw_rad_msg!= null){
+                        mDraw_rad_msg.setImageResource(R.mipmap.draw_rad_msg_tooltip2);
+                    }
 
-            if (TimeManager.getFirstDraw()){
-                //每天第一次进来，免费抽奖
-//                Log.i("TAG","第一次进来抽奖");
-                TimeManager.setFirstDraw(false);
-                if (mDraw_rad_msg!= null){
-                    mDraw_rad_msg.setImageResource(R.mipmap.draw_rad_msg_tooltip2);
-                }
                     try {
                         mRotateP.startRotateNull(-1);//100%转到谢谢惠顾
                         mLuckyDrawL.setDelayTime(100);
@@ -297,10 +336,10 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                     }catch (Exception e){
                         e.printStackTrace();
                     }
-
+                }
             }else{
-                //不是第一次进来
-//                Log.i("TAG","不是第一次进来抽奖");
+                //金币抽奖
+                Log.i("TAG","不是第一次进来抽奖。。。。");
                 if (LocalSaveUtil.getCoinNum() >= 1){
                     try {
                         mRotateP.startRotate(-1);
@@ -315,7 +354,8 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                         e.printStackTrace();
                     }
                 }else{
-                    Toast.makeText(mActivity, "金币不足，快去获取金币吧!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mActivity, "金币不足，快去获取金币吧!", Toast.LENGTH_SHORT).show();
+                    showDialog();
                 }
             }
         }
@@ -486,5 +526,13 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
             default:
                 break;
         }
+    }
+
+    public interface NotifyPosListener{
+        void notifyPos(int pos);
+    }
+
+    public static void setNotifyListener(NotifyPosListener l){
+        mNotifyListener = l;
     }
 }

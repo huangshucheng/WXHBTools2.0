@@ -161,7 +161,7 @@ public class RotatePlate extends View {
         float y = (float) (yy + mRadius / 1.5  * Math.sin(angle));
         // 确定绘制图片的位置
 //        RectF rect = new RectF(x - imgWidth *3/ 4, y - imgWidth*3 / 4, x + imgWidth *3/ 4, y + imgWidth*3/4);
-        RectF rect = new RectF(x - imgWidth , y - imgWidth*3 / 4, x + imgWidth, y + imgWidth*3/4);
+        RectF rect = new RectF(x - imgWidth , y - imgWidth*2 / 3, x + imgWidth, y + imgWidth*2/3);
 //        RectF rect = new RectF(x - imgWidth , y - imgWidth, x + imgWidth , y + imgWidth);
 
         Bitmap bitmap = bitmaps.get(i);

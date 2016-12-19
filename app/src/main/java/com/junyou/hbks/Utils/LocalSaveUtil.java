@@ -29,8 +29,8 @@ public class LocalSaveUtil {
             values.put("id", idNum);
             values.put("coinNum",10);
             values.put("pointNum",30);
-//            values.put("timeNum",4320);     //三天
-            values.put("timeNum",2880);     //两天
+            values.put("timeNum",4320);     //三天
+//            values.put("timeNum",2880);     //两天
 //            values.put("timeNum",1);
             mDataBase.insert("user", null, values);
         }else{

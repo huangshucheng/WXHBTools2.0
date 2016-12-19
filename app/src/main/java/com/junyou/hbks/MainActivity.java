@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     private RelativeLayout shouldOpenServer_layout;
 
     private ImageView top_image;
+    private RelativeLayout mUnder_clock;
 
     private TextView wechat_auto_text;
     private TextView qq_auto_text;
@@ -112,6 +114,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 
     //sdk 相关
     private IWXAPI wxAPI;
+
+    //帧动画
+    private AnimationDrawable animDrawable = null;
 
     private static boolean setting_flags = true;
     @Override
@@ -166,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 //        signed_btn = (Button) findViewById(R.id.signedIn_btn);
         //顶部图片
         top_image = (ImageView) findViewById(R.id.top_img_show);
-
+        mUnder_clock = (RelativeLayout) findViewById(R.id.under_clock);
         //红包个数标签 金额标签
         num_redpkt = (TextView) findViewById(R.id.packt_num_text);
         num_money = (TextView) findViewById(R.id.money_num_text);
@@ -197,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         showSettingDialog();
         SignInUtil.init(this);
 //        Log.i("TAG", "onCreate: <<<<<<<<<<<<<<<<<<<<<" + SignInUtil.getCurTime());
-        setSignedBtn();
+//        setSignedBtn();
 }
 
     class TimeThread extends Thread {
@@ -382,6 +387,12 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                 getResources().getString(R.string.marquee_word_11),
                 getResources().getString(R.string.marquee_word_12)
         };
+
+        final int []under_clock_lists = {
+                R.mipmap.under_icon_draw,
+                R.mipmap.under_icon_ontime,
+                R.mipmap.under_icon_share
+        };
         //调度器
         Timer timer = new Timer();
         final Handler handler = new Handler(){
@@ -390,9 +401,14 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                     case 1:
                     {
                         int num = (int)(Math.random()*12);  //0-11
+                        int under_clock_num = (int)(Math.random()*3);   //0-2
                         if (null != marquee_text)
                         {
-                            //marquee_text.setText(marquee_lists[num]);
+                            marquee_text.setText(marquee_lists[num]);
+                        }
+
+                        if (mUnder_clock != null){
+                            mUnder_clock.setBackgroundResource(under_clock_lists[under_clock_num]);
                         }
                     }
                     break;
@@ -774,7 +790,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                 setImagesOnOrOff(true);
             }else{
                 if (top_image != null){
-                    top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
+                    top_image.setImageResource(R.mipmap.home_bg_radpacket_default_off);
+                    stopBgAnimation();
                 }
                 if (mainLayoutHeader != null){
                     mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
@@ -792,7 +809,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     private void setImagesOnOrOff(boolean flag){
         if (flag){
             if (top_image != null){
-                top_image.setImageResource(R.mipmap.nome_bg_radradpacket_selected_on);
+                top_image.setImageResource(R.mipmap.home_bg_radradpacket_selected_on);
+                startBgAnimation();
             }
             if (mainLayoutHeader != null){
                 mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOn));
@@ -802,7 +820,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             }
         }else{
             if (top_image != null){
-                top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
+                top_image.setImageResource(R.mipmap.home_bg_radpacket_default_off);
+                stopBgAnimation();
             }
             if (mainLayoutHeader != null){
                 mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
@@ -1096,7 +1115,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                 if (setting_flags){
                     //已经打开，点击关闭
                     if (top_image != null){
-                        top_image.setImageResource(R.mipmap.nome_bg_radpacket_default_off);
+                        top_image.setImageResource(R.mipmap.home_bg_radpacket_default_off);
+                        stopBgAnimation();
                     }
                     if (mainLayoutHeader != null){
                         mainLayoutHeader.setBackgroundColor(getResources().getColor(R.color.mainbgOff));
@@ -1522,5 +1542,30 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    //-----------------------------------------大转盘-------------------------------------//
+    //------------------------------------------------------------------------------//
+
+    private void startBgAnimation(){
+        if (top_image != null){
+            top_image.setImageResource(R.drawable.animation_bg);
+            animDrawable = (AnimationDrawable) top_image.getDrawable();
+            if (animDrawable != null){
+                animDrawable.start();
+                Log.i("TAG","play animation...");
+            }
+        }
+    }
+
+    private void stopBgAnimation(){
+        if (top_image != null){
+//            top_image.setImageResource(R.drawable.animation_bg);
+            //todo 创建一个关闭的图
+            top_image.setImageResource(R.drawable.animation_bg);
+            animDrawable = (AnimationDrawable) top_image.getDrawable();
+            if (animDrawable != null){
+                animDrawable.stop();
+                Log.i("TAG","stop animation...");
+            }
+        }
+    }
+
 }

@@ -32,11 +32,11 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 5.右上角设置与帮助按钮换位置
 6.添加抢红包音效   OK 
 
-7.添加抽奖程序
+7.添加抽奖程序  OK 
 金币1元/个,在商城可购买
 抽奖获得积分，积分累计
 8分一个月vip,14分三个月vip,20分终身vip
-每天可以免费抽奖一次，100%获得一个积分，100%不能抽到奖品
+每天可以免费抽奖一次，100%获得一个积分，100%不能抽到奖品 
 
 8.修改抢红包流程
   点击icon->设置->自动开抢  OK 
@@ -46,5 +46,6 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 11.提示添加到白名单
 12.开启红包快手后，回到app
 13.数据库存储，卸载后可以重新读取数据  OK
+14.动画
 
 //---------------------------------------//

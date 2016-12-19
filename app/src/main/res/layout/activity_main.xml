@@ -21,13 +21,11 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/nome_bg_radpacket_default_off"
+            android:src="@mipmap/home_bg_radpacket_default_off"
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/center_count_bg"
             android:id="@+id/top_img_show"
-            android:scaleX="1.2"
-            android:scaleY="1.2"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="50dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -296,7 +294,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_draw"
+                    android:src="@mipmap/icon_share"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"/>
                 <TextView
@@ -396,10 +394,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/under_clock"
-        android:background="@mipmap/under_icon_clock_on"
+        android:background="@mipmap/under_icon_draw"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp">
         <!--android:onClick="getMoreTime"-->
         <TextView
@@ -409,27 +407,20 @@
             android:text="永久使用"
             android:textSize="16dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="65dp"
+            android:layout_alignParentTop="false"
             android:singleLine="true"
-            android:textColor="@color/colorwhite"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="可使用时长"
-            android:textSize="10dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/left_days_text"
-            android:textColor="@color/colorgray"/>
+            android:textColor="@color/colordark" />
     </RelativeLayout>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/under_icon_tool"
-        android:src="@mipmap/under_icon_cj"
-        android:layout_above="@+id/under_clock"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="-5dp" />
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/under_icon_tool"-->
+        <!--android:src="@mipmap/under_icon_cj"-->
+        <!--android:layout_above="@+id/under_clock"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginRight="25dp"-->
+        <!--android:layout_marginBottom="-5dp" />-->
     <!--android:src="@mipmap/under_icon_cj"-->
 
     <!--android:onClick="getMoreTime"-->
