@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 
     private void setCurTime(CharSequence curtime) {
         if (null != left_days_text){
-            left_days_text.setText(curtime);
+            left_days_text.setText(curtime + "  ");
         }
     }
 
@@ -1585,9 +1585,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             if (animDrawable != null){
                 if (animDrawable.isRunning()){
                     animDrawable.stop();
-                    top_image.setImageResource(R.mipmap.home_bg_radpacket_default_off);
                     Log.i("TAG","stop animation...");
                 }
+                top_image.setImageResource(R.mipmap.home_bg_radpacket_default_off);
             }
         }
     }

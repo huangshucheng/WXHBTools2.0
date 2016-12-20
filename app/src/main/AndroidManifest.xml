@@ -72,7 +72,8 @@
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent" />
+            android:theme="@android:style/Theme.Translucent"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -95,6 +96,7 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".LuckyDraw" />
         <!--
@@ -105,7 +107,11 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".PersonalCenterActivity"></activity>
+        <activity
+            android:name=".PersonalCenterActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

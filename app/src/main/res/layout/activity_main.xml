@@ -279,21 +279,25 @@
                 <!--android:id="@+id/open_qq_switch"-->
                 <!--android:checked="true"/>-->
         <!--</RelativeLayout>-->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
             <RelativeLayout
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/main_square_share"
                 android:background="@mipmap/back_img_whait_default"
-                android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
                 android:onClick="getMoreTime">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/main_icon_share"
                     android:src="@mipmap/icon_share"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"/>
@@ -302,31 +306,37 @@
                     android:layout_height="wrap_content"
                     android:text="每日分享"
                     android:id="@+id/daily_share_text"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentRight="false"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="25dp"
+                    android:layout_toRightOf="@id/main_icon_share"
+                    android:layout_marginLeft="10dp"
                     android:textSize="15dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="立即加三小时"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
+                    android:singleLine="true"
+                    android:layout_alignParentRight="false"
                     android:layout_below="@+id/daily_share_text"
+                    android:layout_toRightOf="@+id/main_icon_share"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginTop="4dp"
                     android:textSize="12dp"/>
 
             </RelativeLayout>
             <RelativeLayout
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@mipmap/back_img_whait_default"
-                android:layout_alignParentRight="true"
+                android:id="@+id/main_square_draw"
                 android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
                 android:onClick="luckyDrawClick">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/main_icon_draw"
                     android:src="@mipmap/icon_draw"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"/>
@@ -335,36 +345,41 @@
                     android:layout_height="wrap_content"
                     android:text="每日抽奖"
                     android:id="@+id/daily_draw_text"
-                    android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="25dp"
+                    android:layout_toRightOf="@+id/main_icon_draw"
+                    android:layout_marginLeft="10dp"
                     android:textSize="15dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="免费获取VIP"
-                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
                     android:layout_marginRight="17dp"
                     android:layout_below="@+id/daily_draw_text"
                     android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@id/main_icon_draw"
+                    android:layout_marginLeft="6dp"
                     android:textSize="12dp"/>
             </RelativeLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp">
             <RelativeLayout
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@mipmap/back_img_whait_default"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
                 android:onClick="superVipClick">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/main_icon_buy"
                     android:src="@mipmap/icon_hao"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"/>
@@ -373,21 +388,31 @@
                     android:layout_height="wrap_content"
                     android:text="我是土豪"
                     android:id="@+id/buy_vip_text"
-                    android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="25dp"
+                    android:layout_toRightOf="@+id/main_icon_buy"
+                    android:layout_marginLeft="10dp"
                     android:textSize="15dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="直接购买VIP"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="17dp"
+                    android:singleLine="true"
                     android:layout_below="@+id/buy_vip_text"
                     android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@id/main_icon_buy"
+                    android:layout_marginLeft="6dp"
                     android:textSize="12dp"/>
             </RelativeLayout>
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="5dp"
+                android:visibility="invisible"
+                android:background="@mipmap/back_img_whait_default">
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -398,13 +423,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="14dp">
         <!--android:onClick="getMoreTime"-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/left_days_text"
-            android:text="永久使用"
+            android:text="永久使用 "
             android:textSize="16dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="65dp"

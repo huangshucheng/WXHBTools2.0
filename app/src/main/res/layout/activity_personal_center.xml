@@ -56,13 +56,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VIP用户"
+            android:text="用户ID:"
             android:textSize="16sp"
             android:textColor="#333333"
             android:layout_toRightOf="@+id/user_icon"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:id="@+id/user_type" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123456"
+            android:textColor="#333333"
+            android:id="@+id/user_id"
+            android:layout_toRightOf="@+id/user_type"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

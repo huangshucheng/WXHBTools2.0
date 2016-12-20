@@ -38,6 +38,7 @@ public class PersonalCenterActivity extends AppCompatActivity {
     private TextView user_type; //用户类型
 //    private ImageView vip_mouth_img; //显示用户vip图片
     private TextView time_text;
+    private TextView mUserid_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class PersonalCenterActivity extends AppCompatActivity {
         integral_number = (TextView) findViewById(R.id.integral_number);
         user_type = (TextView) findViewById(R.id.user_type);
         time_text = (TextView) findViewById(R.id.time_text);
+        mUserid_text = (TextView) findViewById(R.id.user_id);
 //        if (coins_number != null){
 //            coins_number.setText("" + LocalSaveUtil.getCoinNum());
 //        }
@@ -171,6 +173,9 @@ public class PersonalCenterActivity extends AppCompatActivity {
         }
         if (integral_number != null){
             integral_number.setText("" + LocalSaveUtil.getPointNum());
+        }
+        if (mUserid_text != null){
+            mUserid_text.setText("" + LocalSaveUtil.getAccount());
         }
     }
 
