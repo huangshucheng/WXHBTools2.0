@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         //广播
        bor_intent = new Intent("com.junyou.hbks.SETTING");
 
+        LocalSaveUtil.init(this);
         updateServiceStatus();
         showDatas();
         refrishMarqueeText();
@@ -194,7 +195,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         //showLeftDays();
 //        showSwitchStatus();
 //      openNotifocation();
-        LocalSaveUtil.init(this);
         TimeManager.init(this);
         newShowLeftDays();
         initTime();
@@ -452,18 +452,18 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         //dialog_receiveTime.show();
 
         //刚启动 赠送天数弹窗
-        SharedPreferences sharedP = getSharedPreferences("config",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedP.edit();
-        int days = getSharedPreferences("config",MODE_PRIVATE).getInt("showTryDaysDialog",-1);
-        if (days <0){
+//        SharedPreferences sharedP = getSharedPreferences("config",MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedP.edit();
+//        int days = getSharedPreferences("config",MODE_PRIVATE).getInt("showTryDaysDialog",-1);
+
+        if (!LocalSaveUtil.getIsGiveThreeDay()){
             View view_4 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_trydays,null);
             dialog_tryDays = new Dialog(this,R.style.common_dialog);
             if (dialog_tryDays != null){
                 dialog_tryDays.setContentView(view_4);
                 dialog_tryDays.show();
             }
-            editor.putInt("showTryDaysDialog",1);
-            editor.apply();
+            LocalSaveUtil.setIsGiveThreeDay(true);
         }
 
         View view_5 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_supervip, null);

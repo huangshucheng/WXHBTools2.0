@@ -21,4 +21,14 @@
             android:clickable="true"/>
     </RelativeLayout>
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/draw_reward_closebtn"
+        android:src="@mipmap/icon_close"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/draw_reward_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
 </RelativeLayout>

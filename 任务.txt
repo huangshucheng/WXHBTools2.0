@@ -48,4 +48,7 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 13.数据库存储，卸载后可以重新读取数据  OK
 14.动画 OK 
 
+bug:
+重装以后又送三天
+
 //---------------------------------------//

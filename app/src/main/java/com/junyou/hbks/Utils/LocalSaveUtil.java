@@ -26,10 +26,11 @@ public class LocalSaveUtil {
             Log.i("TAG","db is empty" );
             ContentValues values = new ContentValues();
             //向ContentValues中存放数据
-            values.put("id", idNum);
-            values.put("coinNum",10);
-            values.put("pointNum",30);
-            values.put("timeNum",4320);     //三天
+            values.put("id", idNum);        //id
+            values.put("coinNum",10);       //金币数量
+            values.put("pointNum",0);       //积分数量
+            values.put("isGiveThreeDay",0); //是否显示赠送了三天  0未显示,1显示
+            values.put("timeNum",4320);     //初始时间三天
 //            values.put("timeNum",2880);     //两天
 //            values.put("timeNum",1);
             mDataBase.insert("user", null, values);
@@ -37,28 +38,33 @@ public class LocalSaveUtil {
             Log.i("TAG","db is not empty" );
         }
         //查询
-        Cursor cursor = mDataBase.query("user", new String[]{"id","coinNum","pointNum","timeNum"}, null, null, null, null, null, null);
+        Cursor cursor = mDataBase.query("user", new String[]{"id","coinNum","pointNum","timeNum","isGiveThreeDay"}, null, null, null, null, null, null);
         //利用游标遍历所有数据对象
-        while(cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex("id"));
-            int coinNum = cursor.getInt(cursor.getColumnIndex("coinNum"));
-            int pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
-            int timeNum = cursor.getInt(cursor.getColumnIndex("timeNum"));
-            //日志打印输出
-            Log.i("TAG","db data: id:" + id + " ,coin:" + coinNum +" ,point" +  pointNum + " ,time" + timeNum);
+        if (null != cursor){
+            while(cursor.moveToNext()){
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                int coinNum = cursor.getInt(cursor.getColumnIndex("coinNum"));
+                int pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
+                int timeNum = cursor.getInt(cursor.getColumnIndex("timeNum"));
+                int isGive = cursor.getInt(cursor.getColumnIndex("isGiveThreeDay"));
+                //日志打印输出
+                Log.i("TAG","db data: id:" + id + " ,coin:" + coinNum +" ,point:" +  pointNum + " ,time:" + timeNum + " ,isGive:" +isGive);
+            }
+            cursor.close();
         }
-        cursor.close();
     }
 
     public static int getCoinNum(){
         int coinNum = 0;
         if (null != mDataBase){
-            Cursor cursor = mDataBase.query("user", new String[]{"id","coinNum","pointNum","timeNum"}, null, null, null, null, null, null);
-            while(cursor.moveToNext()){
-                coinNum = cursor.getInt(cursor.getColumnIndex("coinNum"));
-                Log.i("TAG","coin from db:" + coinNum);
-                cursor.close();
-                return coinNum;
+            Cursor cursor = mDataBase.query("user", new String[]{"coinNum"}, null, null, null, null, null, null);
+            if (null != cursor){
+                while(cursor.moveToNext()){
+                    coinNum = cursor.getInt(cursor.getColumnIndex("coinNum"));
+                    Log.i("TAG","coin from db:" + coinNum);
+                    cursor.close();
+                    return coinNum;
+                }
             }
         }
         return  0;
@@ -78,12 +84,14 @@ public class LocalSaveUtil {
     public static int getPointNum(){
         int pointNum = 0;
         if (null != mDataBase){
-            Cursor cursor = mDataBase.query("user", new String[]{"id","coinNum","pointNum","timeNum"}, null, null, null, null, null, null);
-            while(cursor.moveToNext()){
-                pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
-                Log.i("TAG","point from db: " + pointNum);
-                cursor.close();
-                return pointNum;
+            Cursor cursor = mDataBase.query("user", new String[]{"pointNum"}, null, null, null, null, null, null);
+            if (null != cursor){
+                while(cursor.moveToNext()){
+                    pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
+                    Log.i("TAG","point from db: " + pointNum);
+                    cursor.close();
+                    return pointNum;
+                }
             }
         }
         return  0;
@@ -112,14 +120,16 @@ public class LocalSaveUtil {
     }
 
     public static int getAccount(){
-        int pointNum = 0;
+        int userId = 0;
         if (null != mDataBase){
-            Cursor cursor = mDataBase.query("user", new String[]{"id","coinNum","pointNum","timeNum"}, null, null, null, null, null, null);
-            while(cursor.moveToNext()){
-                pointNum = cursor.getInt(cursor.getColumnIndex("id"));
-                Log.i("TAG","id from db: " + pointNum);
-                cursor.close();
-                return pointNum;
+            Cursor cursor = mDataBase.query("user", new String[]{"id"}, null, null, null, null, null, null);
+            if (null != cursor){
+                while(cursor.moveToNext()){
+                    userId = cursor.getInt(cursor.getColumnIndex("id"));
+                    Log.i("TAG","id from db: " + userId);
+                    cursor.close();
+                    return userId;
+                }
             }
         }
         return 0 ;
@@ -128,12 +138,14 @@ public class LocalSaveUtil {
     public static int getLeftTime(){
         int leftTime = 0;
         if (null != mDataBase){
-            Cursor cursor = mDataBase.query("user", new String[]{"id","coinNum","pointNum","timeNum"}, null, null, null, null, null, null);
-            while(cursor.moveToNext()){
-                leftTime = cursor.getInt(cursor.getColumnIndex("timeNum"));
+            Cursor cursor = mDataBase.query("user", new String[]{"timeNum"}, null, null, null, null, null, null);
+            if (null != cursor){
+                while(cursor.moveToNext()){
+                    leftTime = cursor.getInt(cursor.getColumnIndex("timeNum"));
 //                Log.i("TAG","timeNum from db: " + leftTime);
-                cursor.close();
-                return leftTime;
+                    cursor.close();
+                    return leftTime;
+                }
             }
         }
         return 0;
@@ -150,19 +162,56 @@ public class LocalSaveUtil {
         }
     }
 
+    public static void setIsGiveThreeDay(boolean isGive){
+        if (isGive){
+            ContentValues values = new ContentValues();
+            values.put("isGiveThreeDay", 1);
+            if (null != mDataBase){
+                mDataBase.update("user", values, null, null);
+            }
+        }else{
+            ContentValues values = new ContentValues();
+            values.put("isGiveThreeDay", 0);
+            if (null != mDataBase){
+                mDataBase.update("user", values, null, null);
+            }
+        }
+    }
+
+    public static boolean getIsGiveThreeDay(){
+        int leftTime = 0;
+        if (null != mDataBase){
+            Cursor cursor = mDataBase.query("user", new String[]{"isGiveThreeDay"}, null, null, null, null, null, null);
+            if (null != cursor){
+                while(cursor.moveToNext()){
+                    leftTime = cursor.getInt(cursor.getColumnIndex("isGiveThreeDay"));
+                    cursor.close();
+                    if (leftTime == 0){
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     private static boolean checkDBIsEmpty(SQLiteDatabase database){
         Cursor cursor = null;
         int num;
         try {
             cursor = database.rawQuery("select * from user", null);
-            num = cursor.getCount();
+            if (null != cursor){
+                num = cursor.getCount();
 //            Log.i("TAG","数据条数：" + num);
-            if (num>0){
-                cursor.close() ;
-                return false;
-            }else{
-                cursor.close() ;
-                return true;
+                if (num>0){
+                    cursor.close() ;
+                    return false;
+                }else{
+                    cursor.close() ;
+                    return true;
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -172,6 +221,7 @@ public class LocalSaveUtil {
                 cursor.close() ;
             }
         }
+        return true;
     }
 
     public static void closeDB(){

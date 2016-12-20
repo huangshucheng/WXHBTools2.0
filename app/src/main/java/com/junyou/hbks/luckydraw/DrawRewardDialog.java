@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -17,6 +18,7 @@ public class DrawRewardDialog extends Dialog implements View.OnClickListener,Luc
     public RelativeLayout mDraw_reward_bg = null;
     public ImageView mDraw_reward_content = null;
     private Intent mBor_intent = null;
+    private ImageButton mDraw_reward_closebtn;
     private static Activity mActivity;
 
     public DrawRewardDialog(Context context) {
@@ -41,9 +43,18 @@ public class DrawRewardDialog extends Dialog implements View.OnClickListener,Luc
 
     private void initUI(){
         mDraw_reward_bg = (RelativeLayout) findViewById(R.id.draw_reward_bg);
-        mDraw_reward_content = (ImageView) findViewById(R.id.draw_reward_content);
         if (mDraw_reward_bg != null){
             mDraw_reward_bg.setOnClickListener(this);
+        }
+        mDraw_reward_content = (ImageView) findViewById(R.id.draw_reward_content);
+        mDraw_reward_closebtn = (ImageButton) findViewById(R.id.draw_reward_closebtn);
+        if (mDraw_reward_closebtn != null){
+            mDraw_reward_closebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
         }
     }
 
