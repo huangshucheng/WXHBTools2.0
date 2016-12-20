@@ -105,7 +105,11 @@ public class TimeManager {
         int d = m / 60 / 24;
         int h = m / 60 - d * 24;
         int min = m - d * 24 * 60 - h * 60;
-       return "" + d + "天" + h + "时" + min + "分";
+        if (d == 0){
+            return "" + h + "时" + min + "分";
+        }else{
+            return "" + d + "天" + h + "时" + min + "分";
+        }
 //        return "" + d + "天" + h + "小时";
     }
     //添加时间(分钟)

@@ -29,7 +29,7 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 
 3.跑马灯信息重新修改  ok(需要修改)
 4.主界面添加计费点，VIP  OK
-5.右上角设置与帮助按钮换位置
+5.右上角设置与帮助按钮换位置  OK 
 6.添加抢红包音效   OK 
 
 7.添加抽奖程序  OK 
@@ -40,12 +40,12 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 
 8.修改抢红包流程
   点击icon->设置->自动开抢  OK 
-8.账号功能
+8.账号功能  OK 
 9.自动更新	
 10.疯狂模式
 11.提示添加到白名单
 12.开启红包快手后，回到app
 13.数据库存储，卸载后可以重新读取数据  OK
-14.动画
+14.动画 OK 
 
 //---------------------------------------//

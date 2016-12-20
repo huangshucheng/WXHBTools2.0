@@ -98,16 +98,13 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
         @Override
         public void onReceive(Context context, Intent intent) {
             //拿到进度，更新UI
-            if (RobMoney.getInstance() != null)
-            {
-                RobMoney.getInstance().mIsWeChatOn = intent.getBooleanExtra("wechat_broadcast", true);
-//            String v_1 = RobMoney.getInstance().mIsWeChatOn==true ? "可接收":"不可接收";
-//            Log.i("TAG", "微信消息:" + v_1);
+            mIsWeChatOn = intent.getBooleanExtra("wechat_broadcast", true);
+            String v_1 = RobMoney.getInstance().mIsWeChatOn==true ? "可接收":"不可接收";
+            Log.i("TAG", "微信消息:" + v_1);
 
-                RobMoney.getInstance().mIsQQOn = intent.getBooleanExtra("qq_broadcast",true);
-//            String v_2 = RobMoney.getInstance().mIsQQOn == true ? "可接收":"不可接收";
-//            Log.i("TAG", "qq消息" + v_2);
-            }
+            mIsQQOn = intent.getBooleanExtra("qq_broadcast",true);
+            String v_2 = RobMoney.getInstance().mIsQQOn == true ? "可接收":"不可接收";
+            Log.i("TAG", "qq消息" + v_2);
         }
     }
 
@@ -145,6 +142,7 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
         intentFilter.addAction("com.junyou.hbks.SETTING");
         registerReceiver(msgReceiver, intentFilter);
         SoundUtil.initSoundPool(this);
+        Log.i("TAG","service onCreate<<<<<<<<");
     }
 
     public static RobMoney getInstance()
@@ -505,7 +503,7 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
     @Override
     public int onStartCommand(Intent intent,int flags,int startId)
     {
-//        Log.i("TAG","service onStartCommand");
+        Log.i("TAG","service onStartCommand<<<<<<<<");
 //        return super.onStartCommand(intent, flags, startId);
         //防止服务被系统kill掉
         return super.onStartCommand(intent, START_STICKY, startId);
@@ -573,7 +571,7 @@ notification.flags |= Notification.FLAG_INSISTENT; // 一直进行，比如音�
         }catch (Exception e){
             e.printStackTrace();
         }
-//        Log.i("TAG", "服务销毁了.................");
+        Log.i("TAG", "服务销毁了<<<<<<<<");
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

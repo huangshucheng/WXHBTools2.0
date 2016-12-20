@@ -7,7 +7,7 @@
             android:title=""
             android:layout="@layout/preference_category">
         <CheckBoxPreference
-                android:key="pref_weixin_notification"
+                android:key="pref_weixin_grasp"
                 android:title="微信抢红包"
             android:summary="开启或关闭微信抢红包功能"
                 android:defaultValue="true"

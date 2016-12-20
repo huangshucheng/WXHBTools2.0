@@ -43,36 +43,40 @@ public class PersonalFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.personal_preferences);
         setPrefListeners();
         instance = this;
-        weixinGrasp_Preference = (CheckBoxPreference)findPreference("pref_weixin_notification");
-        weixinGrasp_Preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                //Log.i("TAG", "key:" + preference.getKey());       //"key:pref_suoping_grasp"
+        weixinGrasp_Preference = (CheckBoxPreference)findPreference("pref_weixin_grasp");
+        if (weixinGrasp_Preference != null ){
+            weixinGrasp_Preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    //Log.i("TAG", "key:" + preference.getKey());
 //                Log.i("TAG", "newValue:" + newValue.toString());    //"true false"
-                return true;
-            }
-        });
+                    return true;
+                }
+            });
+        }
 
         qqGrasp_Preference = (CheckBoxPreference)findPreference("pref_qq_grasp");
-        qqGrasp_Preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                //Log.i("TAG", "key:" + preference.getKey());       //"key:pref_suoping_grasp"
+        if (qqGrasp_Preference != null){
+            qqGrasp_Preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    //Log.i("TAG", "key:" + preference.getKey());
 //                Log.i("TAG", "newValue:" + newValue.toString());    //"true false"
-                return true;
-            }
-        });
+                    return true;
+                }
+            });
+        }
         suopingGrasp_Preference = (CheckBoxPreference) findPreference("pref_suoping_grasp");
-
+    if (suopingGrasp_Preference != null){
         suopingGrasp_Preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                //Log.i("TAG", "key:" + preference.getKey());       //"key:pref_suoping_grasp"
+            //Log.i("TAG", "key:" + preference.getKey());       //"key:pref_suoping_grasp"
 //                Log.i("TAG", "newValue:" + newValue.toString());    //"true false"
                 return true;
             }
         });
-
+    }
         //点击打开关于页面
         Preference prefAbout = findPreference("pref_etc_about");
         prefAbout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

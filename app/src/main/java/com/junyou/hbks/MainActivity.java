@@ -147,13 +147,13 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         //-----------------------new items--------------------------//
         //开关
 //        openWechat_switch = (Switch) findViewById(R.id.open_wechat_switch);
-        if (openWechat_switch != null){
-            openWechat_switch.setOnCheckedChangeListener(wechat_swtich_listener);
-        }
+//        if (openWechat_switch != null){
+//            openWechat_switch.setOnCheckedChangeListener(wechat_swtich_listener);
+//        }
 //        openQQ_switch = (Switch) findViewById(R.id.open_qq_switch);
-        if (openQQ_switch != null){
-            openQQ_switch.setOnCheckedChangeListener(qq_switch_listener);
-        }
+//        if (openQQ_switch != null){
+//            openQQ_switch.setOnCheckedChangeListener(qq_switch_listener);
+//        }
 
 //        wechat_auto_text = (TextView)findViewById(R.id.wechat_auto);
 //        qq_auto_text = (TextView) findViewById(R.id.qq_auto);
@@ -406,10 +406,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                         {
                             marquee_text.setText(marquee_lists[num]);
                         }
-
-                        if (mUnder_clock != null){
-                            mUnder_clock.setBackgroundResource(under_clock_lists[under_clock_num]);
-                        }
+//                        if (mUnder_clock != null){
+//                            mUnder_clock.setBackgroundResource(under_clock_lists[under_clock_num]);
+//                        }
                     }
                     break;
                 }
@@ -448,6 +447,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         dialog_receiveTime = new Dialog(this,R.style.common_dialog);
         if (dialog_receiveTime != null){
             dialog_receiveTime.setContentView(view_3);
+            dialog_receiveTime.setCancelable(false);
         }
         //dialog_receiveTime.show();
 
@@ -470,6 +470,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         dialog_open_vip = new Dialog(this,R.style.common_dialog);
         if (dialog_open_vip != null){
             dialog_open_vip.setContentView(view_5);
+            dialog_open_vip.setCancelable(false);
 //            dialog_open_vip.show();
         }
     }
@@ -753,9 +754,27 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         showDatas();
        // showLeftDays();
         newShowLeftDays();
-//        Log.i("TAG", "OnResume<<<<<<");
         MobclickAgent.onPageStart("MainActivity");  //统计页面
         MobclickAgent.onResume(this);
+        setWechatOrQQ();
+        Log.i("TAG", "OnResume<<<<<<");
+    }
+
+    private void setWechatOrQQ(){
+        if (sharedPreferences!= null){
+            boolean wechat_grasp =  sharedPreferences.getBoolean("pref_weixin_grasp",true);
+            boolean qq_grasp = sharedPreferences.getBoolean("pref_qq_grasp",true);
+
+            if (bor_intent != null){
+                bor_intent.putExtra("wechat_broadcast", wechat_grasp);
+                sendBroadcast(bor_intent);
+            }
+
+            if (bor_intent != null){
+                bor_intent.putExtra("qq_broadcast", qq_grasp);
+                sendBroadcast(bor_intent);
+            }
+        }
     }
 
     @Override
@@ -1411,9 +1430,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     public void receive_getmore_click(View view)
     {
 //        Log.i("TAG", "成为超级VIP");
-        if (dialog_receiveTime != null){
-            dialog_receiveTime.dismiss();
-        }
+//        if (dialog_receiveTime != null){
+//            dialog_receiveTime.dismiss();
+//        }
         //todo 直接进入微信支付6.66元
         if (ComFunction.networkInfo(this)){
             if (ComFunction.isWechatAvilible(this)){
@@ -1452,9 +1471,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 
     public void super_vip_click(View view)
     {
-        if (dialog_open_vip != null){
-            dialog_open_vip.dismiss();
-        }
+//        if (dialog_open_vip != null){
+//            dialog_open_vip.dismiss();
+//        }
         //todo 直接进入微信支付6.66元
         if (ComFunction.networkInfo(this)){
             if (ComFunction.isWechatAvilible(this)){
@@ -1549,8 +1568,10 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             top_image.setImageResource(R.drawable.animation_bg);
             animDrawable = (AnimationDrawable) top_image.getDrawable();
             if (animDrawable != null){
-                animDrawable.start();
-                Log.i("TAG","play animation...");
+                if (!animDrawable.isRunning()){
+                    animDrawable.start();
+                    Log.i("TAG","play animation...");
+                }
             }
         }
     }
@@ -1562,8 +1583,11 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             top_image.setImageResource(R.drawable.animation_bg);
             animDrawable = (AnimationDrawable) top_image.getDrawable();
             if (animDrawable != null){
-                animDrawable.stop();
-                Log.i("TAG","stop animation...");
+                if (animDrawable.isRunning()){
+                    animDrawable.stop();
+                    top_image.setImageResource(R.mipmap.home_bg_radpacket_default_off);
+                    Log.i("TAG","stop animation...");
+                }
             }
         }
     }
