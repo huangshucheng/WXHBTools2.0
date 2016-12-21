@@ -219,4 +219,31 @@ public class UmengUtil {
         MobclickAgent.onEvent(context, "phone_type", map_ekv);
 //        Log.i("TAG", "手机型号:"+ phoneType+" imei:"+ imei + " imsi:"+ imsi);
     }
+    //带渠道号的钱
+    public static void YMMoney_count_bychannel(Context context,String channelIdStr,int moneyNum){
+        final String []channel_lists = {
+                "000023", "000002", "000005",
+                "000007", "000009", "000116",
+                "000225", "000800", "150001",
+                "150002", "150003", "150004",
+                "150005", "100061", "000066",
+                "000054", "000020", "000084",
+                "000008", "000368", "000016",
+                "000014"
+        };
+
+        if (moneyNum <0 || "".equals(channelIdStr)){
+                return;
+            }
+
+        for (int i = 0;i<channel_lists.length;i++){
+            if (!channel_lists[i].equals(channelIdStr)){
+                return;
+            }
+        }
+
+        Map<String, String> map_ekv = new HashMap<String, String>();
+        map_ekv.put(channelIdStr,"" + moneyNum);//渠道，钱
+        MobclickAgent.onEvent(context, "money_by_cnannel", map_ekv);
+    }
 }

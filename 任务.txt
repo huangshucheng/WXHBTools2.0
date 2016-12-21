@@ -38,8 +38,8 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 8分一个月vip,14分三个月vip,20分终身vip
 每天可以免费抽奖一次，100%获得一个积分，100%不能抽到奖品 
 
-8.修改抢红包流程
-  点击icon->设置->自动开抢  OK 
+8.修改抢红包流程  OK 
+  点击icon->设置->自动开抢  
 8.账号功能  OK 
 9.自动更新	
 10.疯狂模式
@@ -47,8 +47,13 @@ java.lang.NullPointerException,Unable to resume activity {com.android.settings/c
 12.开启红包快手后，回到app
 13.数据库存储，卸载后可以重新读取数据  OK
 14.动画 OK 
+15.设置抽奖概率 OK
+16.友盟统计支付的渠道
 
 bug:
-重装以后又送三天
+重装以后又送三天  ok
+
+
+
 
 //---------------------------------------//

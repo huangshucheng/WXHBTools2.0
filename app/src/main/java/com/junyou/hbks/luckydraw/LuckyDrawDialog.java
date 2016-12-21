@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.junyou.hbks.Constants;
 import com.junyou.hbks.R;
 import com.junyou.hbks.Utils.LocalSaveUtil;
+import com.junyou.hbks.Utils.RandomUtil;
 import com.junyou.hbks.Utils.TimeManager;
 import com.junyou.hbks.Utils.UmengUtil;
 import com.junyou.hbks.apppayutils.ComFunction;
@@ -239,41 +240,41 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 case 0:
                 {
                     //一小时
-                    Log.i("TAG","一小时");
+//                    Log.i("TAG","一小时");
                     TimeManager.addToLeftTime(60);
                 }
                     break;
                 case 1:
                 {
                     //谢谢惠顾
-                    Log.i("TAG","谢谢惠顾");
+//                    Log.i("TAG","谢谢惠顾");
                 }
                     break;
                 case 2:
                 {
                     //三小时
-                    Log.i("TAG","三小时");
+//                    Log.i("TAG","三小时");
                     TimeManager.addToLeftTime(180);
                 }
                     break;
                 case 3:
                 {
                     //一个月
-                    Log.i("TAG","一个月");
+//                    Log.i("TAG","一个月");
                     TimeManager.addToLeftTime(43200);
                 }
                     break;
                 case 4:
                 {
                     //三个月
-                    Log.i("TAG","三个月");
+//                    Log.i("TAG","三个月");
                     TimeManager.addToLeftTime(129600);
                 }
                     break;
                 case 5:
                 {
                     //终身
-                    Log.i("TAG","终身");
+//                    Log.i("TAG","终身");
                     TimeManager.setLifeLongUse(true);
                 }
                     break;
@@ -318,11 +319,11 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
             Log.i("TAG","rotate....");
             if (TimeManager.isDrawNewDay()){
                 //新的一天进来,免费抽奖  true  抽了奖，false 没抽奖
-                Log.i("TAG","第一次进来抽奖。。。。");
+//                Log.i("TAG","第一次进来抽奖。。。。");
                 if (!TimeManager.getFirstDraw()){
                     TimeManager.setFirstDraw(true);
                     TimeManager.setFirstTimeDraw(TimeManager.getCurTimeDraw());
-                    Log.i("TAG","没有抽奖，现在抽了奖。。。。。");
+//                    Log.i("TAG","没有抽奖，现在抽了奖。。。。。");
                     //免费抽奖
                     if (mDraw_rad_msg!= null){
                         mDraw_rad_msg.setImageResource(R.mipmap.draw_rad_msg_tooltip2);
@@ -339,10 +340,12 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 }
             }else{
                 //金币抽奖
-                Log.i("TAG","不是第一次进来抽奖。。。。");
+//                Log.i("TAG","不是第一次进来抽奖。。。。");
                 if (LocalSaveUtil.getCoinNum() >= 1){
                     try {
-                        mRotateP.startRotate(-1);
+//                        mRotateP.startRotate(-1);
+                        //0-5包含所有可能 TODO 计算概率
+                         mRotateP.startRotateChance(new RandomUtil().startRandom());
                         mLuckyDrawL.setDelayTime(100);
                         mGoBtn.setEnabled(false);
                         LocalSaveUtil.setCoinNum(LocalSaveUtil.getCoinNum() -1 );
@@ -373,7 +376,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         switch (v.getId()){
             case R.id.draw_change_first:
                 //钱购买金币
-                Log.i("TAG","钱购买金币");
+//                Log.i("TAG","钱购买金币");
             {
                 if (mDraw_buycoinNum_txt != null) {
                     if (ComFunction.networkInfo(mActivity)) {
@@ -401,7 +404,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 break;
             case R.id.draw_change_second:
                 //积分兑换一个月VIP
-                Log.i("TAG","积分兑换一个月VIP");
+//                Log.i("TAG","积分兑换一个月VIP");
             {
                 new AlertDialog.Builder(mActivity)
                         .setCancelable(false)
@@ -431,7 +434,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 break;
             case R.id.draw_change_third:
                 //积分兑换三个月VIP
-                Log.i("TAG","积分兑换三个月VIP");
+//                Log.i("TAG","积分兑换三个月VIP");
             {
                 new AlertDialog.Builder(mActivity)
                         .setCancelable(false)
@@ -461,7 +464,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 break;
             case R.id.draw_change_fourth:
                 //积分兑换终身VIP
-                Log.i("TAG","积分兑换终身VIP");
+//                Log.i("TAG","积分兑换终身VIP");
             {
                 new AlertDialog.Builder(mActivity)
                         .setMessage("确定兑换终身VIP吗?")
@@ -495,7 +498,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                 break;
             case R.id.draw_plus_btn:
                 //加号按钮
-                Log.i("TAG","加号按钮");
+//                Log.i("TAG","加号按钮");
             {
                 if (mDraw_buycoinNum_txt != null) {
                     int num = Integer.valueOf(mDraw_buycoinNum_txt.getText().toString());
@@ -503,14 +506,14 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                         int n = num + 1;
                         mDraw_buycoinNum_txt.setText("" + n);
                     }else{
-                        Log.i("TAG", "10...");
+//                        Log.i("TAG", "10...");
                     }
                 }
             }
                 break;
             case R.id.draw_dec_btn:
                 //减号按钮
-                Log.i("TAG","减号按钮");
+//                Log.i("TAG","减号按钮");
             {
                 if (mDraw_buycoinNum_txt != null) {
                     int num = Integer.valueOf(mDraw_buycoinNum_txt.getText().toString());
@@ -518,7 +521,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                         int n = num - 1; //String.valueOf(num - 1)
                         mDraw_buycoinNum_txt.setText("" + n);
                     } else {
-                        Log.i("TAG", "0...");
+//                        Log.i("TAG", "0...");
                     }
                 }
             }

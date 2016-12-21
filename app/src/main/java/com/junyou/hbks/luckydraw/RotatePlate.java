@@ -179,9 +179,8 @@ public class RotatePlate extends View {
 //        this.invalidate();
 //    }
 
-
+    //每次都转到谢谢惠顾
     public void startRotateNull(int pos){
-        //每次都转到谢谢惠顾
         int lap = 12;
         int angle = 218;
         long time = (lap + angle / 360) * ONE_WHEEL_TIME;
@@ -237,7 +236,7 @@ public class RotatePlate extends View {
         DesRotate -= offRotate;
         DesRotate += 30;
 
-//        Log.i("TAG","lap== " + lap +"angle==" + angle + "desR==" + DesRotate);
+        Log.i("TAG","lap== " + lap +"angle==" + angle + "desR==" + DesRotate);
         ValueAnimator animtor = ValueAnimator.ofInt(InitAngle,DesRotate);
         animtor.setInterpolator(new AccelerateDecelerateInterpolator());
         animtor.setDuration(time);
@@ -264,6 +263,93 @@ public class RotatePlate extends View {
 
                 if(listener != null)
                     listener.endAnimation(queryPosition());
+            }
+        });
+        animtor.start();
+    }
+
+    //概率抽奖
+    public void startRotateChance(final int chanceNum){
+        if (chanceNum <0){
+            return;
+        }
+        int lap = 0;
+        int angle = 0;
+        int desRotate = 0;
+        switch (chanceNum)
+        {
+            case 0:
+            {
+                //一个小时
+                lap = 4;
+                angle = 242;
+                desRotate = 2730;
+
+            }
+                break;
+            case 1:
+            {
+                //再接再厉
+                lap = 12;
+                angle = 218;
+                desRotate = 6270;
+            }
+                break;
+            case 2:
+            {
+                //三个小时
+                lap = 9;
+                angle = 228;
+                desRotate = 4410;
+            }
+                break;
+            case 3:
+            {
+                //一个月
+                lap = 6;
+                angle = 261;
+                desRotate = 3270;
+            }
+                break;
+            case 4:
+            {
+                //三个月
+                lap = 11;
+                angle = 296;
+                desRotate = 5010;
+            }
+                break;
+            case 5:
+            {
+                //终身
+                lap = 14;
+                angle = 199;
+                desRotate = 6030;
+            }
+                break;
+            default:
+                break;
+        }
+        Log.i("TAG","lap== " + lap +", angle==" + angle + ", desR==" + desRotate);
+        long time = (lap + angle / 360) * ONE_WHEEL_TIME;
+        ValueAnimator animtor = ValueAnimator.ofInt(InitAngle,desRotate);
+        animtor.setInterpolator(new AccelerateDecelerateInterpolator());
+        animtor.setDuration(time);
+        animtor.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int updateValue = (int) animation.getAnimatedValue();
+                InitAngle = (updateValue % 360 + 360) % 360;
+                ViewCompat.postInvalidateOnAnimation(RotatePlate.this);
+            }
+        });
+
+        animtor.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if(listener != null)
+                    listener.endAnimation(chanceNum);
             }
         });
         animtor.start();
