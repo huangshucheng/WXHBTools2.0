@@ -142,7 +142,7 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
         intentFilter.addAction("com.junyou.hbks.SETTING");
         registerReceiver(msgReceiver, intentFilter);
         SoundUtil.initSoundPool(this);
-        Log.i("TAG","service onCreate<<<<<<<<");
+//        Log.i("TAG","service onCreate<<<<<<<<");
     }
 
     public static RobMoney getInstance()

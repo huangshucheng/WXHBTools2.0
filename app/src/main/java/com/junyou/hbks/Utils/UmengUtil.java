@@ -236,12 +236,6 @@ public class UmengUtil {
                 return;
             }
 
-        for (int i = 0;i<channel_lists.length;i++){
-            if (!channel_lists[i].equals(channelIdStr)){
-                return;
-            }
-        }
-
         Map<String, String> map_ekv = new HashMap<String, String>();
         map_ekv.put(channelIdStr,"" + moneyNum);//渠道，钱
         MobclickAgent.onEvent(context, "money_by_cnannel", map_ekv);
