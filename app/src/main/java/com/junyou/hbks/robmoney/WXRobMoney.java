@@ -83,9 +83,7 @@ public class WXRobMoney extends BaseRobMoney{
         if (className == null) {
             return;
         }
-
-        LogUtil.i("WX类名:" +className);
-
+//        LogUtil.i("WX类名:" +className);
         if (WXParams.UI_LAUNCHER.equals(className)) {
             //在聊天界面，去找到红包，点击红包
             this.mCurrentWindow = WXParams.WINDOW_LAUNCHER;

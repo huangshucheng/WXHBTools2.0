@@ -3,13 +3,19 @@ package com.junyou.hbks.service;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.junyou.hbks.R;
+import com.junyou.hbks.UI.MainActivity;
 import com.junyou.hbks.UI.RobApp;
 import com.junyou.hbks.config.BaseConfig;
 import com.junyou.hbks.robmoney.IRobMoney;
@@ -22,6 +28,7 @@ import com.junyou.hbks.robmoney.ZFBRobMoney;
 import com.junyou.hbks.utils.AccessibilityUtil;
 import com.junyou.hbks.utils.LogUtil;
 import com.junyou.hbks.utils.SaveCountUtil;
+import com.junyou.hbks.utils.TimeManager;
 
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +36,6 @@ import java.util.List;
 public class RobAccessibilityService extends AccessibilityService {
 
     public static RobAccessibilityService mInstanceService = null;
-
     private IRobMoney WXRobMoney = null;
     private IRobMoney QQRobMoney = null;
     private IRobMoney ZFBRobMoney = null;
@@ -56,15 +62,25 @@ public class RobAccessibilityService extends AccessibilityService {
 //        LogUtil.i("eventType:" + eventType + "  ,packageName:"+ packageName);
 //        LogUtil.i("事件类型：" + AccessibilityEvent.eventTypeToString(eventType));
 
-        if (!SaveCountUtil.getInitialize(getApplicationContext()).getCanRobMoney()){
-            LogUtil.i("can not rob money,,,");
+        SaveCountUtil saveUtil = SaveCountUtil.getInitialize(getApplicationContext());
+        if (saveUtil == null){
+            LogUtil.i("can not rob ,saveUtil is null...");
             return;
-        }else{
-            LogUtil.i("can rob money,,,");
+        }
+
+        if (!saveUtil.getCanRobMoney()){
+            LogUtil.i("can not rob ,switch is off...");
+            return;
+        }
+
+        if (!TimeManager.getServiceOnOrOff()){
+            LogUtil.i("can not rob ,time is out...");
+            return;
         }
 
         if (WXParams.PACKAGENAME.equals(packageName)){
-            if (this.mBaseConfig.isWcEnabled()){
+
+            if (saveUtil.getWcEnabled()){
                 //微信抢红包
                 switch (eventType) {
                     //通知栏事件
@@ -82,7 +98,7 @@ public class RobAccessibilityService extends AccessibilityService {
                 }
             }
         }else if (QQParams.PACKAGENAME.equals(packageName)){
-            if (this.mBaseConfig.isQqEnabled()){
+            if (saveUtil.getQqEnabled()){
                 //QQ抢红包
                 switch (eventType) {
                     case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
@@ -97,7 +113,7 @@ public class RobAccessibilityService extends AccessibilityService {
                 }
             }
         }else if (ZFBParams.PACKAGENAME.equals(packageName)){
-            if (this.mBaseConfig.isZfbEnabled()){
+            if (saveUtil.getZfbEnabled()){
                 //支付宝抢红包
                 switch (eventType) {
                     case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
@@ -124,6 +140,7 @@ public class RobAccessibilityService extends AccessibilityService {
     public void onDestroy() {
         super.onDestroy();
         LogUtil.i("service onDestroy");
+        stopForeground(true);
         mInstanceService = null;
         super.sendBroadcast(new Intent(RobApp.ACTION_ACCESSIBILITY_SERVICE_DISCONNECT));
     }
@@ -131,16 +148,15 @@ public class RobAccessibilityService extends AccessibilityService {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onServiceConnected() {
-        super.onServiceConnected();
         LogUtil.i("service onServiceConnected");
-        mInstanceService = this;
+        super.onServiceConnected();
         super.sendBroadcast(new Intent(RobApp.ACTION_ACCESSIBILITY_SERVICE_CONNECT));
-
+        mInstanceService = this;
+        openNotifocation();
         AccessibilityServiceInfo info = getServiceInfo();
         info.packageNames = new String[]{"com.tencent.mobileqq","com.tencent.mm","com.eg.android.AlipayGphone"};       //tencent package
         //info.packageNames = new String[]{"com.eg.android.AlipayGphone"};          //支付宝包名称
         setServiceInfo(info);
-
         //返回键 返回两次
         AccessibilityUtil.performBack(RobAccessibilityService.this);
         new android.os.Handler().postDelayed(new Runnable() {
@@ -156,7 +172,9 @@ public class RobAccessibilityService extends AccessibilityService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtil.i("service onStartCommand");
-        return super.onStartCommand(intent, flags, startId);
+//        return super.onStartCommand(intent, flags, startId);
+        //防止服务被系统kill掉
+        return super.onStartCommand(intent, START_STICKY, startId);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -184,5 +202,46 @@ public class RobAccessibilityService extends AccessibilityService {
             return false;
         }
         return true;
+    }
+
+    private void openNotifocation()
+    {
+        /*  已经弃用
+        //创建到一个Notification对象，设置通知栏上面的图标，时间
+        Notification notification = new Notification(R.mipmap.ic_launcher,"红包快手",System.currentTimeMillis());
+        //设置当点击通知时会跳转到哪个界面
+        Intent intent = new Intent(this,MainActivity.class);
+        PendingIntent pendingIntent=PendingIntent.getActivity(this, 0, intent, 0);
+        //设置通知栏上面的标题，内容等信息
+        notification.setLatestEventInfo(this, "hbtools","hongbaokuaishou",pendingIntent);
+        //开启前台服务，第一个参数一般有两种选择FLAG_ONGOING_EVENT表示正在运行，这种类型的通知是无法清除掉的
+        //另外一种是FLAG_AUTO_CANCEL，这个标志表明点击了这个通知之后，就自行的从通知栏上清除掉。
+        startForeground(Notification.FLAG_ONGOING_EVENT, notification);
+        */
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification.Builder builder = new Notification.Builder(this);
+        PendingIntent contentIndent = PendingIntent.getActivity(this, 0, new Intent(this,MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIndent)
+                .setSmallIcon(R.mipmap.notify_icon)//设置状态栏里面的图标（小图标）
+                .setWhen(System.currentTimeMillis())//设置时间发生时间
+                .setAutoCancel(true)//设置可以清除
+                .setContentTitle("红包快手")//设置下拉列表里的标题
+                .setContentText("亲,红包快手已经开启啦!");//设置上下文内容
+        //        notificationManager.notify(1,notification);
+        try{
+            Notification notification = builder.getNotification();
+//            Notification notification = builder.build();
+            startForeground(Notification.FLAG_ONGOING_EVENT, notification);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        /*
+        *关于Notification的Flags
+notification.flags = Notification.FLAG_NO_CLEAR; // 点击清除按钮时就会清除消息通知,但是点击通知栏的通知时不会消失
+notification.flags = Notification.FLAG_ONGOING_EVENT; // 点击清除按钮不会清除消息通知,可以用来表示在正在运行
+notification.flags |= Notification.FLAG_AUTO_CANCEL搜索; // 点击清除按钮或点击通知后会自动消失
+notification.flags |= Notification.FLAG_INSISTENT; // 一直进行，比如音乐一直播放，知道用户响应
+        * */
     }
 }

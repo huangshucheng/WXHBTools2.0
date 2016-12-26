@@ -290,6 +290,14 @@ public class TimeManager {
         }
     }
 
+    public static boolean getServiceOnOrOff(){
+        if (activity != null){
+            boolean ison = activity.getSharedPreferences("config",activity.MODE_MULTI_PROCESS).getBoolean(Constants.IS_SERVICE_ON,true);
+            return ison;
+        }
+        return true;
+    }
+
     public static void setLifeLongUse(boolean isLifeLong){
         if (isLifeLong){
             if (null != editor){

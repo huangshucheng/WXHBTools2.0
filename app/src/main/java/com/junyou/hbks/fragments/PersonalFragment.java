@@ -10,6 +10,8 @@ import android.provider.Settings;
 
 import com.junyou.hbks.UI.AboutActivity;
 import com.junyou.hbks.R;
+import com.junyou.hbks.utils.LogUtil;
+import com.junyou.hbks.utils.SaveCountUtil;
 import com.junyou.hbks.utils.UmengUtil;
 import com.umeng.analytics.MobclickAgent;
 
@@ -45,7 +47,14 @@ public class PersonalFragment extends PreferenceFragment {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     //Log.i("TAG", "key:" + preference.getKey());
-//                Log.i("TAG", "newValue:" + newValue.toString());    //"true false"
+//                LogUtil.i("weixin:::" + newValue.toString());    //"true false"
+                    if (newValue!= null){
+                        if ("true".equals(newValue.toString())){
+                            SaveCountUtil.getInitialize(getActivity()).setWcEnable(true);
+                        }else{
+                            SaveCountUtil.getInitialize(getActivity()).setWcEnable(false);
+                        }
+                    }
                     return true;
                 }
             });
@@ -57,7 +66,15 @@ public class PersonalFragment extends PreferenceFragment {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     //Log.i("TAG", "key:" + preference.getKey());
-//                Log.i("TAG", "newValue:" + newValue.toString());    //"true false"
+//                    LogUtil.i("qq:::" + newValue.toString());    //"true false"
+//                    SaveCountUtil.getInitialize(getActivity()).setQqWnable((boolean)newValue);
+                    if (newValue!= null){
+                        if ("true".equals(newValue.toString())){
+                            SaveCountUtil.getInitialize(getActivity()).setQqWnable(true);
+                        }else{
+                            SaveCountUtil.getInitialize(getActivity()).setQqWnable(false);
+                        }
+                    }
                     return true;
                 }
             });
