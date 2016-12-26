@@ -1,4 +1,4 @@
-package com.junyou.hbks.Utils;
+package com.junyou.hbks.utils;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;

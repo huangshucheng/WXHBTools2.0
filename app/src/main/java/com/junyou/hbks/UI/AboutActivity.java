@@ -1,4 +1,4 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -13,7 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.junyou.hbks.Utils.ShareHelper;
+import com.junyou.hbks.R;
+import com.junyou.hbks.utils.ShareHelper;
 import com.umeng.analytics .MobclickAgent;
 
 import com.junyou.hbks.fragments.AboutFragment;

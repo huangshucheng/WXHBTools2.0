@@ -1,9 +1,10 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.junyou.hbks.R;
 import com.umeng.analytics.MobclickAgent;
 
 public class helpActivity extends AppCompatActivity {

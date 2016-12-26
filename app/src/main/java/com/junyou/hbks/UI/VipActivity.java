@@ -1,4 +1,4 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -14,7 +14,9 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.junyou.hbks.Utils.UmengUtil;
+import com.junyou.hbks.config.Constants;
+import com.junyou.hbks.R;
+import com.junyou.hbks.utils.UmengUtil;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WXPayUtil;
 import com.umeng.analytics.MobclickAgent;

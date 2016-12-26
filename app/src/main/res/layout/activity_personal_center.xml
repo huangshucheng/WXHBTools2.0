@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.junyou.hbks.PersonalCenterActivity">
+    tools:context=".UI.PersonalCenterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorBG"
         android:id="@+id/up_bg"
-        tools:context="com.junyou.hbks.PersonalCenterActivity"
+        tools:context=".UI.PersonalCenterActivity"
         >
         <TextView android:layout_width="wrap_content"
             android:layout_height="54dp"

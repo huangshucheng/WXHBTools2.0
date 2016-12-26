@@ -1,11 +1,11 @@
-package com.junyou.hbks.Utils;
+package com.junyou.hbks.utils;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-import com.junyou.hbks.Constants;
+import com.junyou.hbks.config.Constants;
 
 import java.math.BigDecimal;
 import java.text.ParseException;

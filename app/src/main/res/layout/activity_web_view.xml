@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.junyou.hbks.WebViewActivity">
+    tools:context=".UI.WebViewActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorBG"
-        tools:context="com.junyou.hbks.WebViewActivity">
+        tools:context=".UI.WebViewActivity">
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="54dp"

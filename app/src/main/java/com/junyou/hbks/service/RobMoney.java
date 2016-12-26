@@ -1,4 +1,4 @@
-package com.junyou.hbks;
+package com.junyou.hbks.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
@@ -19,13 +19,16 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Display;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.junyou.hbks.Utils.SoundUtil;
-import com.junyou.hbks.Utils.UmengUtil;
+import com.junyou.hbks.R;
+import com.junyou.hbks.UI.MainActivity;
+import com.junyou.hbks.utils.LogUtil;
+import com.junyou.hbks.utils.SoundUtil;
+import com.junyou.hbks.utils.UmengUtil;
+import com.junyou.hbks.config.Constants;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -100,11 +103,11 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
             //拿到进度，更新UI
             mIsWeChatOn = intent.getBooleanExtra("wechat_broadcast", true);
             String v_1 = RobMoney.getInstance().mIsWeChatOn==true ? "可接收":"不可接收";
-            Log.i("TAG", "微信消息:" + v_1);
+            LogUtil.i("TAG", "微信消息:" + v_1);
 
             mIsQQOn = intent.getBooleanExtra("qq_broadcast",true);
             String v_2 = RobMoney.getInstance().mIsQQOn == true ? "可接收":"不可接收";
-            Log.i("TAG", "qq消息" + v_2);
+            LogUtil.i("TAG", "qq消息" + v_2);
         }
     }
 
@@ -117,13 +120,13 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
         public void onReceive(Context context, Intent intent) {
             String action=intent.getAction();
             if (action.equals(Intent.ACTION_SCREEN_OFF)) {      //暗屏----
-//                Log.i("TAG", "已经锁屏");
+//                LogUtil.i("TAG", "已经锁屏");
                 if (RobMoney.getInstance()!= null){
                     RobMoney.getInstance().isScreenOff = true;
                 }
             }
             else if (Intent.ACTION_SCREEN_ON.equals(action)) { //亮屏----
-//                Log.i("TAG", "未锁屏");
+//                LogUtil.i("TAG", "未锁屏");
                 if (RobMoney.getInstance() != null){
                     RobMoney.getInstance().isScreenOff = false;
                 }
@@ -142,7 +145,7 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
         intentFilter.addAction("com.junyou.hbks.SETTING");
         registerReceiver(msgReceiver, intentFilter);
         SoundUtil.initSoundPool(this);
-//        Log.i("TAG","service onCreate<<<<<<<<");
+//        LogUtil.i("TAG","service onCreate<<<<<<<<");
     }
 
     public static RobMoney getInstance()
@@ -503,7 +506,7 @@ public class RobMoney extends AccessibilityService implements SharedPreferences.
     @Override
     public int onStartCommand(Intent intent,int flags,int startId)
     {
-        Log.i("TAG","service onStartCommand<<<<<<<<");
+        LogUtil.i("TAG","service onStartCommand<<<<<<<<");
 //        return super.onStartCommand(intent, flags, startId);
         //防止服务被系统kill掉
         return super.onStartCommand(intent, START_STICKY, startId);
@@ -556,8 +559,12 @@ notification.flags |= Notification.FLAG_INSISTENT; // 一直进行，比如音�
     {
         //注销广播
         super.onDestroy();
-        unregisterReceiver(msgReceiver);
-        unregisterReceiver(mReceiver);
+        if (null != msgReceiver){
+            unregisterReceiver(msgReceiver);
+        }
+        if (null != mReceiver){
+            unregisterReceiver(mReceiver);
+        }
         stopForeground(true);
         try{
             if (mWeakLock != null){
@@ -571,7 +578,7 @@ notification.flags |= Notification.FLAG_INSISTENT; // 一直进行，比如音�
         }catch (Exception e){
             e.printStackTrace();
         }
-        Log.i("TAG", "服务销毁了<<<<<<<<");
+//        Log.i("TAG", "服务销毁了<<<<<<<<");
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -871,7 +878,6 @@ notification.flags |= Notification.FLAG_INSISTENT; // 一直进行，比如音�
 
         mLuckyMoneyReceived_1 = false;
         mReceiveNode_1 = null;
-        //todo  存数据有问题,MainActivity接受不到
         int eventType = event.getEventType();
         if (eventType== AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED ||eventType ==AccessibilityEvent.TYPE_VIEW_FOCUSED )
         {

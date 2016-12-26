@@ -1,6 +1,5 @@
-package com.junyou.hbks.Utils;
+package com.junyou.hbks.utils;
 
-import android.util.Log;
 import java.util.Random;
 
 public class RandomUtil {

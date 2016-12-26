@@ -1,4 +1,4 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
@@ -21,9 +21,10 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.junyou.hbks.Utils.ShareHelper;
-import com.junyou.hbks.Utils.TimeManager;
-import com.junyou.hbks.Utils.UmengUtil;
+import com.junyou.hbks.R;
+import com.junyou.hbks.utils.ShareHelper;
+import com.junyou.hbks.utils.TimeManager;
+import com.junyou.hbks.utils.UmengUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import com.junyou.hbks.fragments.SettingFragment;

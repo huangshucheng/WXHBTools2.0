@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LuckyDraw"
+    tools:context=".UI.LuckyDraw"
     android:background="#7CD8E3">
     <!--android:scrollbars="none"-->
 <RelativeLayout

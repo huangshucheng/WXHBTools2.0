@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.junyou.hbks.Utils.TimeManager;
+import com.junyou.hbks.utils.TimeManager;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -15,8 +15,8 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.social.UMPlatformData;
 
-import com.junyou.hbks.Constants;
-import com.junyou.hbks.MainActivity;
+import com.junyou.hbks.config.Constants;
+import com.junyou.hbks.UI.MainActivity;
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 

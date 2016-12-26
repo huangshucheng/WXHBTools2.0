@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.junyou.hbks.helpActivity">
+    tools:context=".UI.helpActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorBG"
-        tools:context="com.junyou.hbks.SettingActivity"
+        tools:context=".UI.SettingActivity"
         android:id="@+id/id_help_upbar"
         >
         <TextView android:layout_width="wrap_content"

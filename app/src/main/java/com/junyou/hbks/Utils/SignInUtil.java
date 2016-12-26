@@ -1,10 +1,8 @@
-package com.junyou.hbks.Utils;
+package com.junyou.hbks.utils;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.text.format.DateFormat;
-import android.text.style.ImageSpan;
-import android.util.Log;
 
 //签到
 public class SignInUtil {

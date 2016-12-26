@@ -12,11 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.junyou.hbks.R;
-import com.junyou.hbks.Utils.UmengUtil;
+import com.junyou.hbks.utils.UmengUtil;
 import com.umeng.analytics.MobclickAgent;
 
-import com.junyou.hbks.AboutActivity;
-import com.junyou.hbks.SettingActivity;
+import com.junyou.hbks.UI.AboutActivity;
+import com.junyou.hbks.UI.SettingActivity;
 
 //PreferenceFragment
 public class SettingFragment extends PreferenceFragment

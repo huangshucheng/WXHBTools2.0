@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 import android.os.Handler;
 
-import com.junyou.hbks.Utils.LocalSaveUtil;
-import com.junyou.hbks.Utils.TimeManager;
+import com.junyou.hbks.utils.LocalSaveUtil;
+import com.junyou.hbks.utils.TimeManager;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WeChatHttpClient;
 import com.junyou.hbks.apppayutils.XmlUtil;
@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.junyou.hbks.Constants;
-import com.junyou.hbks.Utils.UmengUtil;
+import com.junyou.hbks.config.Constants;
+import com.junyou.hbks.utils.UmengUtil;
 
 import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;

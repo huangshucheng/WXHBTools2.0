@@ -1,10 +1,11 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.junyou.hbks.R;
 import com.umeng.analytics.MobclickAgent;
 
 //启动界面

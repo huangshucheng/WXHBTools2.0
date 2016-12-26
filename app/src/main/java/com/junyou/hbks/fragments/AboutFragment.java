@@ -4,12 +4,11 @@ package com.junyou.hbks.fragments;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 
-import com.junyou.hbks.AboutActivity;
+import com.junyou.hbks.UI.AboutActivity;
 
 public class AboutFragment extends PreferenceFragment
 {

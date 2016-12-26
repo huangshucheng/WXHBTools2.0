@@ -1,6 +1,5 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
-import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -9,22 +8,20 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.junyou.hbks.Utils.LocalSaveUtil;
-import com.junyou.hbks.Utils.ShareHelper;
-import com.junyou.hbks.Utils.TimeManager;
+import com.junyou.hbks.config.Constants;
+import com.junyou.hbks.R;
+import com.junyou.hbks.utils.LocalSaveUtil;
+import com.junyou.hbks.utils.ShareHelper;
+import com.junyou.hbks.utils.TimeManager;
 import com.junyou.hbks.fragments.PersonalFragment;
 import com.junyou.hbks.fragments.SettingFragment;
 import com.umeng.analytics.MobclickAgent;

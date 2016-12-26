@@ -1,9 +1,9 @@
-package com.junyou.hbks.Utils;
+package com.junyou.hbks.utils;
 
 import android.accessibilityservice.AccessibilityService;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.util.Log;
+
 import com.junyou.hbks.R;
 import java.util.HashMap;
 

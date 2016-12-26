@@ -1,4 +1,4 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +10,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.junyou.hbks.Utils.LocalSaveUtil;
-import com.junyou.hbks.Utils.UmengUtil;
+import com.junyou.hbks.R;
+import com.junyou.hbks.utils.LocalSaveUtil;
 import com.junyou.hbks.luckydraw.AngleUtil;
 import com.junyou.hbks.luckydraw.LuckyDrawLayout;
 import com.junyou.hbks.luckydraw.RotatePlate;
-
-import org.w3c.dom.Text;
 
 public class LuckyDraw extends AppCompatActivity implements RotatePlate.AnimationEndListener{
 

@@ -28,7 +28,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.junyou.hbks.Constants;
+import com.junyou.hbks.config.Constants;
 
 import org.json.JSONObject;
 

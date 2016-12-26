@@ -1,6 +1,4 @@
-package com.junyou.hbks.Utils;
-
-import android.util.Log;
+package com.junyou.hbks.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

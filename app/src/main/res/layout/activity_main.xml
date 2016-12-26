@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/relativeLayout"
     android:background="#faf6f1"
-    tools:context="com.junyou.hbks.MainActivity">
+    tools:context=".UI.MainActivity">
     <!--新的布局-->
     <RelativeLayout
         android:orientation="vertical"

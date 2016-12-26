@@ -1,8 +1,10 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.junyou.hbks.UI.MainActivity;
 
 public class BootRestartReceiver extends BroadcastReceiver {
 

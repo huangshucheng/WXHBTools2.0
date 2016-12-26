@@ -1,4 +1,4 @@
-package com.junyou.hbks;
+package com.junyou.hbks.config;
 
 public class Constants {
 

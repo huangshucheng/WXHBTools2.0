@@ -19,12 +19,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.junyou.hbks.Constants;
+import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
-import com.junyou.hbks.Utils.LocalSaveUtil;
-import com.junyou.hbks.Utils.RandomUtil;
-import com.junyou.hbks.Utils.TimeManager;
-import com.junyou.hbks.Utils.UmengUtil;
+import com.junyou.hbks.utils.LocalSaveUtil;
+import com.junyou.hbks.utils.RandomUtil;
+import com.junyou.hbks.utils.TimeManager;
+import com.junyou.hbks.utils.UmengUtil;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WXPayUtil;
 

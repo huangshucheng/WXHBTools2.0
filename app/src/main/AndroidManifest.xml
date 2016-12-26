@@ -21,27 +21,27 @@
     <!-- <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL " /> 无次权限 -->
     <application
         android:allowBackup="true"
+        android:name=".UI.RobApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/notitle">
         <activity
-            android:name=".SplashActivity"
+            android:name=".UI.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".UI.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <!-- android:exported="true" -->
         <service
-            android:name=".RobMoney"
+            android:name=".service.RobAccessibilityService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
@@ -56,18 +56,18 @@
         </service>
 
         <activity
-            android:name=".SettingActivity"
+            android:name=".UI.SettingActivity"
             android:label="@string/title_activity_setting"
             android:screenOrientation="portrait"
             android:theme="@style/notitle" />
         <activity
-            android:name=".helpActivity"
+            android:name=".UI.helpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AboutActivity"
+            android:name=".UI.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WebViewActivity"
+            android:name=".UI.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -84,10 +84,10 @@
             android:value="${UMENG_CHANNEL_VALUE}" />
 
         <activity
-            android:name=".VipActivity"
+            android:name=".UI.VipActivity"
             android:screenOrientation="portrait" />
         <!-- 向系统注册receiver -->
-        <receiver android:name=".BootRestartReceiver">
+        <receiver android:name=".UI.BootRestartReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -98,7 +98,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".LuckyDraw" />
+        <activity android:name=".UI.LuckyDraw" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -108,7 +108,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".PersonalCenterActivity"
+            android:name=".UI.PersonalCenterActivity"
             android:screenOrientation="portrait">
 
         </activity>

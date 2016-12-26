@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="com.junyou.hbks.SettingActivity"
+    tools:context=".UI.SettingActivity"
     android:icon="@null">
     <PreferenceCategory
         android:title="列表"

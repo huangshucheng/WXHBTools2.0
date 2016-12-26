@@ -1,4 +1,4 @@
-package com.junyou.hbks;
+package com.junyou.hbks.UI;
 
 import android.annotation.TargetApi;
 import android.app.DownloadManager;
@@ -18,6 +18,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.junyou.hbks.R;
 import com.umeng.analytics.MobclickAgent;
 
 public class WebViewActivity extends AppCompatActivity {
