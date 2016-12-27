@@ -35,7 +35,7 @@
             android:src="@mipmap/ic_back"
             android:padding="10dp"/>
     </RelativeLayout>
-    <ScrollView
+    <com.junyou.hbks.UI.view.HBKS_ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/id_help_upbar"
@@ -45,5 +45,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/whynot" />
-    </ScrollView>
+    </com.junyou.hbks.UI.view.HBKS_ScrollView>
 </RelativeLayout>

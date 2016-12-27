@@ -4,12 +4,16 @@ import android.accessibilityservice.AccessibilityService;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.os.Build;
 import android.os.Parcelable;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.junyou.hbks.apppayutils.ComFunction;
+import com.junyou.hbks.apppayutils.WXPayUtil;
 import com.junyou.hbks.config.BaseConfig;
+import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.utils.AccessibilityUtil;
 import com.junyou.hbks.utils.LockScreenUtil;
 import com.junyou.hbks.utils.LogUtil;
@@ -61,24 +65,21 @@ public class WXRobMoney extends BaseRobMoney{
             }
         }
     }
-    //setp two
+    //setp two  调用多
     @Override
     public void doWindowContentChanged(AccessibilityEvent event) {
-//        LogUtil.i("WX目录改变");
-        if (!isReceivingHongbao) {
+        LogUtil.i("WX目录改变");
+        if (mCurrentWindow != WXParams.WINDOW_LAUNCHER) { //不在聊天列表界面，不处理
             return;
         }
         findRedPkt();
     }
 
-    //setp three
+    //setp three  调用少  有红包：先状态改变，再目录改变
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void doWindowStateChanged(AccessibilityEvent event) {
         LogUtil.i("WX状态改变");
-        if (!isReceivingHongbao) {
-            return;
-        }
         CharSequence className = event.getClassName();
         if (className == null) {
             return;
@@ -100,6 +101,7 @@ public class WXRobMoney extends BaseRobMoney{
             }else{
                 LogUtil.i("没找到打开按钮。。。红包被抢完");
                 //没有找到打开按钮，红包已经被抢完
+                AccessibilityUtil.performBack(getService());
                 this.backAndGotoDesktop();
                 isReceivingHongbao = false;
             }
@@ -108,12 +110,13 @@ public class WXRobMoney extends BaseRobMoney{
             //在红包详情界面
             LogUtil.i("在红包详情界面");
             //TODO 查看多少钱
-            getMoneyCount();
+                getMoneyCount();
             if (findBackButton()){
-                LogUtil.i("找到返回按钮");
+//                LogUtil.i("找到返回按钮");
                 this.backAndGotoDesktop();
             }else{
-                LogUtil.i("没有找到返回按钮");
+//                LogUtil.i("没有找到返回按钮");
+                AccessibilityUtil.performBack(getService());
                 this.backAndGotoDesktop();
             }
             isReceivingHongbao = false;
@@ -126,19 +129,48 @@ public class WXRobMoney extends BaseRobMoney{
         getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
+//                ComponentName cName = new ComponentName(WXParams.PACKAGENAME,WXParams.UI_LAUNCHER);
+//                ComFunction.startAPP(getService().getApplicationContext(),cName,null);
+//                AccessibilityUtil.performBack(getService());
+                AccessibilityNodeInfo backInfo = findBackBtnFromWindow();
+                if (null != backInfo){
+                    LogUtil.i("找到微信自带返回按钮。。");
+                    AccessibilityUtil.performClick(backInfo);
+                }else{
+                    LogUtil.i("没有找到微信自带返回按钮。。");
+                    AccessibilityUtil.performBack(getService());
+                }
                 AccessibilityUtil.performBack(getService());
-            }}, 0);
-
-        getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                AccessibilityUtil.performBack(getService());
-                AccessibilityUtil.performHome(getService());
+//                AccessibilityUtil.performHome(getService());
 //              AccessibilityUtil.gotoDeskTop(getService());
                 if (LockScreenUtil.isUnlocking()){
                     LockScreenUtil.getInitialize(getService().getApplicationContext()).LockScreen();
                 }
-            }}, 300);
+            }},0);
+    }
+
+    //从聊天窗口寻找返回按钮(微信自带)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private AccessibilityNodeInfo findBackBtnFromWindow() {
+        AccessibilityNodeInfo rootNode = getService().getRootInActiveWindow();
+        if (rootNode == null){
+            return null;
+        }
+        AccessibilityNodeInfo result = null;
+        result = AccessibilityUtil.findNodeInfosById(rootNode,"com.tencent.mm:id/ga");
+        if (result != null){
+            return result;
+        }else{
+            result = AccessibilityUtil.findNodeInfosByText(rootNode,WXParams.KEY_RETURN_DESC);
+            if (result != null ) {
+                if (WXParams.CLASS_NAME_IMAGEVIEW.equals(result.getClassName())) {
+                    if (WXParams.KEY_RETURN_DESC.equals(result.getContentDescription())) {
+                        return  result;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -154,17 +186,22 @@ public class WXRobMoney extends BaseRobMoney{
 
         if (isAtChatWindow(rootNode)){
             //在聊天窗口
-//            LogUtil.i("在聊天窗口");
+            LogUtil.i("在聊天窗口2222222");
             AccessibilityNodeInfo result = this.findRPFromChatWindow(rootNode);
             if (result != null) {
                 super.delayClick(result, 0);
-//                this.isReceivingHongbao = false;
+                this.isReceivingHongbao = false;
             }
         }else{
-//            LogUtil.i("不在聊天窗口111111111");
+            //在微信主页找
+//            LogUtil.i("在微信主页222222");
             AccessibilityNodeInfo result = this.findRPFromMsgListWindow(rootNode);
             if (result != null) {
+//                LogUtil.i("找到红包2222");
                 super.delayClick(result, 0);
+                this.isReceivingHongbao = false;
+            }else{
+//                LogUtil.i("没找到红包2222");
             }
         }
         rootNode.recycle();
@@ -226,6 +263,7 @@ public class WXRobMoney extends BaseRobMoney{
             AccessibilityUtil.performClick(info);
             return true;
         }
+        rootNode.recycle();
         return false;
     }
     //钱数量
@@ -277,6 +315,7 @@ public class WXRobMoney extends BaseRobMoney{
                 }
             }
         }
+        rootNode.recycle();
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -357,6 +396,7 @@ public class WXRobMoney extends BaseRobMoney{
             if (targetNode != null){
                 super.delayClick(targetNode, 0);
             }
+            rootNode.recycle();
         }
     }
 
@@ -381,24 +421,5 @@ public class WXRobMoney extends BaseRobMoney{
                 this.findCanGrabNode(node);
             }
         }
-    }
-    //判断是否在聊天窗口
-    private boolean isOnChatWindow(AccessibilityNodeInfo nodeInfo) {
-        boolean flag = false;
-        if (nodeInfo == null) {
-            return flag;
-        }
-        List<AccessibilityNodeInfo> list = nodeInfo.findAccessibilityNodeInfosByText(WXParams.KEY_RETURN_DESC);
-        if (list != null) {
-            for (AccessibilityNodeInfo node : list) {
-                if (WXParams.CLASS_NAME_IMAGEVIEW.equals(node.getClassName())) {
-                    if (WXParams.KEY_RETURN_DESC.equals(node.getContentDescription())) {
-                        flag = true;
-                        break;
-                    }
-                }
-            }
-        }
-        return flag;
     }
 }

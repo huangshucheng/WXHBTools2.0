@@ -1,5 +1,7 @@
 package com.junyou.hbks.config;
 
+import java.util.StringTokenizer;
+
 public class Constants {
 
     // 签名：8a4d7ee09f2db1dc793dcd0f9aeafc1f
@@ -26,5 +28,7 @@ public class Constants {
     public static final String IS_NEW_DAY = "is_new_day";           //是否新的一天
     public static final String USE_DAY = "use_day";                 //用户使用的天数
     public static final String ORDER_NUM = "order_num";             //订单号
+    public static final String PKG_NAME = "com.junyou.hbks";
+    public static final String ACK_NAME = "com.junyou.hbks.UI.MainActivity";
 
 }

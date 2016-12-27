@@ -18,7 +18,7 @@ public class QQParams {
     public static final String KEY_CLICK_GET_COMMAND = "点击领取口令";
     public static final String KEY_CLICK_INPUT_COMMAND = "点击输入口令";
     public static final String KEY_SEND = "发送";
-
+    public static final String KEY_CLOSED = "关闭";
 
     public static final String KEY_RETURN_DESC = "返回消息界面";
     public static final String KEY_GROUP_CENTER = "群通知中心";

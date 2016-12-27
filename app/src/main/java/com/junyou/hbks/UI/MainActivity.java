@@ -606,7 +606,15 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         MobclickAgent.onPageStart("MainActivity");  //统计页面
         MobclickAgent.onResume(this);
         setWechatOrQQ();
-        LogUtil.i("TAG", "OnResume<<<<<<");
+//        LogUtil.i("TAG", "OnResume<<<<<<");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //按返回键返回桌面
+//        LogUtil.i("back.......");
+//        moveTaskToBack(true);
     }
 
     private void setWechatOrQQ(){

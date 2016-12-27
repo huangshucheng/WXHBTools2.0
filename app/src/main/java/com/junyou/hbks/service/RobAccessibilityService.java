@@ -5,6 +5,7 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +18,9 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.junyou.hbks.R;
 import com.junyou.hbks.UI.MainActivity;
 import com.junyou.hbks.UI.RobApp;
+import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.config.BaseConfig;
+import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.robmoney.IRobMoney;
 import com.junyou.hbks.robmoney.QQParams;
 import com.junyou.hbks.robmoney.QQRobMoney;
@@ -157,16 +160,8 @@ public class RobAccessibilityService extends AccessibilityService {
         info.packageNames = new String[]{"com.tencent.mobileqq","com.tencent.mm","com.eg.android.AlipayGphone"};       //tencent package
         //info.packageNames = new String[]{"com.eg.android.AlipayGphone"};          //支付宝包名称
         setServiceInfo(info);
-        //返回键 返回两次
-        AccessibilityUtil.performBack(RobAccessibilityService.this);
-        new android.os.Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                AccessibilityUtil.performBack(RobAccessibilityService.this);
-                AccessibilityUtil.performBack(RobAccessibilityService.this);
-//                AccessibilityUtil.performHome(RobAccessibilityService.this);
-            }
-        },200);
+        ComponentName cName = new ComponentName(Constants.PKG_NAME,Constants.ACK_NAME);
+        ComFunction.startAPP(getApplicationContext(),cName,null);
     }
 
     @Override

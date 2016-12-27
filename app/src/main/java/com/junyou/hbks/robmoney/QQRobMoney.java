@@ -68,10 +68,10 @@ public class QQRobMoney extends BaseRobMoney{
     @Override
     public void doWindowContentChanged(AccessibilityEvent event) {
 //        LogUtil.i("目录改变");
-//        if (mCurrentWindow == QQParams.WINDOW_SPLASH_ACTIVITY) {
-//        LogUtil.i("在聊天界面。。。。。。");
-//        }
-        this.findRedPktWhenContenChanged(event);
+        if (mCurrentWindow == QQParams.WINDOW_SPLASH_ACTIVITY) {
+            this.findRedPktWhenContenChanged(event);
+            LogUtil.i("在聊天界面。。。。。。");
+        }
     }
 
     //setp three
@@ -97,32 +97,15 @@ public class QQRobMoney extends BaseRobMoney{
             this.mCurrentWindow = QQParams.WINDOW_QWALLET_PLUGIN_PROXY_ACTIVITY;
             LogUtil.i("在红包详情界面<<<<<<");
             getMoneyCount();
-            if (findBackButton()){
+
+            AccessibilityNodeInfo backInfo = findBackButton();
+            if (backInfo != null){
                 LogUtil.i("找到返回按钮<<<<<<");
-                getHandler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        AccessibilityUtil.performBack(getService());
-//                        AccessibilityUtil.performHome(getService());
-                        AccessibilityUtil.gotoDeskTop(getService());
-                        if (LockScreenUtil.isUnlocking()){
-                            LockScreenUtil.getInitialize(getService().getApplicationContext()).LockScreen();
-                        }
-                    }
-                }, 0);
+                AccessibilityUtil.performClick(backInfo);
+                backAndGotoDesktop();
             }else{
                 LogUtil.i("没有找到返回按钮<<<<<<");
-                getHandler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        AccessibilityUtil.performBack(getService());
-                        AccessibilityUtil.gotoDeskTop(getService());
-//                        AccessibilityUtil.performHome(getService());
-                        if (LockScreenUtil.isUnlocking()){
-                            LockScreenUtil.getInitialize(getService().getApplicationContext()).LockScreen();
-                        }
-                    }
-                }, 0);
+                backAndGotoDesktop();
             }
             this.isReceivingHongbao = false;
         }else if (QQParams.UI_QQLS_ACTIVITY.equals(className)){
@@ -136,27 +119,37 @@ public class QQRobMoney extends BaseRobMoney{
         }
     }
 
+    private void backAndGotoDesktop(){
+        getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AccessibilityUtil.performBack(getService());
+//               AccessibilityUtil.performHome(getService());
+                AccessibilityUtil.gotoDeskTop(getService());
+                if (LockScreenUtil.isUnlocking()){
+                    LockScreenUtil.getInitialize(getService().getApplicationContext()).LockScreen();
+                }
+            }},0);
+    }
+
     //找返回按钮
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private boolean findBackButton(){
+    private AccessibilityNodeInfo findBackButton(){
         AccessibilityNodeInfo rootNode = getService().getRootInActiveWindow();
         if (rootNode == null) {
-            return false;
+            return null;
         }
-        AccessibilityNodeInfo info = AccessibilityUtil.findNodeInfosByText(rootNode,"元");
-        if (info != null){
-            if (info.getParent() != null){
-                int childCount = info.getParent().getChildCount();
-                for (int i = 0;i<childCount;i++){
-//                    LogUtil.i("className: " + info.getParent().getChild(i).getClassName());
-                    if (QQParams.CLASS_NAME_IMAGEBUTTON.equals(info.getParent().getChild(i).getClassName())){
-                        super.delayClick(info,0);
-                        return true;
-                    }
+        //TODO
+        AccessibilityNodeInfo resultInfo = null;
+        resultInfo = AccessibilityUtil.findNodeInfosById(rootNode,"com.tencent.mobileqq:id/name");
+        if (resultInfo != null){
+            if (QQParams.CLASS_NAME_IMAGEBUTTON.equals(resultInfo.getClassName())){
+                if (QQParams.KEY_CLOSED.equals(resultInfo.getContentDescription().toString())){
+                    return resultInfo;
                 }
             }
         }
-        return false;
+        return null;
     }
 
     //钱数量
@@ -223,11 +216,10 @@ public class QQRobMoney extends BaseRobMoney{
 //            LogUtil.i("在聊天窗口");
             //在聊天窗口，先寻找是否存在其它群或好友的聊天信息
             if(clickOrtherChatMsg(rootNode)){
-//                LogUtil.i("其他聊天有红包");
+                LogUtil.i("其他聊天有红包");
                 return;
             }
             //TODO 如果聊天列表有红包则拆开
-//            findRedPktAtChatView();
             findRedPktWhenStateChanged();
         }
         rootNode.recycle();

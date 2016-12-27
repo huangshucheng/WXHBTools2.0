@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-<ScrollView
+<com.junyou.hbks.UI.view.HBKS_ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -365,7 +365,7 @@
                 <!--android:layout_centerVertical="true" />-->
         <!--</RelativeLayout>-->
     </RelativeLayout>
-</ScrollView>
+</com.junyou.hbks.UI.view.HBKS_ScrollView>
     <ImageButton
         android:id="@+id/luckydraw_close_btn"
         android:layout_width="wrap_content"

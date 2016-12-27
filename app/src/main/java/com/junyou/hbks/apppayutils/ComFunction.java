@@ -18,15 +18,19 @@ import java.util.Map;
 import java.util.Random;
 
 import android.Manifest.permission;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.junyou.hbks.config.Constants;
 
@@ -247,4 +251,48 @@ public static String getDeviceInfo(Context context) {
 		}
 		return false;
 	}
+
+//	private final static String help_set_pack = "com.junyou.hbks";
+//	private final static String help_set_name = "com.junyou.hbks.MainActivity";
+	/**
+	 * 启动一个app
+	 * com -- ComponentName 对象，包含apk的包名和主Activity名
+	 * param -- 需要传给apk的参数
+	 */
+	public static void startAPP(Context context,ComponentName com, String param){
+		if (com != null) {
+			PackageInfo packageInfo;
+			try {
+				packageInfo = context.getPackageManager().getPackageInfo(com.getPackageName(), 0);
+			} catch (PackageManager.NameNotFoundException e) {
+				packageInfo = null;
+				Toast.makeText(context, "没有安装", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			}
+
+			try {
+				Intent intent = new Intent();
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.setComponent(com);
+				if (param != null) {
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("flag", param); // 装入数据
+					intent.putExtras(bundle); // 把Bundle塞入Intent里面
+				}
+				context.startActivity(intent);
+			} catch (Exception e) {
+				Toast.makeText(context, "启动异常", Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	public static void startAPP(Context context, String appPackageName){
+		try{
+			Intent intent = context.getPackageManager().getLaunchIntentForPackage(appPackageName);
+			context.startActivity(intent);
+		}catch(Exception e){
+			Toast.makeText(context, "没有安装", Toast.LENGTH_LONG).show();
+		}
+	}
+
 }

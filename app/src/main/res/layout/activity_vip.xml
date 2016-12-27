@@ -44,23 +44,21 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:src="@mipmap/msg_pop_seven_1"
                 android:layout_centerHorizontal="true"
                 android:scaleY="0.8"
-                android:scaleX="0.8"
-                android:layout_marginTop="10dp"/>
+                android:scaleX="0.8" />
         </RelativeLayout>
         <!--android:background="#f1eceb"-->
     <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <ScrollView
+    <com.junyou.hbks.UI.view.HBKS_ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".UI.VipActivity"
         android:layout_below="@+id/vipbar"
-        android:background="@android:color/transparent"
-        >
+        android:background="@android:color/transparent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="420dp"
@@ -134,8 +132,7 @@
                         android:textSize="16dp"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/coint_number"
-                        />
+                        android:id="@+id/coint_number" />
                 </RelativeLayout>
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -346,6 +343,6 @@
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
         </RelativeLayout>
-    </ScrollView>
+    </com.junyou.hbks.UI.view.HBKS_ScrollView>
     </RelativeLayout>
 
