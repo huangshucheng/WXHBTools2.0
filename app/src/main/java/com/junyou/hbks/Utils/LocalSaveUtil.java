@@ -25,7 +25,7 @@ public class LocalSaveUtil {
             ContentValues values = new ContentValues();
             //向ContentValues中存放数据
             values.put("id", idNum);        //id
-            values.put("coinNum",10);       //金币数量
+            values.put("coinNum",100);       //金币数量
             values.put("pointNum",0);       //积分数量
             values.put("isGiveThreeDay",0); //是否显示赠送了三天  0未显示,1显示
             values.put("timeNum",4320);     //初始时间三天

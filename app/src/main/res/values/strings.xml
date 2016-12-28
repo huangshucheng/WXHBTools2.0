@@ -22,18 +22,59 @@
     <string name="action_clickToGradp">点击按钮开始抢红包</string>
     <string name="title_activity_setting">设置</string>
 
-    <string name="marquee_word_1">喜报:恭喜尾号为4125的用户抢到105个红包,总金额96.36元</string>
-    <string name="marquee_word_2">喜报:恭喜尾号为9356的用户抢到121个红包,总金额100.62元</string>
-    <string name="marquee_word_3">喜报:恭喜尾号为7563的用户抢到165个红包,总金额130.01元</string>
-    <string name="marquee_word_4">喜报:恭喜尾号为4546的用户抢到184个红包,总金额150.32元</string>
-    <string name="marquee_word_5">喜报:恭喜尾号为7834的用户抢到196个红包,总金额165.45元</string>
-    <string name="marquee_word_6">喜报:恭喜尾号为7454的用户抢到205个红包,总金额172.45元</string>
-    <string name="marquee_word_7">喜报:恭喜尾号为4566的用户抢到235个红包,总金额201.45元</string>
-    <string name="marquee_word_8">喜报:恭喜尾号为7656的用户抢到265个红包,总金额250.45元</string>
-    <string name="marquee_word_9">喜报:恭喜尾号为8765的用户抢到298个红包,总金额255.45元</string>
-    <string name="marquee_word_10">喜报:恭喜尾号为2387的用户抢到325个红包,总金额305.45元</string>
-    <string name="marquee_word_11">喜报:恭喜尾号为6545的用户抢到350个红包,总金额315.45元</string>
-    <string name="marquee_word_12">喜报:恭喜尾号为8764的用户抢到349个红包,总金额346.45元</string>
+    <!--<string name="marquee_word_1">喜报:恭喜尾号为4125的用户抢到105个红包,总金额96.36元</string>-->
+    <!--<string name="marquee_word_2">喜报:恭喜尾号为9356的用户抢到121个红包,总金额100.62元</string>-->
+    <!--<string name="marquee_word_3">喜报:恭喜尾号为7563的用户抢到165个红包,总金额130.01元</string>-->
+    <!--<string name="marquee_word_4">喜报:恭喜尾号为4546的用户抢到184个红包,总金额150.32元</string>-->
+    <!--<string name="marquee_word_5">喜报:恭喜尾号为7834的用户抢到196个红包,总金额165.45元</string>-->
+    <!--<string name="marquee_word_6">喜报:恭喜尾号为7454的用户抢到205个红包,总金额172.45元</string>-->
+    <!--<string name="marquee_word_7">喜报:恭喜尾号为4566的用户抢到235个红包,总金额201.45元</string>-->
+    <!--<string name="marquee_word_8">喜报:恭喜尾号为7656的用户抢到265个红包,总金额250.45元</string>-->
+    <!--<string name="marquee_word_9">喜报:恭喜尾号为8765的用户抢到298个红包,总金额255.45元</string>-->
+    <!--<string name="marquee_word_10">喜报:恭喜尾号为2387的用户抢到325个红包,总金额305.45元</string>-->
+    <!--<string name="marquee_word_11">喜报:恭喜尾号为6545的用户抢到350个红包,总金额315.45元</string>-->
+    <!--<string name="marquee_word_12">喜报:恭喜尾号为8764的用户抢到349个红包,总金额346.45元</string>-->
+
+    <string name="marquee_word_1">
+        喜报:恭喜尾号为4125的用户抢到105个红包,总金额96.36元\n
+        喜报:恭喜尾号为7563的用户抢到165个红包,总金额130.01元\n
+        喜报:恭喜尾号为4546的用户抢到184个红包,总金额150.32元\n
+        喜报:恭喜尾号为7834的用户抢到196个红包,总金额165.45元\n
+        喜报:恭喜尾号为7454的用户抢到205个红包,总金额172.45元\n
+        喜报:恭喜尾号为4566的用户抢到235个红包,总金额201.45元\n
+        喜报:恭喜尾号为7656的用户抢到265个红包,总金额250.45元\n
+        喜报:恭喜尾号为8765的用户抢到298个红包,总金额255.45元\n
+        喜报:恭喜尾号为2387的用户抢到325个红包,总金额305.45元\n
+        喜报:恭喜尾号为6545的用户抢到350个红包,总金额315.45元\n
+        喜报:恭喜尾号为8764的用户抢到349个红包,总金额346.45元\n
+        喜报:恭喜尾号为8765的用户抢到298个红包,总金额255.45元\n
+    </string>
+    <!--<string name="marquee_word_2">喜报:恭喜尾号为9356的用户抢到121个红包,总金额100.62元</string>-->
+    <!--<string name="marquee_word_3">喜报:恭喜尾号为7563的用户抢到165个红包,总金额130.01元</string>-->
+    <!--<string name="marquee_word_4">喜报:恭喜尾号为4546的用户抢到184个红包,总金额150.32元</string>-->
+    <!--<string name="marquee_word_5">喜报:恭喜尾号为7834的用户抢到196个红包,总金额165.45元</string>-->
+    <!--<string name="marquee_word_6">喜报:恭喜尾号为7454的用户抢到205个红包,总金额172.45元</string>-->
+    <!--<string name="marquee_word_7">喜报:恭喜尾号为4566的用户抢到235个红包,总金额201.45元</string>-->
+    <!--<string name="marquee_word_8">喜报:恭喜尾号为7656的用户抢到265个红包,总金额250.45元</string>-->
+    <!--<string name="marquee_word_9">喜报:恭喜尾号为8765的用户抢到298个红包,总金额255.45元</string>-->
+    <!--<string name="marquee_word_10">喜报:恭喜尾号为2387的用户抢到325个红包,总金额305.45元</string>-->
+    <!--<string name="marquee_word_11">喜报:恭喜尾号为6545的用户抢到350个红包,总金额315.45元</string>-->
+    <!--<string name="marquee_word_12">喜报:恭喜尾号为8764的用户抢到349个红包,总金额346.45元</string>-->
+
+    <string name="marquee_word_13">
+        喜报:恭喜尾号为8764的用户抽到三个月VIP\n
+        喜报:恭喜尾号为3453的用户抽到一个月VIP\n
+        喜报:恭喜尾号为6457的用户抽到三个月VIP\n
+        喜报:恭喜尾号为3655的用户抽到终身VIP\n
+        喜报:恭喜尾号为9675的用户抽到三个月VIP\n
+        喜报:恭喜尾号为4667的用户抽到一个小时\n
+        喜报:恭喜尾号为4574的用户抽到三个小时\n
+        喜报:恭喜尾号为8745的用户抽到三个月VIP\n
+        喜报:恭喜尾号为8544的用户抽到一个个月VIP\n
+        喜报:恭喜尾号为3757的用户抽到终身VIP\n
+        喜报:恭喜尾号为8095的用户抽到三个月VIP\n
+        喜报:恭喜尾号为8544的用户抽到终身VIP\n
+    </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

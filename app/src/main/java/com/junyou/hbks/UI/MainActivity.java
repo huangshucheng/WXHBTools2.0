@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     RelativeLayout mainLayoutHeader;
     private static MainActivity instance;
     private ServiceStateBroadcast serviceStateBroadcast = null;
+    private NotificationManager mNotificationManager;
 
     private static final String DATE_MARK = "date_mark";                //日期记录
     private static final String FIRST_DATE_MARK = "first_date_mark";    //第一次进来的时间，只保存一次
@@ -120,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     private AnimationDrawable animDrawable = null;
 
     private static boolean setting_flags = true;
+
+    private static final int NOTIFY_ID = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -137,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         //监听AccessibilityService 变化
         accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         accessibilityManager.addAccessibilityStateChangeListener(this);
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         //注册广播(监听service)
         this.serviceStateBroadcast = new ServiceStateBroadcast();
         IntentFilter filter = new IntentFilter();
@@ -197,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         LocalSaveUtil.init(this);
         updateServiceStatus();
         showDatas();
-        refrishMarqueeText();
+//        refrishMarqueeText();
         showDialog();
         //showLeftDays();
 //        showSwitchStatus();
@@ -221,8 +225,10 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             String action = intent.getAction();
             if (RobApp.ACTION_ACCESSIBILITY_SERVICE_CONNECT.equals(action)) {
                 LogUtil.i("service打开");
+                    closeNotification();
             } else if (RobApp.ACTION_ACCESSIBILITY_SERVICE_DISCONNECT.equals(action)) {
                 LogUtil.i("service关闭");
+                openNotifocation();
             }
         }
     }
@@ -311,23 +317,26 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void openNotifocation()
     {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Notification.Builder builder = new Notification.Builder(this);
-
         PendingIntent contentIndent = PendingIntent.getActivity(this, 0, new Intent(this,MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIndent)
                 .setSmallIcon(R.mipmap.ic_launcher)//设置状态栏里面的图标（小图标)
                 .setWhen(System.currentTimeMillis())//设置时间发生时间
                 .setAutoCancel(true)//设置可以清除
-                .setContentTitle("红包快手未开启")//设置下拉列表里的标题
-                .setContentText("亲,不能抢红包了!");//设置上下文内容
-
+                .setContentTitle("红包快手被关闭了")//设置下拉列表里的标题
+                .setContentText("亲,不能抢红包了,快点击我开启!");//设置上下文内容
         try{
-            if (!isServiceEnabled()){
-                notificationManager.notify(1,builder.build());
+            if (mNotificationManager != null){
+                mNotificationManager.notify(NOTIFY_ID,builder.build());
             }
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void closeNotification(){
+        if (null != mNotificationManager){
+            mNotificationManager.cancel(NOTIFY_ID);
         }
     }
 
@@ -397,40 +406,28 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     {
         final String []marquee_lists = {
                 getResources().getString(R.string.marquee_word_1),
-                getResources().getString(R.string.marquee_word_2),
-                getResources().getString(R.string.marquee_word_3),
-                getResources().getString(R.string.marquee_word_4),
-                getResources().getString(R.string.marquee_word_5),
-                getResources().getString(R.string.marquee_word_6),
-                getResources().getString(R.string.marquee_word_7),
-                getResources().getString(R.string.marquee_word_8),
-                getResources().getString(R.string.marquee_word_9),
-                getResources().getString(R.string.marquee_word_10),
-                getResources().getString(R.string.marquee_word_11),
-                getResources().getString(R.string.marquee_word_12)
-        };
-
-        final int []under_clock_lists = {
-                R.mipmap.under_icon_draw,
-                R.mipmap.under_icon_ontime,
-                R.mipmap.under_icon_share
+//                getResources().getString(R.string.marquee_word_2),
+//                getResources().getString(R.string.marquee_word_3),
+//                getResources().getString(R.string.marquee_word_4),
+//                getResources().getString(R.string.marquee_word_5),
+//                getResources().getString(R.string.marquee_word_6),
+//                getResources().getString(R.string.marquee_word_7),
+//                getResources().getString(R.string.marquee_word_8),
+//                getResources().getString(R.string.marquee_word_9),
+//                getResources().getString(R.string.marquee_word_10),
+//                getResources().getString(R.string.marquee_word_11),
+//                getResources().getString(R.string.marquee_word_12)
         };
         //调度器
         Timer timer = new Timer();
         final Handler handler = new Handler(){
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case 1:
-                    {
+                    case 1: {
                         int num = (int)(Math.random()*12);  //0-11
-                        int under_clock_num = (int)(Math.random()*3);   //0-2
-                        if (null != marquee_text)
-                        {
-                            marquee_text.setText(marquee_lists[num]);
+                        if (null != marquee_text) {
+//                            marquee_text.setText(marquee_lists[num]);
                         }
-//                        if (mUnder_clock != null){
-//                            mUnder_clock.setBackgroundResource(under_clock_lists[under_clock_num]);
-//                        }
                     }
                     break;
                 }

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
 import com.junyou.hbks.utils.LocalSaveUtil;
+import com.junyou.hbks.utils.LogUtil;
 import com.junyou.hbks.utils.RandomUtil;
 import com.junyou.hbks.utils.TimeManager;
 import com.junyou.hbks.utils.UmengUtil;
@@ -287,7 +288,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i("TAG","draw,onstart....");
+        LogUtil.i("TAG","draw,onstart....");
         if (coint_num_text != null){
             coint_num_text.setText( "" + LocalSaveUtil.getCoinNum());
         }
@@ -316,7 +317,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         @Override
         public void onClick(View v) {
             //每天第一次抽奖免费，换图标
-            Log.i("TAG","rotate....");
+            LogUtil.i("TAG","rotate....");
             if (TimeManager.isDrawNewDay()){
                 //新的一天进来,免费抽奖  true  抽了奖，false 没抽奖
 //                Log.i("TAG","第一次进来抽奖。。。。");
@@ -330,7 +331,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                     }
 
                     try {
-                        mRotateP.startRotateNull(-1);//100%转到谢谢惠顾
+                        mRotateP.startRotateChance(RandomUtil.randomsOne());//100%转到谢谢惠顾
                         mLuckyDrawL.setDelayTime(100);
                         mGoBtn.setEnabled(false);
                         LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() + 1);

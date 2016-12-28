@@ -1,11 +1,13 @@
 package com.junyou.hbks.robmoney;
 
 import android.accessibilityservice.AccessibilityService;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.os.Build;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -70,7 +72,6 @@ public class QQRobMoney extends BaseRobMoney{
 //        LogUtil.i("目录改变");
         if (mCurrentWindow == QQParams.WINDOW_SPLASH_ACTIVITY) {
             this.findRedPktWhenContenChanged(event);
-            LogUtil.i("在聊天界面。。。。。。");
         }
     }
 
@@ -78,8 +79,8 @@ public class QQRobMoney extends BaseRobMoney{
     //进入qq先调用，进入对话框，进入红包，进入红包详情等都会调用,频率低
     @Override
     public void doWindowStateChanged(AccessibilityEvent event) {
-        LogUtil.i("状态改变");
-        if (!isReceivingHongbao) {
+//        LogUtil.i("状态改变");
+        if (!this.isReceivingHongbao) {
             return;
         }
         CharSequence className = event.getClassName();
@@ -97,16 +98,7 @@ public class QQRobMoney extends BaseRobMoney{
             this.mCurrentWindow = QQParams.WINDOW_QWALLET_PLUGIN_PROXY_ACTIVITY;
             LogUtil.i("在红包详情界面<<<<<<");
             getMoneyCount();
-
-            AccessibilityNodeInfo backInfo = findBackButton();
-            if (backInfo != null){
-                LogUtil.i("找到返回按钮<<<<<<");
-                AccessibilityUtil.performClick(backInfo);
-                backAndGotoDesktop();
-            }else{
-                LogUtil.i("没有找到返回按钮<<<<<<");
-                backAndGotoDesktop();
-            }
+            backAndGotoDesktop();
             this.isReceivingHongbao = false;
         }else if (QQParams.UI_QQLS_ACTIVITY.equals(className)){
             //红包在详情界面(已经领完)
@@ -120,9 +112,17 @@ public class QQRobMoney extends BaseRobMoney{
     }
 
     private void backAndGotoDesktop(){
+
         getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                AccessibilityNodeInfo titleLeft = findBackTitleLeft();
+            if (titleLeft != null){
+                AccessibilityUtil.performClick(titleLeft);
+                LogUtil.i("找到列表返回按钮1111");
+            }else{
+                LogUtil.i("没有找到列表返回按钮1111");
+            }
                 AccessibilityUtil.performBack(getService());
 //               AccessibilityUtil.performHome(getService());
                 AccessibilityUtil.gotoDeskTop(getService());
@@ -131,6 +131,27 @@ public class QQRobMoney extends BaseRobMoney{
                 }
             }},0);
     }
+
+    //返回消息界面按钮
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private AccessibilityNodeInfo findBackTitleLeft(){
+        AccessibilityNodeInfo rootNode = getService().getRootInActiveWindow();
+        if (rootNode == null) {
+            return null;
+        }
+
+        AccessibilityNodeInfo resultInfo = null;
+        resultInfo = AccessibilityUtil.findNodeInfosById(rootNode,"com.tencent.mobileqq:id/ivTitleBtnLeft");
+        if (resultInfo != null){
+            if (QQParams.CLASS_NAME_TEXTVIEW.equals(resultInfo.getClassName())){
+                if (QQParams.KEY_RETURN_DESC.equals(resultInfo.getContentDescription().toString())){
+                    return resultInfo;
+                }
+            }
+        }
+        return null;
+    }
+
 
     //找返回按钮
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -220,7 +241,7 @@ public class QQRobMoney extends BaseRobMoney{
                 return;
             }
             //TODO 如果聊天列表有红包则拆开
-            findRedPktWhenStateChanged();
+//            findRedPktWhenStateChanged();
         }
         rootNode.recycle();
     }
@@ -240,6 +261,7 @@ public class QQRobMoney extends BaseRobMoney{
                         content = content.substring(index);
                     }
                     if (content.startsWith(QQParams.KEY_QQREDPACKET)) {
+//                        LogUtil.i("别的聊天有红包");
                         super.delayClick(node, 0);
                         this.isReceivingHongbao = true;
                         flag = true;

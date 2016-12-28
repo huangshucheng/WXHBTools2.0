@@ -27,5 +27,6 @@ public class WXParams {
     public static final String CLASS_NAME_IMAGEVIEW = "android.widget.ImageView";
     public static final String CLASS_NAME_TEXTVIEW = "android.widget.TextView";
     public static final String CLASS_NAME_LISTVIEW = "android.widget.ListView";
+    public static final String CLASS_NAME_LINERLAYOUT = "android.widget.LinearLayout";
 
 }

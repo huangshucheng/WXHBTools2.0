@@ -68,10 +68,7 @@ public class WXRobMoney extends BaseRobMoney{
     //setp two  调用多
     @Override
     public void doWindowContentChanged(AccessibilityEvent event) {
-        LogUtil.i("WX目录改变");
-        if (mCurrentWindow != WXParams.WINDOW_LAUNCHER) { //不在聊天列表界面，不处理
-            return;
-        }
+//        LogUtil.i("WX目录改变");
         findRedPkt();
     }
 
@@ -80,6 +77,10 @@ public class WXRobMoney extends BaseRobMoney{
     @Override
     public void doWindowStateChanged(AccessibilityEvent event) {
         LogUtil.i("WX状态改变");
+        if (!isReceivingHongbao){
+            return;
+        }
+
         CharSequence className = event.getClassName();
         if (className == null) {
             return;
@@ -90,6 +91,13 @@ public class WXRobMoney extends BaseRobMoney{
             this.mCurrentWindow = WXParams.WINDOW_LAUNCHER;
             this.findRedPkt();
             LogUtil.i("在聊天界面");
+            AccessibilityNodeInfo backInfo = findBackBtnFromWindow();
+            if (null != backInfo){
+                LogUtil.i("找到微信自带返回按钮。。");
+                AccessibilityUtil.performClick(backInfo);
+            }else{
+                LogUtil.i("没有找到微信自带返回按钮。。");
+            }
         }else if(WXParams.UI_LUCKY_MONEY_RECEIVE.equals(className)){
             this.mCurrentWindow = WXParams.WINDOW_LUCKYMONEY_RECEIVEUI;
             //在抢红包界面，有打开按钮
@@ -112,16 +120,17 @@ public class WXRobMoney extends BaseRobMoney{
             //TODO 查看多少钱
                 getMoneyCount();
             if (findBackButton()){
-//                LogUtil.i("找到返回按钮");
+                LogUtil.i("找到返回按钮11111");
                 this.backAndGotoDesktop();
             }else{
-//                LogUtil.i("没有找到返回按钮");
+                LogUtil.i("没有找到返回按钮11111");
                 AccessibilityUtil.performBack(getService());
                 this.backAndGotoDesktop();
             }
             isReceivingHongbao = false;
         }else {
             this.mCurrentWindow = WXParams.WINDOW_NONE;
+            LogUtil.i("在其他界面。。。。。。。。。。。。。");
         }
     }
 
@@ -129,17 +138,6 @@ public class WXRobMoney extends BaseRobMoney{
         getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                ComponentName cName = new ComponentName(WXParams.PACKAGENAME,WXParams.UI_LAUNCHER);
-//                ComFunction.startAPP(getService().getApplicationContext(),cName,null);
-//                AccessibilityUtil.performBack(getService());
-                AccessibilityNodeInfo backInfo = findBackBtnFromWindow();
-                if (null != backInfo){
-                    LogUtil.i("找到微信自带返回按钮。。");
-                    AccessibilityUtil.performClick(backInfo);
-                }else{
-                    LogUtil.i("没有找到微信自带返回按钮。。");
-                    AccessibilityUtil.performBack(getService());
-                }
                 AccessibilityUtil.performBack(getService());
 //                AccessibilityUtil.performHome(getService());
 //              AccessibilityUtil.gotoDeskTop(getService());
@@ -163,8 +161,8 @@ public class WXRobMoney extends BaseRobMoney{
         }else{
             result = AccessibilityUtil.findNodeInfosByText(rootNode,WXParams.KEY_RETURN_DESC);
             if (result != null ) {
-                if (WXParams.CLASS_NAME_IMAGEVIEW.equals(result.getClassName())) {
-                    if (WXParams.KEY_RETURN_DESC.equals(result.getContentDescription())) {
+                if (WXParams.CLASS_NAME_LINERLAYOUT.equals(result.getClassName())) {
+                    if (result.isClickable()){
                         return  result;
                     }
                 }
@@ -186,22 +184,17 @@ public class WXRobMoney extends BaseRobMoney{
 
         if (isAtChatWindow(rootNode)){
             //在聊天窗口
-            LogUtil.i("在聊天窗口2222222");
             AccessibilityNodeInfo result = this.findRPFromChatWindow(rootNode);
             if (result != null) {
                 super.delayClick(result, 0);
-                this.isReceivingHongbao = false;
+//                this.c = false;
             }
         }else{
             //在微信主页找
-//            LogUtil.i("在微信主页222222");
             AccessibilityNodeInfo result = this.findRPFromMsgListWindow(rootNode);
             if (result != null) {
-//                LogUtil.i("找到红包2222");
                 super.delayClick(result, 0);
-                this.isReceivingHongbao = false;
-            }else{
-//                LogUtil.i("没找到红包2222");
+//                this.isReceivingHongbao = false;
             }
         }
         rootNode.recycle();

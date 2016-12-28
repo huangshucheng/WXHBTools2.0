@@ -321,12 +321,44 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="54dp" />
             </RelativeLayout>
+
+            <!--<TextView-->
+                <!--android:layout_width="220dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/marquee_word_13"-->
+                <!--android:id="@+id/draw_marquee_text"-->
+                <!--android:singleLine="true"-->
+                <!--android:textColor="@color/colorBG"-->
+                <!--android:ellipsize="marquee"-->
+                <!--android:marqueeRepeatLimit="marquee_forever"-->
+                <!--android:scrollHorizontally="true"-->
+                <!--android:layout_below="@+id/draw_innerbg_fifth"-->
+                <!--android:focusable="true"-->
+                <!--android:focusableInTouchMode="true"-->
+                <!--android:layout_marginTop="18dp"-->
+                <!--android:layout_marginLeft="58dp"/>-->
+
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_below="@id/gray_bg">
+            <!--我要的跑马灯呢?-->
+            <TextView
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:text="@string/marquee_word_13"
+                android:id="@+id/draw_marquee_text"
+                android:singleLine="true"
+                android:textColor="@color/colorwhite"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp" />
         </RelativeLayout>
 
         <!--<RelativeLayout-->
