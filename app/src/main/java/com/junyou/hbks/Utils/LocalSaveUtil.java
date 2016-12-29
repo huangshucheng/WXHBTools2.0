@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 public class LocalSaveUtil {
-    private static final String COIN_NUM = "coin_num";
-    private static final String POINT_NUM = "point_num";
-    private static final String USER_ACCOUNT = "user_account";
 
     private static Activity mActivity;
     private static SQLiteDatabase mDataBase;
@@ -52,7 +49,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static int getCoinNum(){
+    public static synchronized int getCoinNum(){
         int coinNum = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"coinNum"}, null, null, null, null, null, null);
@@ -68,7 +65,7 @@ public class LocalSaveUtil {
         return  0;
     }
 
-    public static void setCoinNum(int coinNum){
+    public static synchronized void setCoinNum(int coinNum){
         if (coinNum <0){
             return;
         }
@@ -79,7 +76,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static int getPointNum(){
+    public static synchronized int getPointNum(){
         int pointNum = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"pointNum"}, null, null, null, null, null, null);
@@ -95,7 +92,7 @@ public class LocalSaveUtil {
         return  0;
     }
 
-    public static void setPointNum(int pointNum){
+    public static synchronized void setPointNum(int pointNum){
         if (pointNum<0){
             return;
         }
@@ -106,7 +103,7 @@ public class LocalSaveUtil {
         }
     }
 //用户账号
-    public static void setAccount(int account){
+    public static synchronized void setAccount(int account){
         if (account <0){
             return;
         }
@@ -117,7 +114,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static int getAccount(){
+    public static synchronized int getAccount(){
         int userId = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"id"}, null, null, null, null, null, null);
@@ -133,7 +130,7 @@ public class LocalSaveUtil {
         return 0 ;
     }
 
-    public static int getLeftTime(){
+    public static synchronized int getLeftTime(){
         int leftTime = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"timeNum"}, null, null, null, null, null, null);
@@ -149,7 +146,7 @@ public class LocalSaveUtil {
         return 0;
     }
 
-    public static void setLeftTime(int leftTime){
+    public static synchronized void setLeftTime(int leftTime){
         if (leftTime <0){
             return;
         }
@@ -160,7 +157,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static void setIsGiveThreeDay(boolean isGive){
+    public static synchronized void setIsGiveThreeDay(boolean isGive){
         if (isGive){
             ContentValues values = new ContentValues();
             values.put("isGiveThreeDay", 1);
@@ -176,7 +173,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static boolean getIsGiveThreeDay(){
+    public static synchronized boolean getIsGiveThreeDay(){
         int leftTime = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"isGiveThreeDay"}, null, null, null, null, null, null);

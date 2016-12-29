@@ -96,4 +96,6 @@
     <string name="forever"> 永久使用</string>
     <string name="shareForDays">亲,没有天数了,赶快去分享获得天数吧!</string>
 
+    <drawable name="clr_normal">#ff6501</drawable>
+    <drawable name="clr_pressed">#a44100</drawable>
 </resources>

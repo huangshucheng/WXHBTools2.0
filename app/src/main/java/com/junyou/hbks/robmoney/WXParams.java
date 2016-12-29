@@ -13,6 +13,7 @@ public class WXParams {
     public static final String KEY_GETREDPACKET = "领取红包";
     public static final String KEY_WECHATREDPACKET = "[微信红包]";
     public static final String KEY_RETURN_DESC = "返回";
+    public static final String TEXT_SHOUMANLE = "手慢了，红包派完了";
 
     public static final String KEY_BACK_BUTTON = "com.tencent.mm:id/gq";
 

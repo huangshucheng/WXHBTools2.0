@@ -25,29 +25,23 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
-import com.junyou.hbks.service.RobAccessibilityService;
+import com.junyou.hbks.utils.BtnBlinkUtil;
 import com.junyou.hbks.utils.LocalSaveUtil;
 import com.junyou.hbks.utils.LogUtil;
 import com.junyou.hbks.utils.SaveCountUtil;
 import com.junyou.hbks.utils.ShareHelper;
-import com.junyou.hbks.utils.SignInUtil;
 import com.junyou.hbks.utils.TimeManager;
-import com.junyou.hbks.utils.TimeUtils;
 import com.junyou.hbks.utils.UmengUtil;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WXPayUtil;
@@ -58,11 +52,9 @@ import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import com.junyou.hbks.wxapi.WXUtil;
 
 public class MainActivity extends AppCompatActivity implements AccessibilityManager.AccessibilityStateChangeListener
@@ -71,39 +63,18 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     SharedPreferences sharedPreferences;
     RelativeLayout mainLayoutHeader;
     private static MainActivity instance;
-    private ServiceStateBroadcast serviceStateBroadcast = null;
+    private ServiceStateBroadcast serviceStateBroadcast;
     private NotificationManager mNotificationManager;
 
-    private static final String DATE_MARK = "date_mark";                //日期记录
-    private static final String FIRST_DATE_MARK = "first_date_mark";    //第一次进来的时间，只保存一次
-    private static final int BORN_DAYS = 2;                             //初始天数
-
-    private Switch openWechat_switch;
-    private Switch openQQ_switch;
-
-    //左上角两个个按钮
     private ImageButton setting_imagebtn;
     private ImageButton help_imagebtn;
-    private Button signed_btn;  //签到按钮
     private ImageButton open_fuzhubtn;
-
-    private RelativeLayout shouldOpenServer_layout;
-
     private ImageView top_image;
-    private RelativeLayout mUnder_clock;
 
-    private TextView wechat_auto_text;
-    private TextView qq_auto_text;
-
-    //红包个数 金额标签
-    public TextView num_redpkt;
-    public TextView num_money;
-
-    //跑马灯文本
-    private TextView marquee_text;
-
-    //剩余天数
-    public TextView left_days_text;
+    private TextView num_redpkt;//红包个数
+    private TextView num_money;//红包金额
+    private TextView marquee_text;//跑马灯文本
+    private TextView left_days_text;//剩余天数
     //弹窗
     private Dialog dialog_openSvs;
     private Dialog dialog_openShare;
@@ -111,23 +82,16 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     private Dialog dialog_tryDays;
     private Dialog dialog_open_vip;
 
-    //广播消息
-    private Intent bor_intent;
-
-    //sdk 相关
-    private IWXAPI wxAPI;
-
+    private Intent bor_intent;//广播消息
+    private IWXAPI wxAPI;//sdk 相关
     //帧动画
     private AnimationDrawable animDrawable = null;
-
     private static boolean setting_flags = true;
-
     private static final int NOTIFY_ID = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-//        Log.i("TAG", "onCreate<<<<<<");
         setContentView(R.layout.activity_main);
         instance = this;
         regToWx();      //注册微信id
@@ -148,27 +112,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         filter.addAction(RobApp.ACTION_ACCESSIBILITY_SERVICE_DISCONNECT);
         registerReceiver(this.serviceStateBroadcast, filter);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mainLayoutHeader = (RelativeLayout) findViewById(R.id.layout_header);
-        /*
-        SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedP.edit();
-        editor.putBoolean(Constants.IS_ALLLIFEUSE,true);    //终身使用
-        editor.apply();
-       */
-        //-----------------------new items--------------------------//
-        //开关
-//        openWechat_switch = (Switch) findViewById(R.id.open_wechat_switch);
-//        if (openWechat_switch != null){
-//            openWechat_switch.setOnCheckedChangeListener(wechat_swtich_listener);
-//        }
-//        openQQ_switch = (Switch) findViewById(R.id.open_qq_switch);
-//        if (openQQ_switch != null){
-//            openQQ_switch.setOnCheckedChangeListener(qq_switch_listener);
-//        }
-
-//        wechat_auto_text = (TextView)findViewById(R.id.wechat_auto);
-//        qq_auto_text = (TextView) findViewById(R.id.qq_auto);
-
         //设置和帮助按钮
         setting_imagebtn = (ImageButton) findViewById(R.id.imageButton_setting);
         if (setting_imagebtn != null){
@@ -179,20 +124,13 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             help_imagebtn.setOnClickListener(onClickHelp);
         }
         open_fuzhubtn = (ImageButton) findViewById(R.id.open_fuzhu_btn);
-//        signed_btn = (Button) findViewById(R.id.signedIn_btn);
         //顶部图片
         top_image = (ImageView) findViewById(R.id.top_img_show);
-        mUnder_clock = (RelativeLayout) findViewById(R.id.under_clock);
         //红包个数标签 金额标签
         num_redpkt = (TextView) findViewById(R.id.packt_num_text);
         num_money = (TextView) findViewById(R.id.money_num_text);
-
         //剩余天数标签
         left_days_text = (TextView) findViewById(R.id.left_days_text);
-
-        //布局获取
-//        shouldOpenServer_layout = (RelativeLayout) findViewById(R.id.should_openServer);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //跑马灯文本
         marquee_text = (TextView) findViewById(R.id.marquee_text);
         //广播
@@ -201,19 +139,12 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         LocalSaveUtil.init(this);
         updateServiceStatus();
         showDatas();
-//        refrishMarqueeText();
         showDialog();
-        //showLeftDays();
-//        showSwitchStatus();
-//      openNotifocation();
         TimeManager.init(this);
         newShowLeftDays();
         initTime();
         new TimeThread().start();
         showSettingDialog();
-        SignInUtil.init(this);
-//        Log.i("TAG", "onCreate: <<<<<<<<<<<<<<<<<<<<<" + SignInUtil.getCurTime());
-//        setSignedBtn();
 }
 
     private class ServiceStateBroadcast extends BroadcastReceiver {
@@ -238,10 +169,10 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         public void run() {
             do {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(60000);//一分钟检测一侧
                     Message msg = new Message();
-                    msg.what = 1;  //消息(一个整型值)
-                    mHandler.sendMessage(msg);// 每隔1秒发送一个msg给mHandler
+                    msg.what = 1;
+                    mHandler.sendMessage(msg);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -264,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                         int totalTime = TimeManager.getLeftTime();
                         int useTime = TimeManager.getDiffTime();
                         int leftTime = totalTime - useTime;
-//                    Log.i("TAG","总时间:" + totalTime + "  使用时间:" + useTime + "  剩余时间:" + TimeManager.minutesToDays(leftTime));
+//                    LogUtil.i("TAG","总时间:" + totalTime + "  使用时间:" + useTime + "  剩余时间:" + TimeManager.minutesToDays(leftTime));
                         setCurTime("" + TimeManager.minutesToDays(leftTime)); //更新时间
                         if (TimeManager.isTimeout()){
                             //没有时间了
@@ -284,8 +215,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 
     private void showSettingDialog(){
         if(!isServiceEnabled()){
-            if (null != dialog_openSvs)
-            {
+            if (null != dialog_openSvs) {
                 dialog_openSvs.show();
             }
         }
@@ -307,11 +237,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                 //没有时间了
                 setCurTime( "时间用完");
             }
-    }
-
-    private CharSequence getSystemTime() {
-        long sysTime = System.currentTimeMillis();
-        return  DateFormat.format("yyyy-MM-dd HH:mm:ss",sysTime);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -340,83 +265,15 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //updateServiceStatus();
-        //showLeftDays();
-//        Log.i("TAG", "onStart<<<<<<");
-    }
-
     //注册微信id
-    private void regToWx()
-    {
+    private void regToWx() {
         wxAPI = WXAPIFactory.createWXAPI(this,Constants.APP_ID,true);
         wxAPI.registerApp(Constants.APP_ID);
     }
 
-    private void showSwitchStatus()
-    {
-        SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
-        boolean wechat_data = sharedP.getBoolean("wechat_switch",true);
-        boolean qq_data = sharedP.getBoolean("qq_switch",true);
-
-        if (wechat_data) {
-//            Log.i("TAG", "微信开");
-            try {
-                openWechat_switch.setChecked(true);
-                wechat_auto_text.setText("自动抢   开启");
-                wechat_auto_text.setTextColor(getResources().getColor(R.color.colortextyellow));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }else {
-            try {
-                openWechat_switch.setChecked(false);
-                wechat_auto_text.setText("自动抢   关闭");
-                wechat_auto_text.setTextColor(getResources().getColor(R.color.colortextblue));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-//            Log.i("TAG", "微信关");
-        }
-
-        if (qq_data){
-            try {
-                openQQ_switch.setChecked(true);
-                qq_auto_text.setText("自动抢   开启");
-                qq_auto_text.setTextColor(getResources().getColor(R.color.colortextyellow));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-//            Log.i("TAG", "QQ开");
-        }else{
-            try {
-                openQQ_switch.setChecked(false);
-                qq_auto_text.setText("自动抢   关闭");
-                qq_auto_text.setTextColor(getResources().getColor(R.color.colortextblue));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-//            Log.i("TAG", "QQ关");
-        }
-    }
-
-    private void refrishMarqueeText()
-    {
+    private void refrishMarqueeText() {
         final String []marquee_lists = {
                 getResources().getString(R.string.marquee_word_1),
-//                getResources().getString(R.string.marquee_word_2),
-//                getResources().getString(R.string.marquee_word_3),
-//                getResources().getString(R.string.marquee_word_4),
-//                getResources().getString(R.string.marquee_word_5),
-//                getResources().getString(R.string.marquee_word_6),
-//                getResources().getString(R.string.marquee_word_7),
-//                getResources().getString(R.string.marquee_word_8),
-//                getResources().getString(R.string.marquee_word_9),
-//                getResources().getString(R.string.marquee_word_10),
-//                getResources().getString(R.string.marquee_word_11),
-//                getResources().getString(R.string.marquee_word_12)
         };
         //调度器
         Timer timer = new Timer();
@@ -445,8 +302,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         timer.schedule(task, 20000,20000);    //20秒之后执行，每20秒执行一次
     }
 
-    private void showDialog()
-    {
+    private void showDialog() {
         //打开设置弹窗
         View view_1 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_openservice, null);
         dialog_openSvs = new Dialog(this,R.style.common_dialog);
@@ -468,12 +324,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             dialog_receiveTime.setContentView(view_3);
             dialog_receiveTime.setCancelable(false);
         }
-        //dialog_receiveTime.show();
-
-        //刚启动 赠送天数弹窗
-//        SharedPreferences sharedP = getSharedPreferences("config",MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedP.edit();
-//        int days = getSharedPreferences("config",MODE_PRIVATE).getInt("showTryDaysDialog",-1);
 
         if (!LocalSaveUtil.getIsGiveThreeDay()){
             View view_4 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_trydays,null);
@@ -490,7 +340,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         if (dialog_open_vip != null){
             dialog_open_vip.setContentView(view_5);
             dialog_open_vip.setCancelable(false);
-//            dialog_open_vip.show();
         }
     }
 
@@ -498,8 +347,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     private void newShowLeftDays(){
 
         SharedPreferences sharedP = getSharedPreferences("config",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedP.edit();
-
         if (sharedP.getBoolean(Constants.IS_ALLLIFEUSE,false)){
             setCurTime(getResources().getString(R.string.forever));
             return;
@@ -525,8 +372,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    public void showDatas()
-    {
+    public void showDatas() {
 //        LogUtil.i("TAG", "初始总红包数量:"+ SaveCountUtil.getInitialize(this).getRPCount());
 //        LogUtil.i("TAG", "初始总资产:"+ SaveCountUtil.getInitialize(this).getMoneyCount());
         //显示数据
@@ -538,19 +384,16 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    public static MainActivity getInstance()
-    {
+    public static MainActivity getInstance() {
         if (instance != null){
             return instance;
         }
         return  null;
     }
 
-    private View.OnClickListener onClickSetting = new View.OnClickListener()
-    {
+    private View.OnClickListener onClickSetting = new View.OnClickListener() {
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
 //            Log.i("TAG","setting");
             try {
                 Intent settingAvt = new Intent(MainActivity.this,PersonalCenterActivity.class); //PersonalCenterActivity,SettingActivity
@@ -564,11 +407,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     };
 
-    private  View.OnClickListener onClickHelp = new View.OnClickListener()
-    {
+    private  View.OnClickListener onClickHelp = new View.OnClickListener() {
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             try {
                 Intent helpAvt = new Intent(MainActivity.this,helpActivity.class);
                 startActivity(helpAvt);
@@ -580,8 +421,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     };
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         //移除监听服务
         if (accessibilityManager != null){
@@ -590,11 +430,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         if (this.serviceStateBroadcast != null) {
             unregisterReceiver(this.serviceStateBroadcast);
         }
-//        LocalSaveUtil.closeDB();
     }
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         updateServiceStatus();
         showDatas();
@@ -602,8 +440,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         newShowLeftDays();
         MobclickAgent.onPageStart("MainActivity");  //统计页面
         MobclickAgent.onResume(this);
-        setWechatOrQQ();
-//        LogUtil.i("TAG", "OnResume<<<<<<");
     }
 
     @Override
@@ -614,30 +450,12 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 //        moveTaskToBack(true);
     }
 
-    private void setWechatOrQQ(){
-        if (sharedPreferences!= null){
-            boolean wechat_grasp =  sharedPreferences.getBoolean("pref_weixin_grasp",true);
-            boolean qq_grasp = sharedPreferences.getBoolean("pref_qq_grasp",true);
-
-            if (bor_intent != null){
-                bor_intent.putExtra("wechat_broadcast", wechat_grasp);
-                sendBroadcast(bor_intent);
-            }
-
-            if (bor_intent != null){
-                bor_intent.putExtra("qq_broadcast", qq_grasp);
-                sendBroadcast(bor_intent);
-            }
-        }
-    }
-
     @Override
-    protected void onRestart() {
+    protected void onRestart(){
         super.onRestart();
        //updateServiceStatus();
        // showLeftDays();
         newShowLeftDays();
-//        Log.i("TAG", "onRestart<<<<<<");
     }
 
     @Override
@@ -648,13 +466,11 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     }
 
     @Override
-    public void onAccessibilityStateChanged(boolean enabled)
-    {
+    public void onAccessibilityStateChanged(boolean enabled) {
         updateServiceStatus();
     }
 
-    private void updateServiceStatus()
-    {
+    private void updateServiceStatus() {
         if (isServiceEnabled()) {
             LogUtil.i("TAG","service is on");
             SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
@@ -673,9 +489,15 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
                     open_fuzhubtn.setImageResource(R.mipmap.button_start_nor);
                 }
             }
+            if (null != open_fuzhubtn){
+                BtnBlinkUtil.stopBlink(open_fuzhubtn);
+            }
         } else {
             LogUtil.i("TAG","service is off");
             setImagesOnOrOff(false);
+            if (null != open_fuzhubtn){
+                BtnBlinkUtil.startBlink(open_fuzhubtn);
+            }
         }
     }
 
@@ -705,77 +527,29 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    private View.OnClickListener myClickListener = new View.OnClickListener()
-    {
-        public void onClick(View v)
-        {
-            try
-            {
-//                Intent accessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-//                startActivity(accessibleIntent);
-            } catch (Exception e)
-            {
-                Toast.makeText(getApplicationContext(), "遇到一些问题,请手动打开系统设置>辅助服务>微信红包助手", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
+    private boolean isServiceEnabled() {
+        if (accessibilityManager != null){
+            List<AccessibilityServiceInfo> accessibilityServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
+            for (AccessibilityServiceInfo info : accessibilityServices) {
+                if (info.getId().equals(getPackageName() + "/.service.RobAccessibilityService")) {
+                    return true;
+                }
             }
         }
-    };
-
-    private boolean isServiceEnabled()
-    {
-
-        List<AccessibilityServiceInfo> accessibilityServices =
-                accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
-        for (AccessibilityServiceInfo info : accessibilityServices)
-        {
-            if (info.getId().equals(getPackageName() + "/.service.RobAccessibilityService"))
-            {
-//                Log.i("TAG", "服务开");
-                return true;
-            }
-        }
-//        Log.i("TAG", "服务关");
         return false;
 //        return RobAccessibilityService.isRunning();
     }
 
-    public void openSettings(View view)
-    {
+    public void openSettings(View view) {
         SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedP.edit();
-        if (!isServiceEnabled())
-        {
+        if (!isServiceEnabled()) {
             if (null != dialog_openSvs) {
                 dialog_openSvs.show();
             }
             UmengUtil.YMclk_fuzhu(MainActivity.this);
-            //未开启服务 弹出提示，再进入设置
-            /*
-            new AlertDialog.Builder(this)
-                    .setTitle("提示")
-                    .setMessage("必须打开辅助功能->红包快手->开启服务，才能抢红包哦.")
-                    .setPositiveButton("去打开辅助功能", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            try
-                            {
-                                Log.i("TAG", "打开了设置");
-                                Intent accessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                                startActivity(accessibleIntent);
-                            } catch (Exception e)
-                            {
-                                Toast.makeText(getApplicationContext(), "遇到一些问题,请手动打开系统设置>辅助服务>微信红包助手", Toast.LENGTH_LONG).show();
-                                e.printStackTrace();
-                            }
-                        }
-                    })
-                    .setNegativeButton("取消",null)
-                    .show();
-*/
         }else{
-            //todo 已经打开了辅助  切换图片等逻辑
-            if (null !=sharedPreferences && sharedPreferences.getBoolean("pref_watch_notification",true))
-            {
+            if (null !=sharedPreferences && sharedPreferences.getBoolean("pref_watch_notification",true)) {
                 if (setting_flags){
                     //已经打开，点击关闭
                     if (top_image != null){
@@ -803,16 +577,14 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     }
 
     //右下角获取更多天数按钮
-    public void getMoreTime(View view)
-    {
+    public void getMoreTime(View view) {
 //        Log.i("TAG", "点我获取天数哦");
         if (null != dialog_openShare)
             dialog_openShare.show();
         UmengUtil.YMclk_share(this);
 }
 
-    public void superVipClick(View view)
-    {
+    public void superVipClick(View view) {
 //        Log.i("TAG", "点击弹出超级VIP弹窗");
         try {
             Intent settingAvt = new Intent(this,VipActivity.class);
@@ -823,48 +595,37 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    public void openServiceClick(View view)
-    {
-//        Log.i("TAG", "点击打开系统设置");
-        try
-        {
+    public void openServiceClick(View view) {
+        try {
             Intent accessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
             if(null != accessibleIntent){
                 startActivity(accessibleIntent);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "遇到一些问题,请手动打开系统设置>辅助服务>微信红包助手", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-        if (null != dialog_openSvs)
-        {
+        if (null != dialog_openSvs) {
             dialog_openSvs.dismiss();
         }
     }
 
-    public void closeOpenServiceClick(View view)
-    {
+    public void closeOpenServiceClick(View view) {
 //        Log.i("TAG", "点击关闭系统设置提示");
-        if (null != dialog_openSvs)
-        {
+        if (null != dialog_openSvs) {
             dialog_openSvs.dismiss();
         }
     }
 
-    public void closeOpenShare(View view)
-    {
-        if (null != dialog_openShare)
-        {
+    public void closeOpenShare(View view) {
+        if (null != dialog_openShare) {
             dialog_openShare.dismiss();
         }
     }
 
-    public void sharePengYouQuanClick(View view)
-    {
+    public void sharePengYouQuanClick(View view) {
 //        Log.i("TAG", "点击分享到朋友圈");
-        if (null != dialog_openShare)
-        {
+        if (null != dialog_openShare) {
             dialog_openShare.dismiss();
             UmengUtil.YMclk_share_wctp(MainActivity.this);
         }
@@ -915,11 +676,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    public void shareWeiXinClick(View view)
-    {
+    public void shareWeiXinClick(View view) {
 //        Log.i("TAG", "点击分享给微信朋友");
-        if (null != dialog_openShare)
-        {
+        if (null != dialog_openShare) {
             dialog_openShare.dismiss();
             UmengUtil.YMclk_share_wct(MainActivity.this);
         }
@@ -978,11 +737,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    public void shareQQClick(View view)
-    {
+    public void shareQQClick(View view) {
 //        Log.i("TAG", "点击分享给QQ好友");
-        if (null != dialog_openShare)
-        {
+        if (null != dialog_openShare) {
             dialog_openShare.dismiss();
         }
           final String PackageName = "com.tencent.mobileqq";
@@ -998,19 +755,15 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
          }else {
              Toast.makeText(getApplicationContext(), "您没有安装手机QQ", Toast.LENGTH_SHORT).show();
          }
-        //todo  分享到qq空间
     }
 
-    public void shareWeiboClick(View view)
-    {
+    public void shareWeiboClick(View view) {
 //        Log.i("TAG", "点击分享到微博");
-        if (null != dialog_openShare)
-        {
+        if (null != dialog_openShare) {
             dialog_openShare.dismiss();
         }
 
-        if (isSinaWiBoAvilible(this))
-        {
+        if (isSinaWiBoAvilible(this)) {
             //分享文字
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
@@ -1037,16 +790,13 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    private boolean isSinaWiBoAvilible(Context context)
-    {
+    private boolean isSinaWiBoAvilible(Context context) {
         final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
         if (pinfo != null) {
-            for (int i = 0; i < pinfo.size(); i++)
-            {
+            for (int i = 0; i < pinfo.size(); i++) {
                 String pn = pinfo.get(i).packageName;
-                if (pn.equals("com.sina.weibo"))
-                {
+                if (pn.equals("com.sina.weibo")) {
                     return true;
                 }
             }
@@ -1054,24 +804,21 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         return false;
     }
 
-    public void closeReceiveTime(View view)
-    {
+    public void closeReceiveTime(View view) {
 //        Log.i("TAG", "关闭收到天数啦");
         if (dialog_receiveTime != null){
             dialog_receiveTime.dismiss();
         }
     }
 
-    public void receive_confirm_click(View view)
-    {
+    public void receive_confirm_click(View view) {
 //        Log.i("TAG", "确定收到天数");
         if (dialog_receiveTime != null){
             dialog_receiveTime.dismiss();
         }
     }
 
-    public void receive_getmore_click(View view)
-    {
+    public void receive_getmore_click(View view) {
 //        Log.i("TAG", "成为超级VIP");
 //        if (dialog_receiveTime != null){
 //            dialog_receiveTime.dismiss();
@@ -1112,8 +859,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    public void super_vip_click(View view)
-    {
+    public void super_vip_click(View view) {
 //        if (dialog_open_vip != null){
 //            dialog_open_vip.dismiss();
 //        }
@@ -1142,51 +888,9 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
 //        Log.i("TAG", "点击获取超级VIP");
     }
 
-    public void closeOpenSuperVip(View view)
-    {
+    public void closeOpenSuperVip(View view) {
         if (dialog_open_vip != null){
             dialog_open_vip.dismiss();
-        }
-    }
-
-    private void setSignedBtn(){
-//        if (null != signed_btn){
-//            signed_btn.setVisibility(View.INVISIBLE);
-//        }
-
-        if(SignInUtil.isNewDay()){
-            if(!SignInUtil.getSignedToday()) {
-                if (null != signed_btn){
-                    signed_btn.setText("点击签到");
-//                    Log.i("TAG","没有签到、");
-                }
-            }
-        }else{
-            if (null != signed_btn){
-                signed_btn.setText("已经签到");
-//                Log.i("TAG","签到了、");
-            }
-        }
-    }
-
-    public void signedInClick(View view){
-        if(SignInUtil.isNewDay()){
-            //Log.i("TAG","is new day......");
-            if(!SignInUtil.getSignedToday()){
-                SignInUtil.setSignedToday(true);
-                SignInUtil.setFirstTime(SignInUtil.getCurTime());
-                SignInUtil.addSignedCont();
-//                Log.i("TAG","没有签到......签到" + SignInUtil.getSignedCount() + "天");
-                TimeManager.addToLeftTime(60);      //签到获取一小时
-                if (null != signed_btn){
-                    signed_btn.setText("已经签到");
-                }
-            }else{
-//                Log.i("TAG","已经签到......");
-            }
-        }else{
-            LogUtil.i("TAG","not new day......");
-            Toast.makeText(getApplicationContext(), "今日已经签到!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1204,8 +908,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
     }
 
-    //------------------------------------------------------------------------------//
-
     private void startBgAnimation(){
         if (top_image != null){
             top_image.setImageResource(R.drawable.animation_bg);
@@ -1213,7 +915,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             if (animDrawable != null){
                 if (!animDrawable.isRunning()){
                     animDrawable.start();
-                    LogUtil.i("TAG","play animation...");
+//                    LogUtil.i("TAG","play animation...");
                 }
             }
         }
@@ -1222,17 +924,15 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     private void stopBgAnimation(){
         if (top_image != null){
 //            top_image.setImageResource(R.drawable.animation_bg);
-            //todo 创建一个关闭的图
             top_image.setImageResource(R.drawable.animation_bg);
             animDrawable = (AnimationDrawable) top_image.getDrawable();
             if (animDrawable != null){
                 if (animDrawable.isRunning()){
                     animDrawable.stop();
-                    LogUtil.i("TAG","stop animation...");
+//                    LogUtil.i("TAG","stop animation...");
                 }
                 top_image.setImageResource(R.mipmap.home_bg_radpacket_default_off);
             }
         }
     }
-
 }

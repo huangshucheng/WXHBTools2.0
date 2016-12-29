@@ -4,7 +4,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".UI.VipActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+    android:background="#f1eceb">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -55,13 +56,13 @@
     <!--xmlns:tools="http://schemas.android.com/tools"-->
     <com.junyou.hbks.UI.view.HBKS_ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".UI.VipActivity"
         android:layout_below="@+id/vipbar"
         android:background="@android:color/transparent">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="420dp"
+            android:layout_height="match_parent"
             android:id="@+id/vip_bottom_layout"
             android:background="#f1eceb"
             android:layout_below="@+id/vipbar">
@@ -295,46 +296,47 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/mainavt_layout_3"
                 >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/icon_weixinzhifu"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="20dp"
-                    android:id="@+id/icon_weixinzhifu"
-                    android:layout_marginBottom="1dp"
-                    android:layout_centerVertical="true"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="微信支付"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toRightOf="@id/icon_weixinzhifu"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="13sp"
-                    android:id="@+id/text_weixinzhifu"
-                    android:textColor="#161616"/>
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:src="@mipmap/icon_weixinzhifu"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:id="@+id/icon_weixinzhifu"-->
+                    <!--android:layout_marginBottom="1dp"-->
+                    <!--android:layout_centerVertical="true"/>-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="微信支付"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_toRightOf="@id/icon_weixinzhifu"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:textSize="13sp"-->
+                    <!--android:id="@+id/text_weixinzhifu"-->
+                    <!--android:textColor="#161616"/>-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="现在只支持微信,支付宝在赶来的路上(*^__^*)"
                     android:layout_alignParentBottom="true"
-                    android:layout_toRightOf="@+id/text_weixinzhifu"
                     android:textSize="13sp"
                     android:layout_marginLeft="5dp"
                     android:textColor="#161616"
                     android:alpha="0.6"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/mainavt_layout_4"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="#f1eceb"
                 android:layout_marginTop="35dp"
-                android:layout_below="@+id/mainavt_layout_3">
+                android:layout_below="@+id/mainavt_layout_3"
+                android:layout_centerHorizontal="true">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

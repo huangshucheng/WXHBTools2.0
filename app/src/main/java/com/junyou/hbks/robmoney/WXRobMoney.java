@@ -106,6 +106,15 @@ public class WXRobMoney extends BaseRobMoney{
                 LogUtil.i("找到打开按钮。。");
                 //找到打开按钮，红包没有被抢完
                 this.ClickOpenPacketButton();
+                //如果开慢了，就关了
+//                AccessibilityNodeInfo nodeInfo = findNoMoney();
+//                if (null != nodeInfo){
+//                    LogUtil.i("找到手慢了《《《《《");
+//                    this.backAndGotoDesktop();
+//                    isReceivingHongbao = false;
+//                }else{
+//                    LogUtil.i("没找到手慢了《《《《《");
+//                }
             }else{
                 LogUtil.i("没找到打开按钮。。。红包被抢完");
                 //没有找到打开按钮，红包已经被抢完
@@ -113,6 +122,7 @@ public class WXRobMoney extends BaseRobMoney{
                 this.backAndGotoDesktop();
                 isReceivingHongbao = false;
             }
+
         }else if(WXParams.UI_LUCKY_MONEY_DETAIL.equals(className)){
             this.mCurrentWindow = WXParams.WINDOW_LUCKYMONEY_DETAIL;
             //在红包详情界面
@@ -134,12 +144,40 @@ public class WXRobMoney extends BaseRobMoney{
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private AccessibilityNodeInfo findNoMoney(){
+        AccessibilityNodeInfo rootNode = getService().getRootInActiveWindow();
+        if (rootNode == null){
+            return null;
+        }
+        AccessibilityNodeInfo result = null;
+        result = AccessibilityUtil.findNodeInfosById(rootNode,"com.tencent.mm:id/bdg");
+        if (result != null){
+            if (WXParams.CLASS_NAME_TEXTVIEW.equals(result.getClassName())) {
+                if (!"".equals(result.getText())){
+                    if (result.getText().toString().contains(WXParams.TEXT_SHOUMANLE))
+                        LogUtil.i(":::" + result.getText());
+                        return  result;
+                }
+            }
+        }else{
+            result = AccessibilityUtil.findNodeInfosByText(rootNode,WXParams.TEXT_SHOUMANLE);
+            if (result != null ) {
+                if (WXParams.CLASS_NAME_TEXTVIEW.equals(result.getClassName())) {
+                    LogUtil.i("<<<" + result.getText());
+                    return  result;
+                }
+            }
+        }
+        return result;
+    }
+
     private void backAndGotoDesktop(){
         getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 AccessibilityUtil.performBack(getService());
-//                AccessibilityUtil.performHome(getService());
+                AccessibilityUtil.performHome(getService());
 //              AccessibilityUtil.gotoDeskTop(getService());
                 if (LockScreenUtil.isUnlocking()){
                     LockScreenUtil.getInitialize(getService().getApplicationContext()).LockScreen();

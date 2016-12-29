@@ -29,7 +29,6 @@ import com.umeng.analytics.MobclickAgent;
 public class PersonalCenterActivity extends AppCompatActivity {
 
     private static PersonalCenterActivity instance;
-
     private TextView coins_number; //金币数
     private TextView integral_number; //积分数
     private TextView user_type; //用户类型
@@ -48,12 +47,6 @@ public class PersonalCenterActivity extends AppCompatActivity {
         user_type = (TextView) findViewById(R.id.user_type);
         time_text = (TextView) findViewById(R.id.time_text);
         mUserid_text = (TextView) findViewById(R.id.user_id);
-//        if (coins_number != null){
-//            coins_number.setText("" + LocalSaveUtil.getCoinNum());
-//        }
-//        if (integral_number != null){
-//            integral_number.setText("" + LocalSaveUtil.getPointNum());
-//        }
         initTime();
         new TimeThread().start();
     }
@@ -79,31 +72,31 @@ public class PersonalCenterActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.personal_center_bar);
         textView.setText(title);
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         if ("GeneralSettingsFragment".equals(fragId)) {
             fragmentTransaction.replace(R.id.preferences_fragment, new PersonalFragment());
         }
-//        fragmentTransaction.commit(); //  fixed 会出错
         fragmentTransaction.commitAllowingStateLoss();
     }
+
     class TimeThread extends Thread {
         @Override
         public void run() {
             do {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(60000);
                     Message msg = new Message();
-                    msg.what = 1;  //消息(一个整型值)
-                    mHandler.sendMessage(msg);// 每隔1秒发送一个msg给mHandler
+                    msg.what = 1;
+                    mHandler.sendMessage(msg);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             } while (true);
         }
     }
+
     //在主线程里面处理消息并更新UI界面
     private Handler mHandler = new Handler(){
         @Override
@@ -149,6 +142,7 @@ public class PersonalCenterActivity extends AppCompatActivity {
             setCurTime( "时间用完");
         }
     }
+
     private void setCurTime(CharSequence curtime) {
         if (null != time_text){
             time_text.setText(curtime);

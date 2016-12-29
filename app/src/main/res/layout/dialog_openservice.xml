@@ -21,6 +21,14 @@
                 android:src="@mipmap/msg_pop_one"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true" />
+            <!--meizu-->
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/id_serivce_iamge"-->
+                <!--android:src="@mipmap/meizu_notice"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerVertical="true" />-->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,6 +45,8 @@
                 android:layout_marginTop="330dp"
                 android:onClick="openServiceClick"/>
         </RelativeLayout>
+        <!--meizu-->
+        <!--android:src="@mipmap/meizu_click_btn"-->
 
         <ImageView
             android:layout_width="wrap_content"
@@ -47,6 +57,4 @@
             android:layout_marginTop="25dp"
             android:layout_below="@+id/open_service_layout"/>
     </RelativeLayout>
-
-
 </RelativeLayout>
