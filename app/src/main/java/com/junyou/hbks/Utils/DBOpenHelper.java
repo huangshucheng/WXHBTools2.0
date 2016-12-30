@@ -24,7 +24,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i("TAG","create a database");
+        LogUtil.i("TAG","create a database");
 //        String sql = "create table user(id int,name varchar(20),coinNum int,pointNum int,timeNum int)";
         //String sql = "create table user(id int,coinNum int,pointNum int,timeNum int)";
         String sql = "create table user(id int,coinNum int,pointNum int,timeNum int,isGiveThreeDay int)";
@@ -33,7 +33,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.i("TAG","update a Database");
+        LogUtil.i("TAG","update a Database");
     }
 
     private static String getMyDatabaseName(Context context){
@@ -46,10 +46,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         String dbPath = null;
         if(isSdcardEnable){
             dbPath =Environment.getExternalStorageDirectory().getPath() +"/database/";
-            Log.i("TAG","hava sd Card:" + dbPath);
+            LogUtil.i("TAG","hava sd Card:" + dbPath);
         }else{//未插入SDCard，建在内存中
             dbPath =context.getFilesDir().getPath() + "/database/";
-            Log.i("TAG","no sd Card:" + dbPath);
+            LogUtil.i("TAG","no sd Card:" + dbPath);
         }
         File dbp = new File(dbPath);
         if(!dbp.exists()){

@@ -42,7 +42,7 @@
         <Preference
             android:key="pref_etc_limit"
             android:title="红包权限设置"
-            android:summary="在系统设置里打开或关闭红包快手"
+            android:summary="在系统设置里打开或关闭抢红包功能"
             android:layout="@layout/preference_checkboxarrow"/>
         <Preference
             android:key="pref_etc_about"

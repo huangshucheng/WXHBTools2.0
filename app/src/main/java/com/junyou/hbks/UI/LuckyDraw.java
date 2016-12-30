@@ -15,6 +15,7 @@ import com.junyou.hbks.utils.LocalSaveUtil;
 import com.junyou.hbks.luckydraw.AngleUtil;
 import com.junyou.hbks.luckydraw.LuckyDrawLayout;
 import com.junyou.hbks.luckydraw.RotatePlate;
+import com.junyou.hbks.utils.LogUtil;
 
 public class LuckyDraw extends AppCompatActivity implements RotatePlate.AnimationEndListener{
 
@@ -98,7 +99,7 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
         if (user_account_text != null){
             user_account_text.setText("账户: " + LocalSaveUtil.getAccount());
         }
-        Log.i("TAG","resume");
+        LogUtil.i("TAG","resume");
     }
 
 //    public void rotationClick(View view){
@@ -119,7 +120,7 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
     }
 
     public void convert_oneMonth(View view){
-        Log.i("TAG","one month");
+        LogUtil.i("TAG","one month");
         if (point_num_text != null){
             LocalSaveUtil.setPointNum(10 + LocalSaveUtil.getPointNum());
 
@@ -129,7 +130,7 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
     }
 
     public void convert_threeMonth(View view){
-        Log.i("TAG","three month");
+        LogUtil.i("TAG","three month");
         if (coint_num_text != null){
             LocalSaveUtil.setCoinNum(10 + LocalSaveUtil.getCoinNum());
 
@@ -140,6 +141,6 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
 
     public void convert_allLife(View view){
         int idNum = (int) ((Math.random() * 9 + 1) * 100000);
-        Log.i("TAG","all life"+ "id:" + idNum);
+        LogUtil.i("TAG","all life"+ "id:" + idNum);
     }
 }

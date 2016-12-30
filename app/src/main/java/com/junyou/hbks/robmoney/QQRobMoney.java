@@ -16,6 +16,7 @@ import com.junyou.hbks.utils.AccessibilityUtil;
 import com.junyou.hbks.utils.LockScreenUtil;
 import com.junyou.hbks.utils.LogUtil;
 import com.junyou.hbks.utils.SaveCountUtil;
+import com.junyou.hbks.utils.UmengUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -152,7 +153,6 @@ public class QQRobMoney extends BaseRobMoney{
         return null;
     }
 
-
     //找返回按钮
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private AccessibilityNodeInfo findBackButton(){
@@ -210,6 +210,7 @@ public class QQRobMoney extends BaseRobMoney{
         if (null != countUtil){
             //红包数量
             countUtil.setRPCount(countUtil.getRPCount() + 1);
+            UmengUtil.YMgrasp_num(getService().getApplicationContext());
             //钱数量
             String saveMn = countUtil.getMoneyCount();
             if (!"".equals(saveMn)){
@@ -218,6 +219,7 @@ public class QQRobMoney extends BaseRobMoney{
                     BigDecimal b2 = new BigDecimal(moneyCount);
                     String b3 = b1.add(b2).toString();
                     countUtil.setMoneyCount(b3);
+                    UmengUtil.YMGrasb_money(getService().getApplicationContext(),"" + countUtil.getRPCount());
                     LogUtil.i("QQ保存后红包数：" + countUtil.getRPCount() + "钱数：" + countUtil.getMoneyCount());
                 }catch (Exception e){
                     e.printStackTrace();

@@ -133,16 +133,23 @@ public class RobAccessibilityService extends AccessibilityService {
         }
     }
 
+    @Override
+    protected boolean onGesture(int gestureId) {
+        LogUtil.i("手势id:" + gestureId);
+        return super.onGesture(gestureId);
+    }
+
     //服务中断
     @Override
     public void onInterrupt() {
-        LogUtil.i("service onInterrupt");
+//        LogUtil.i("service onInterrupt");
+        super.sendBroadcast(new Intent(RobApp.ACTION_ACCESSIBILITY_SERVICE_DISCONNECT));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LogUtil.i("service onDestroy");
+//        LogUtil.i("service onDestroy");
         stopForeground(true);
         mInstanceService = null;
         super.sendBroadcast(new Intent(RobApp.ACTION_ACCESSIBILITY_SERVICE_DISCONNECT));
@@ -151,7 +158,7 @@ public class RobAccessibilityService extends AccessibilityService {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onServiceConnected() {
-        LogUtil.i("service onServiceConnected");
+//        LogUtil.i("service onServiceConnected");
         super.onServiceConnected();
         super.sendBroadcast(new Intent(RobApp.ACTION_ACCESSIBILITY_SERVICE_CONNECT));
         mInstanceService = this;
@@ -199,44 +206,35 @@ public class RobAccessibilityService extends AccessibilityService {
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void openNotifocation()
     {
-        /*  已经弃用
-        //创建到一个Notification对象，设置通知栏上面的图标，时间
-        Notification notification = new Notification(R.mipmap.ic_launcher,"红包快手",System.currentTimeMillis());
-        //设置当点击通知时会跳转到哪个界面
-        Intent intent = new Intent(this,MainActivity.class);
-        PendingIntent pendingIntent=PendingIntent.getActivity(this, 0, intent, 0);
-        //设置通知栏上面的标题，内容等信息
-        notification.setLatestEventInfo(this, "hbtools","hongbaokuaishou",pendingIntent);
-        //开启前台服务，第一个参数一般有两种选择FLAG_ONGOING_EVENT表示正在运行，这种类型的通知是无法清除掉的
-        //另外一种是FLAG_AUTO_CANCEL，这个标志表明点击了这个通知之后，就自行的从通知栏上清除掉。
-        startForeground(Notification.FLAG_ONGOING_EVENT, notification);
-        */
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//      NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Notification.Builder builder = new Notification.Builder(this);
-        PendingIntent contentIndent = PendingIntent.getActivity(this, 0, new Intent(this,MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(this,MainActivity.class);
+        PendingIntent contentIndent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         builder.setContentIntent(contentIndent)
                 .setSmallIcon(R.mipmap.notify_icon)//设置状态栏里面的图标（小图标）
                 .setWhen(System.currentTimeMillis())//设置时间发生时间
+                .setPriority(Notification.PRIORITY_HIGH)
                 .setAutoCancel(true)//设置可以清除
+                .setOngoing(true)
                 .setContentTitle("红包快手")//设置下拉列表里的标题
                 .setContentText("亲,红包快手已经开启啦!");//设置上下文内容
-        //        notificationManager.notify(1,notification);
         try{
-            Notification notification = builder.getNotification();
-//            Notification notification = builder.build();
+            Notification notification = builder.build();
             startForeground(Notification.FLAG_ONGOING_EVENT, notification);
         }catch (Exception e){
             e.printStackTrace();
         }
 
         /*
-        *关于Notification的Flags
-notification.flags = Notification.FLAG_NO_CLEAR; // 点击清除按钮时就会清除消息通知,但是点击通知栏的通知时不会消失
-notification.flags = Notification.FLAG_ONGOING_EVENT; // 点击清除按钮不会清除消息通知,可以用来表示在正在运行
-notification.flags |= Notification.FLAG_AUTO_CANCEL搜索; // 点击清除按钮或点击通知后会自动消失
-notification.flags |= Notification.FLAG_INSISTENT; // 一直进行，比如音乐一直播放，知道用户响应
-        * */
+        关于Notification的Flags
+        notification.flags = Notification.FLAG_NO_CLEAR; // 点击清除按钮时就会清除消息通知,但是点击通知栏的通知时不会消失
+        notification.flags = Notification.FLAG_ONGOING_EVENT; // 点击清除按钮不会清除消息通知,可以用来表示在正在运行
+        notification.flags |= Notification.FLAG_AUTO_CANCEL搜索; // 点击清除按钮或点击通知后会自动消失
+        notification.flags |= Notification.FLAG_INSISTENT; // 一直进行，比如音乐一直播放，知道用户响应
+        */
     }
 }

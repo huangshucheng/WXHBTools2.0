@@ -163,18 +163,15 @@ public class UmengUtil {
         MobclickAgent.onEvent(context,list,1,"click_share");
     }
     //抢红包次数
-    public static void YMgrasp_num(Context context)
-    {
+    public static void YMgrasp_num(Context context) {
         MobclickAgent.onEvent(context,"grasp_num");
     }
     //计费请求次数
-    public static void YMpurchase_num(Context context)
-    {
+    public static void YMpurchase_num(Context context) {
         MobclickAgent.onEvent(context,"purchase_num");
     }
     //收到的钱
-    public static void YMmoney_count(Context context,int payid)
-    {
+    public static void YMmoney_count(Context context,int payid) {
         int payType  = 0; //付费类型
         Map<String, String> map_value = new HashMap<String, String>();
         switch (payid){
@@ -198,8 +195,7 @@ public class UmengUtil {
     }
 
     //手机识别相关
-    public static void YMPhoneInfo(Context context)
-    {
+    public static void YMPhoneInfo(Context context) {
         TelephonyManager mTm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
         String phoneType = android.os.Build.MODEL;  //获得手机机型
@@ -220,7 +216,7 @@ public class UmengUtil {
 //        Log.i("TAG", "手机型号:"+ phoneType+" imei:"+ imei + " imsi:"+ imsi);
     }
     //带渠道号的钱
-    public static void YMMoney_count_bychannel(Context context,String channelIdStr,int moneyNum){
+    public static void YMMoney_count_bychannel(Context context,String channelIdStr,String moneyNum){
         final String []channel_lists = {
                 "000023", "000002", "000005",
                 "000007", "000009", "000116",
@@ -232,12 +228,83 @@ public class UmengUtil {
                 "000014"
         };
 
-        if (moneyNum <0 || "".equals(channelIdStr)){
+        if ("".equals(moneyNum) || "".equals(channelIdStr)){
                 return;
             }
 
+        for (int i = 0 ;i<channel_lists.length;i++){
+            if (channelIdStr.equals(channel_lists[i])){
+                Map<String, String> map_ekv = new HashMap<String, String>();
+                map_ekv.put(channelIdStr,"" + moneyNum);//渠道，钱
+                MobclickAgent.onEvent(context, "money_by_cnannel", map_ekv);
+//                LogUtil.i("length:" + channel_lists.length + "value:" + channel_lists[i]);
+            }
+        }
+    }
+    //抽奖得到的奖励
+    public static void YMDraw_result(Context context,int resultId){
+        if (resultId <0 || resultId >5){
+            return;
+        }
         Map<String, String> map_ekv = new HashMap<String, String>();
-        map_ekv.put(channelIdStr,"" + moneyNum);//渠道，钱
-        MobclickAgent.onEvent(context, "money_by_cnannel", map_ekv);
+        switch (resultId){
+            case 0:
+            {
+                //一小时
+                map_ekv.put("one_hour_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                MobclickAgent.onEvent(context, "draw_reward", map_ekv);
+            }
+            break;
+            case 1:
+            {
+                //谢谢惠顾
+                map_ekv.put("no_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                MobclickAgent.onEvent(context, "draw_reward", map_ekv);
+            }
+            break;
+            case 2:
+            {
+                //三小时
+                map_ekv.put("three_hour_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                MobclickAgent.onEvent(context, "draw_reward", map_ekv);
+            }
+            break;
+            case 3:
+            {
+                //一个月
+                map_ekv.put("one_month_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                MobclickAgent.onEvent(context, "draw_reward", map_ekv);
+            }
+            break;
+            case 4:
+            {
+                //三个月
+                map_ekv.put("three_month_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                MobclickAgent.onEvent(context, "draw_reward", map_ekv);
+            }
+            break;
+            case 5:
+            {
+                //终身
+                map_ekv.put("lifelong_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                MobclickAgent.onEvent(context, "draw_reward", map_ekv);
+            }
+            break;
+            default:
+                break;
+        }
+        map_ekv.clear();
+    }
+
+    //用户抽奖次数
+    public static void YMDraw_count(Context context){
+        MobclickAgent.onEvent(context,"draw_num");
+    }
+
+    //用户抢红包抢到的钱
+    public static void YMGrasb_money(Context context,String money){
+        Map<String, String> map_ekv = new HashMap<String, String>();
+        map_ekv.put("" +LocalSaveUtil.getAccount(),"" + money);//id，钱
+        MobclickAgent.onEvent(context, "grasp_money", map_ekv);
     }
 }

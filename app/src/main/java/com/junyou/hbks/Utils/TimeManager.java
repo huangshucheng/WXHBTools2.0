@@ -216,16 +216,16 @@ public class TimeManager {
         String firstTime = getFirstTimeDraw();
         String curTime = getCurTimeDraw();
 
-        Log.i("TAG","draw firstTime: " + firstTime + ",  curTime: " + curTime);
+        LogUtil.i("TAG","draw firstTime: " + firstTime + ",  curTime: " + curTime);
 
         if (!"".equals(firstTime) && !"".equals(curTime)){
             if (!firstTime.equals(curTime)){
-                Log.i("TAG","draw new day...");
+                LogUtil.i("TAG","draw new day...");
                 setFirstDraw(false);
                 return true;
             }
         }
-        Log.i("TAG","draw not new day...");
+        LogUtil.i("TAG","draw not new day...");
         return false;
     }
 

@@ -24,6 +24,9 @@ import junit.framework.Assert;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+
+import com.junyou.hbks.utils.LogUtil;
+
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.HttpStatus;
 import cz.msebera.android.httpclient.HttpVersion;
@@ -59,7 +62,7 @@ public class WeChatHttpClient {
         try {
             HttpResponse resp = httpClient.execute(httpGet);
             if (resp.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                Log.e(TAG, "httpGet fail, status code = "
+                LogUtil.e(TAG, "httpGet fail, status code = "
                         + resp.getStatusLine().getStatusCode());
                 return null;
             }
@@ -67,7 +70,7 @@ public class WeChatHttpClient {
             return EntityUtils.toByteArray(resp.getEntity());
 
         } catch (Exception e) {
-            Log.e(TAG, "httpGet exception, e = " + e.getMessage());
+            LogUtil.e(TAG, "httpGet exception, e = " + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -75,7 +78,7 @@ public class WeChatHttpClient {
 
     public static byte[] httpPost(String url, String entity) {
         if (url == null || url.length() == 0) {
-            Log.e(TAG, "httpPost, url is null");
+            LogUtil.e(TAG, "httpPost, url is null");
             return null;
         }
 
@@ -88,14 +91,14 @@ public class WeChatHttpClient {
 
             HttpResponse resp = httpClient.execute(httpPost);
             if (resp.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                Log.e(TAG, "httpGet fail, status code = "
+                LogUtil.e(TAG, "httpGet fail, status code = "
                         + resp.getStatusLine().getStatusCode());
                 return null;
             }
 
             return EntityUtils.toByteArray(resp.getEntity());
         } catch (Exception e) {
-            Log.e(TAG, "httpPost exception, e = " + e.getMessage());
+            LogUtil.e(TAG, "httpPost exception, e = " + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -179,7 +182,7 @@ public class WeChatHttpClient {
 
         File file = new File(fileName);
         if (!file.exists()) {
-            Log.i(TAG, "readFromFile: file not found");
+            LogUtil.i(TAG, "readFromFile: file not found");
             return null;
         }
 
@@ -187,19 +190,19 @@ public class WeChatHttpClient {
             len = (int) file.length();
         }
 
-        Log.d(TAG, "readFromFile : offset = " + offset + " len = " + len
+        LogUtil.i(TAG, "readFromFile : offset = " + offset + " len = " + len
                 + " offset + len = " + (offset + len));
 
         if (offset < 0) {
-            Log.e(TAG, "readFromFile invalid offset:" + offset);
+            LogUtil.e(TAG, "readFromFile invalid offset:" + offset);
             return null;
         }
         if (len <= 0) {
-            Log.e(TAG, "readFromFile invalid len:" + len);
+            LogUtil.e(TAG, "readFromFile invalid len:" + len);
             return null;
         }
         if (offset + len > (int) file.length()) {
-            Log.e(TAG, "readFromFile invalid file len:" + file.length());
+            LogUtil.e(TAG, "readFromFile invalid file len:" + file.length());
             return null;
         }
 
@@ -212,7 +215,7 @@ public class WeChatHttpClient {
             in.close();
 
         } catch (Exception e) {
-            Log.e(TAG, "readFromFile : errMsg = " + e.getMessage());
+            LogUtil.e(TAG, "readFromFile : errMsg = " + e.getMessage());
             e.printStackTrace();
         }
         return b;
@@ -235,11 +238,11 @@ public class WeChatHttpClient {
                 tmp = null;
             }
 
-            Log.d(TAG, "extractThumbNail: round=" + width + "x" + height
+            LogUtil.e(TAG, "extractThumbNail: round=" + width + "x" + height
                     + ", crop=" + crop);
             final double beY = options.outHeight * 1.0 / height;
             final double beX = options.outWidth * 1.0 / width;
-            Log.d(TAG, "extractThumbNail: extract beX = " + beX + ", beY = "
+            LogUtil.e(TAG, "extractThumbNail: extract beX = " + beX + ", beY = "
                     + beY);
             options.inSampleSize = (int) (crop ? (beY > beX ? beX : beY)
                     : (beY < beX ? beX : beY));
@@ -270,16 +273,16 @@ public class WeChatHttpClient {
 
             options.inJustDecodeBounds = false;
 
-            Log.i(TAG, "bitmap required size=" + newWidth + "x" + newHeight
+            LogUtil.i(TAG, "bitmap required size=" + newWidth + "x" + newHeight
                     + ", orig=" + options.outWidth + "x" + options.outHeight
                     + ", sample=" + options.inSampleSize);
             Bitmap bm = BitmapFactory.decodeFile(path, options);
             if (bm == null) {
-                Log.e(TAG, "bitmap decode failed");
+                LogUtil.e(TAG, "bitmap decode failed");
                 return null;
             }
 
-            Log.i(TAG,
+            LogUtil.i(TAG,
                     "bitmap decoded size=" + bm.getWidth() + "x"
                             + bm.getHeight());
             final Bitmap scale = Bitmap.createScaledBitmap(bm, newWidth,
@@ -299,14 +302,14 @@ public class WeChatHttpClient {
 
                 bm.recycle();
                 bm = cropped;
-                Log.i(TAG,
+                LogUtil.i(TAG,
                         "bitmap croped size=" + bm.getWidth() + "x"
                                 + bm.getHeight());
             }
             return bm;
 
         } catch (final OutOfMemoryError e) {
-            Log.e(TAG, "decode bitmap failed: " + e.getMessage());
+            LogUtil.e(TAG, "decode bitmap failed: " + e.getMessage());
             options = null;
         }
 

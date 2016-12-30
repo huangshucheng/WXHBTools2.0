@@ -18,8 +18,8 @@ android {
         applicationId "com.junyou.hbks"
         minSdkVersion 14
         targetSdkVersion 19
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1.0"
     }
 
     buildTypes {
@@ -53,6 +53,8 @@ android {
         "000008"     {}                 //木蚂蚁开发者平台
         "000368"     {}                 //voio开发者平台,步步高应用商店(vivo)
         "000016"     {}                 //联想
+        "000014"     {}                 //魅族
+
         productFlavors.all {
             flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }

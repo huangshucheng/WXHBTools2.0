@@ -33,6 +33,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.junyou.hbks.config.Constants;
+import com.junyou.hbks.utils.LogUtil;
 
 import org.json.JSONObject;
 
@@ -94,7 +95,7 @@ public class ComFunction {
 					}
 				}
 			} catch (SocketException e) {
-				Log.e("TBU_DEGUB", "获取ip地址失败", e);
+				LogUtil.e("TBU_DEGUB", "获取ip地址失败"+ e);
 			}
 			return null;
 		}

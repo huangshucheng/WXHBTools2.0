@@ -4,11 +4,9 @@ public class ZFBParams {
     /** 支付宝的包名*/
     public static final String PACKAGENAME = "com.eg.android.AlipayGphone";
 
-
     public static final String KEY_ZFBREDPACKET = "发来一个红包";
     public static final String KEY_ZFBREDPACKETONE = "在群聊中发了一个红包";
     public static final String KEY_RETURN_DESC = "返回";
-
     public static final String KEY_GETREDPACKET = "领取红包";
 
     //聊天界面

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.junyou.hbks"
     android:versionCode="2"
-    android:versionName="2.0">
+    android:versionName="1.1.0">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -112,7 +112,6 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <activity
             android:name=".UI.PersonalCenterActivity"
             android:screenOrientation="portrait">

@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.junyou.hbks.utils.LogUtil;
+
 import junit.framework.Assert;
 
 import java.io.ByteArrayOutputStream;
@@ -82,7 +84,7 @@ public class WXUtil {
 
         File file = new File(fileName);
         if (!file.exists()) {
-            Log.i(TAG, "readFromFile: file not found");
+            LogUtil.i(TAG, "readFromFile: file not found");
             return null;
         }
 
@@ -90,18 +92,18 @@ public class WXUtil {
             len = (int) file.length();
         }
 
-        Log.d(TAG, "readFromFile : offset = " + offset + " len = " + len + " offset + len = " + (offset + len));
+        LogUtil.i(TAG, "readFromFile : offset = " + offset + " len = " + len + " offset + len = " + (offset + len));
 
         if(offset <0){
-            Log.e(TAG, "readFromFile invalid offset:" + offset);
+            LogUtil.i(TAG, "readFromFile invalid offset:" + offset);
             return null;
         }
         if(len <=0 ){
-            Log.e(TAG, "readFromFile invalid len:" + len);
+            LogUtil.i(TAG, "readFromFile invalid len:" + len);
             return null;
         }
         if(offset + len > (int) file.length()){
-            Log.e(TAG, "readFromFile invalid file len:" + file.length());
+            LogUtil.i(TAG, "readFromFile invalid file len:" + file.length());
             return null;
         }
 
@@ -114,7 +116,7 @@ public class WXUtil {
             in.close();
 
         } catch (Exception e) {
-            Log.e(TAG, "readFromFile : errMsg = " + e.getMessage());
+            LogUtil.i(TAG, "readFromFile : errMsg = " + e.getMessage());
             e.printStackTrace();
         }
         return b;
@@ -134,10 +136,10 @@ public class WXUtil {
                 tmp = null;
             }
 
-            Log.d(TAG, "extractThumbNail: round=" + width + "x" + height + ", crop=" + crop);
+            LogUtil.i(TAG, "extractThumbNail: round=" + width + "x" + height + ", crop=" + crop);
             final double beY = options.outHeight * 1.0 / height;
             final double beX = options.outWidth * 1.0 / width;
-            Log.d(TAG, "extractThumbNail: extract beX = " + beX + ", beY = " + beY);
+            LogUtil.i(TAG, "extractThumbNail: extract beX = " + beX + ", beY = " + beY);
             options.inSampleSize = (int) (crop ? (beY > beX ? beX : beY) : (beY < beX ? beX : beY));
             if (options.inSampleSize <= 1) {
                 options.inSampleSize = 1;
@@ -166,14 +168,14 @@ public class WXUtil {
 
             options.inJustDecodeBounds = false;
 
-            Log.i(TAG, "bitmap required size=" + newWidth + "x" + newHeight + ", orig=" + options.outWidth + "x" + options.outHeight + ", sample=" + options.inSampleSize);
+            LogUtil.i(TAG, "bitmap required size=" + newWidth + "x" + newHeight + ", orig=" + options.outWidth + "x" + options.outHeight + ", sample=" + options.inSampleSize);
             Bitmap bm = BitmapFactory.decodeFile(path, options);
             if (bm == null) {
-                Log.e(TAG, "bitmap decode failed");
+                LogUtil.i(TAG, "bitmap decode failed");
                 return null;
             }
 
-            Log.i(TAG, "bitmap decoded size=" + bm.getWidth() + "x" + bm.getHeight());
+            LogUtil.i(TAG, "bitmap decoded size=" + bm.getWidth() + "x" + bm.getHeight());
             final Bitmap scale = Bitmap.createScaledBitmap(bm, newWidth, newHeight, true);
             if (scale != null) {
                 bm.recycle();
@@ -188,12 +190,12 @@ public class WXUtil {
 
                 bm.recycle();
                 bm = cropped;
-                Log.i(TAG, "bitmap croped size=" + bm.getWidth() + "x" + bm.getHeight());
+                LogUtil.i(TAG, "bitmap croped size=" + bm.getWidth() + "x" + bm.getHeight());
             }
             return bm;
 
         } catch (final OutOfMemoryError e) {
-            Log.e(TAG, "decode bitmap failed: " + e.getMessage());
+            LogUtil.i(TAG, "decode bitmap failed: " + e.getMessage());
             options = null;
         }
 

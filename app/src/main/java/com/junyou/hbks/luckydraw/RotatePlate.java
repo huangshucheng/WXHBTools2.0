@@ -24,6 +24,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import java.util.ArrayList;
 import java.util.List;
 import com.junyou.hbks.R;
+import com.junyou.hbks.utils.LogUtil;
 
 public class RotatePlate extends View {
 
@@ -236,7 +237,7 @@ public class RotatePlate extends View {
         DesRotate -= offRotate;
         DesRotate += 30;
 
-        Log.i("TAG","lap== " + lap +"angle==" + angle + "desR==" + DesRotate);
+        LogUtil.i("TAG","lap== " + lap +"angle==" + angle + "desR==" + DesRotate);
         ValueAnimator animtor = ValueAnimator.ofInt(InitAngle,DesRotate);
         animtor.setInterpolator(new AccelerateDecelerateInterpolator());
         animtor.setDuration(time);
@@ -330,7 +331,7 @@ public class RotatePlate extends View {
             default:
                 break;
         }
-        Log.i("TAG","lap== " + lap +", angle==" + angle + ", desR==" + desRotate);
+        LogUtil.i("TAG","lap== " + lap +", angle==" + angle + ", desR==" + desRotate);
         long time = (lap + angle / 360) * ONE_WHEEL_TIME;
         ValueAnimator animtor = ValueAnimator.ofInt(InitAngle,desRotate);
         animtor.setInterpolator(new AccelerateDecelerateInterpolator());

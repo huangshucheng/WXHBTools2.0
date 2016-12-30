@@ -77,10 +77,10 @@ public class AccessibilityUtil {
             return;
         }
         if(nodeInfo.isClickable()) {
-            LogUtil.i("可点击。。。。。。");
+//            LogUtil.i("可点击。。。。。。");
             nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
         } else {
-            LogUtil.i("不可点击TTTTTTTTTT");
+//            LogUtil.i("不可点击TTTTTTTTTT");
             performClick(nodeInfo.getParent());
         }
     }

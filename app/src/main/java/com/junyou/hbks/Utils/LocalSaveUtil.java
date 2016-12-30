@@ -18,11 +18,11 @@ public class LocalSaveUtil {
 
         if (checkDBIsEmpty(mDataBase)){
             int idNum = (int) ((Math.random() * 9 + 1) * 100000);//随机生成6位数账号
-            Log.i("TAG","db is empty" );
+            LogUtil.i("TAG","db is empty" );
             ContentValues values = new ContentValues();
             //向ContentValues中存放数据
             values.put("id", idNum);        //id
-            values.put("coinNum",100);       //金币数量
+            values.put("coinNum",0);       //金币数量
             values.put("pointNum",0);       //积分数量
             values.put("isGiveThreeDay",0); //是否显示赠送了三天  0未显示,1显示
             values.put("timeNum",4320);     //初始时间三天
@@ -30,7 +30,7 @@ public class LocalSaveUtil {
 //            values.put("timeNum",1);
             mDataBase.insert("user", null, values);
         }else{
-            Log.i("TAG","db is not empty" );
+            LogUtil.i("TAG","db is not empty" );
         }
         //查询
         Cursor cursor = mDataBase.query("user", new String[]{"id","coinNum","pointNum","timeNum","isGiveThreeDay"}, null, null, null, null, null, null);
@@ -43,7 +43,7 @@ public class LocalSaveUtil {
                 int timeNum = cursor.getInt(cursor.getColumnIndex("timeNum"));
                 int isGive = cursor.getInt(cursor.getColumnIndex("isGiveThreeDay"));
                 //日志打印输出
-                Log.i("TAG","db data: id:" + id + " ,coin:" + coinNum +" ,point:" +  pointNum + " ,time:" + timeNum + " ,isGive:" +isGive);
+                LogUtil.i("TAG","db data: id:" + id + " ,coin:" + coinNum +" ,point:" +  pointNum + " ,time:" + timeNum + " ,isGive:" +isGive);
             }
             cursor.close();
         }
@@ -56,7 +56,7 @@ public class LocalSaveUtil {
             if (null != cursor){
                 while(cursor.moveToNext()){
                     coinNum = cursor.getInt(cursor.getColumnIndex("coinNum"));
-                    Log.i("TAG","coin from db:" + coinNum);
+                    LogUtil.i("TAG","coin from db:" + coinNum);
                     cursor.close();
                     return coinNum;
                 }
@@ -83,7 +83,7 @@ public class LocalSaveUtil {
             if (null != cursor){
                 while(cursor.moveToNext()){
                     pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
-                    Log.i("TAG","point from db: " + pointNum);
+                    LogUtil.i("TAG","point from db: " + pointNum);
                     cursor.close();
                     return pointNum;
                 }
@@ -121,7 +121,7 @@ public class LocalSaveUtil {
             if (null != cursor){
                 while(cursor.moveToNext()){
                     userId = cursor.getInt(cursor.getColumnIndex("id"));
-                    Log.i("TAG","id from db: " + userId);
+                    LogUtil.i("TAG","id from db: " + userId);
                     cursor.close();
                     return userId;
                 }

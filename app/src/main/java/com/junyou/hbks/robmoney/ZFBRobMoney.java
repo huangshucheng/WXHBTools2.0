@@ -64,9 +64,6 @@ public class ZFBRobMoney extends BaseRobMoney{
     @Override
     public void doWindowContentChanged(AccessibilityEvent event) {
         LogUtil.i("ZFB窗口内容改变");
-//        if (!isReceivingHongbao){
-//            return;
-//        }
         findRedPkt();
     }
     //进入app先调用，进入对话框，进入红包，进入红包详情等都会调用,频率低

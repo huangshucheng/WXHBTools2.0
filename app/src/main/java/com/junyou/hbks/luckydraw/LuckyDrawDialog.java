@@ -235,7 +235,8 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
             if (mNotifyListener != null){
                 mNotifyListener.notifyPos(position);
             }
-
+                UmengUtil.YMDraw_count(getContext());           //抽奖次数
+                UmengUtil.YMDraw_result(getContext(),position); //奖励
 //            Toast.makeText(mActivity,"Position = "+position+","+strs[position],Toast.LENGTH_SHORT).show();
             switch (position){
                 case 0:

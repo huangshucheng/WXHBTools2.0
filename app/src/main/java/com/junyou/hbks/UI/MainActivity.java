@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         builder.setContentIntent(contentIndent)
                 .setSmallIcon(R.mipmap.ic_launcher)//设置状态栏里面的图标（小图标)
                 .setWhen(System.currentTimeMillis())//设置时间发生时间
-                .setAutoCancel(true)//设置可以清除
+                .setAutoCancel(false)//设置可以清除
                 .setContentTitle("红包快手被关闭了")//设置下拉列表里的标题
                 .setContentText("亲,不能抢红包了,快点击我开启!");//设置上下文内容
         try{
@@ -541,6 +541,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     }
 
     public void openSettings(View view) {
+
+//        UmengUtil.YMMoney_count_bychannel(this,"000007","6.66");  // umeng test
         SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedP.edit();
         if (!isServiceEnabled()) {
@@ -656,10 +658,12 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             */
             //使用sdk分享
             WXWebpageObject webpage = new WXWebpageObject();
-
 //            webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";//vivo
-//            webpage.webpageUrl = "http://openbox.mobilem.360.cn/qcms/view/t/detail?sid=3540668&from=groupmessage&isappinstalled=1";//360
+//            webpage.webpageUrl = "http://zhushou.360.cn/detail/index/soft_id/3540668";//360
+//            webpage.webpageUrl = "http://www.wandoujia.com/apps/com.junyou.hbks";//wandoujia
             webpage.webpageUrl = "http://www.zjhzjykj.com";
+//            webpage.webpageUrl = "http://app.meizu.com/apps/public/detail?package_name=com.junyou.hbks"; //魅族
+//            webpage.webpageUrl = "http://fx.anzhi.com/share_2711236.html?azfrom=qqfriend"; //安智
             WXMediaMessage msg = new WXMediaMessage(webpage);
             msg.title = "红包快手 "+share_lists[num];
             msg.description = share_lists[num];
@@ -719,8 +723,11 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             //使用sdk分享
             WXWebpageObject webpage = new WXWebpageObject();
 //            webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";   //vivo
-//            webpage.webpageUrl = "http://openbox.mobilem.360.cn/qcms/view/t/detail?sid=3540668&from=groupmessage&isappinstalled=1";//360
+//            webpage.webpageUrl = "http://zhushou.360.cn/detail/index/soft_id/3540668";  //360
+//            webpage.webpageUrl = "http://www.wandoujia.com/apps/com.junyou.hbks";//wandoujia
             webpage.webpageUrl = "http://www.zjhzjykj.com";
+//            webpage.webpageUrl = "http://app.meizu.com/apps/public/detail?package_name=com.junyou.hbks"; //魅族
+//            webpage.webpageUrl = "http://fx.anzhi.com/share_2711236.html?azfrom=qqfriend"; //安智
             WXMediaMessage msg = new WXMediaMessage(webpage);
             msg.title = "红包快手";
             msg.description = share_lists[num];

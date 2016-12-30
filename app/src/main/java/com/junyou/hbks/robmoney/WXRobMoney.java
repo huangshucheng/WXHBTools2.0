@@ -18,6 +18,7 @@ import com.junyou.hbks.utils.AccessibilityUtil;
 import com.junyou.hbks.utils.LockScreenUtil;
 import com.junyou.hbks.utils.LogUtil;
 import com.junyou.hbks.utils.SaveCountUtil;
+import com.junyou.hbks.utils.UmengUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -48,7 +49,6 @@ public class WXRobMoney extends BaseRobMoney{
                     return;
                 }
                 this.isReceivingHongbao = true;
-                //TODO 解锁屏幕
                 if (super.getBaseConfig().isAutoUnlock()&&!LockScreenUtil.isUnlocking()) {
                     LockScreenUtil.getInitialize(getService().getApplicationContext()).UnlockScreen();
                 }
@@ -106,15 +106,6 @@ public class WXRobMoney extends BaseRobMoney{
                 LogUtil.i("找到打开按钮。。");
                 //找到打开按钮，红包没有被抢完
                 this.ClickOpenPacketButton();
-                //如果开慢了，就关了
-//                AccessibilityNodeInfo nodeInfo = findNoMoney();
-//                if (null != nodeInfo){
-//                    LogUtil.i("找到手慢了《《《《《");
-//                    this.backAndGotoDesktop();
-//                    isReceivingHongbao = false;
-//                }else{
-//                    LogUtil.i("没找到手慢了《《《《《");
-//                }
             }else{
                 LogUtil.i("没找到打开按钮。。。红包被抢完");
                 //没有找到打开按钮，红包已经被抢完
@@ -127,7 +118,6 @@ public class WXRobMoney extends BaseRobMoney{
             this.mCurrentWindow = WXParams.WINDOW_LUCKYMONEY_DETAIL;
             //在红包详情界面
             LogUtil.i("在红包详情界面");
-            //TODO 查看多少钱
                 getMoneyCount();
             if (findBackButton()){
                 LogUtil.i("找到返回按钮11111");
@@ -156,7 +146,7 @@ public class WXRobMoney extends BaseRobMoney{
             if (WXParams.CLASS_NAME_TEXTVIEW.equals(result.getClassName())) {
                 if (!"".equals(result.getText())){
                     if (result.getText().toString().contains(WXParams.TEXT_SHOUMANLE))
-                        LogUtil.i(":::" + result.getText());
+//                        LogUtil.i(":::" + result.getText());
                         return  result;
                 }
             }
@@ -164,7 +154,7 @@ public class WXRobMoney extends BaseRobMoney{
             result = AccessibilityUtil.findNodeInfosByText(rootNode,WXParams.TEXT_SHOUMANLE);
             if (result != null ) {
                 if (WXParams.CLASS_NAME_TEXTVIEW.equals(result.getClassName())) {
-                    LogUtil.i("<<<" + result.getText());
+//                    LogUtil.i("<<<" + result.getText());
                     return  result;
                 }
             }
@@ -332,6 +322,7 @@ public class WXRobMoney extends BaseRobMoney{
         if (null != countUtil){
             //红包数量
             countUtil.setRPCount(countUtil.getRPCount() + 1);
+            UmengUtil.YMgrasp_num(getService().getApplicationContext());
             //钱数量
             String saveMn = countUtil.getMoneyCount();
             if (!"".equals(saveMn)){
@@ -341,6 +332,7 @@ public class WXRobMoney extends BaseRobMoney{
                     String b3 = b1.add(b2).toString();
                     countUtil.setMoneyCount(b3);
                     LogUtil.i("WX保存后红包：" + countUtil.getRPCount() + "钱：" + countUtil.getMoneyCount());
+                    UmengUtil.YMGrasb_money(getService().getApplicationContext(),"" + countUtil.getRPCount());
                 }catch (Exception e){
                     e.printStackTrace();
                 }

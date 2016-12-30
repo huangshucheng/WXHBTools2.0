@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
+import com.junyou.hbks.utils.LogUtil;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -173,7 +174,7 @@ public class WXPayUtil {
                 return new String(xmlstring.toString().getBytes(), "ISO-8859-1");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                Log.i(TAG, "genProductArgs fail, ex = " + e.getMessage());
+                LogUtil.i(TAG, "genProductArgs fail, ex = " + e.getMessage());
             }
             return null;
         }

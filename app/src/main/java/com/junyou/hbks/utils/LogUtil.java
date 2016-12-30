@@ -5,7 +5,7 @@ import android.util.Log;
 public class LogUtil {
 
     public static final String TAG = "TAG";
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public static void i(String tag, String msg) {
         if (DEBUG) {
@@ -16,6 +16,18 @@ public class LogUtil {
     public static void i(String msg) {
         if (DEBUG) {
             Log.i(TAG, msg);
+        }
+    }
+
+    public static void e(String msg){
+        if (DEBUG){
+            Log.e(TAG,msg);
+        }
+    }
+
+    public static void e(String tag, String msg){
+        if (DEBUG){
+            Log.e(tag,msg);
         }
     }
 }

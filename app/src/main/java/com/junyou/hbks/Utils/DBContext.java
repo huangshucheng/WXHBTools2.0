@@ -22,7 +22,7 @@ public class DBContext extends ContextWrapper {
         //判断是否存在sd卡
         boolean sdExist = android.os.Environment.MEDIA_MOUNTED.equals(android.os.Environment.getExternalStorageState());
         if(!sdExist){//如果不存在,
-            Log.i("TAG", "SD卡不存在，请加载SD卡");
+            LogUtil.i("TAG", "SD卡不存在，请加载SD卡");
             return null;
         }
         else{
@@ -32,7 +32,7 @@ public class DBContext extends ContextWrapper {
             dbDir += "/scexam";//数据库所在目录
             String dbPath = dbDir+"/"+name;//数据库路径
             //判断目录是否存在，不存在则创建该目录
-            Log.i("TAG","path:  " + dbPath);
+            LogUtil.i("TAG","path:  " + dbPath);
             File dirFile = new File(dbDir);
             if(!dirFile.exists())
                 dirFile.mkdirs();
