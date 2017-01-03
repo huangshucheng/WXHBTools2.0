@@ -160,13 +160,13 @@ public class PersonalCenterActivity extends AppCompatActivity {
         super.onResume();
         MobclickAgent.onResume(this);
         if (coins_number != null){
-            coins_number.setText("" + LocalSaveUtil.getCoinNum());
+            coins_number.setText("" + LocalSaveUtil.getInitialize(this).getCoinNum());
         }
         if (integral_number != null){
-            integral_number.setText("" + LocalSaveUtil.getPointNum());
+            integral_number.setText("" + LocalSaveUtil.getInitialize(this).getPointNum());
         }
         if (mUserid_text != null){
-            mUserid_text.setText("" + LocalSaveUtil.getAccount());
+            mUserid_text.setText("" + LocalSaveUtil.getInitialize(this).getAccount());
         }
     }
 
@@ -179,7 +179,6 @@ public class PersonalCenterActivity extends AppCompatActivity {
     public void performBack(View view) {
         super.onBackPressed();
     }
-
 
     //检测网络状态
     public boolean networkInfo() {

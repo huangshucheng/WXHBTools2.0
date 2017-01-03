@@ -2,15 +2,21 @@ package com.junyou.hbks.utils;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class LocalSaveUtil {
 
-    private static Activity mActivity;
+    private static Context mActivity;
     private static SQLiteDatabase mDataBase;
-    public static void init(Activity act){
+    private static LocalSaveUtil mInstance;
+    private static AtomicInteger mOpenCounter = new AtomicInteger();
+    /*
+    public static synchronized void init(Activity act){
         mActivity = act;
         //db是否存在，存在则不创建，不存在则创建
         DBOpenHelper helper = new DBOpenHelper(mActivity);
@@ -42,14 +48,69 @@ public class LocalSaveUtil {
                 int pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
                 int timeNum = cursor.getInt(cursor.getColumnIndex("timeNum"));
                 int isGive = cursor.getInt(cursor.getColumnIndex("isGiveThreeDay"));
-                //日志打印输出
+                LogUtil.i("TAG","db data: id:" + id + " ,coin:" + coinNum +" ,point:" +  pointNum + " ,time:" + timeNum + " ,isGive:" +isGive);
+            }
+            cursor.close();
+        }
+    }
+    */
+    public LocalSaveUtil(Context context){
+        mActivity = context;
+        //db是否存在，存在则不创建，不存在则创建
+        DBOpenHelper helper = new DBOpenHelper(mActivity);
+        mDataBase = helper.getReadableDatabase();
+        if (mDataBase == null){
+            return;
+        }
+        if (checkDBIsEmpty(mDataBase)){
+            int idNum = (int) ((Math.random() * 9 + 1) * 100000);//随机生成6位数账号
+            LogUtil.i("TAG","db is empty" );
+            ContentValues values = new ContentValues();
+            //向ContentValues中存放数据
+            values.put("id", idNum);        //id
+            values.put("coinNum",0);       //金币数量
+            values.put("pointNum",0);       //积分数量
+            values.put("isGiveThreeDay",0); //是否显示赠送了三天  0未显示,1显示
+            values.put("timeNum",4320);     //初始时间三天
+//            values.put("timeNum",2880);     //两天
+//            values.put("timeNum",1);
+            mDataBase.insert("user", null, values);
+        }else{
+            LogUtil.i("TAG","db is not empty" );
+        }
+        //查询
+        Cursor cursor = mDataBase.query("user", new String[]{"id","coinNum","pointNum","timeNum","isGiveThreeDay"}, null, null, null, null, null, null);
+        //利用游标遍历所有数据对象
+        if (null != cursor){
+            while(cursor.moveToNext()){
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                int coinNum = cursor.getInt(cursor.getColumnIndex("coinNum"));
+                int pointNum = cursor.getInt(cursor.getColumnIndex("pointNum"));
+                int timeNum = cursor.getInt(cursor.getColumnIndex("timeNum"));
+                int isGive = cursor.getInt(cursor.getColumnIndex("isGiveThreeDay"));
                 LogUtil.i("TAG","db data: id:" + id + " ,coin:" + coinNum +" ,point:" +  pointNum + " ,time:" + timeNum + " ,isGive:" +isGive);
             }
             cursor.close();
         }
     }
 
-    public static synchronized int getCoinNum(){
+    private synchronized SQLiteDatabase getReadableDatabase(Context context){
+        if(mOpenCounter.incrementAndGet() == 1) {
+            DBOpenHelper helper = new DBOpenHelper(mActivity);
+            mDataBase = helper.getReadableDatabase();
+        }
+        return mDataBase;
+    }
+
+    //todo 单例模式，控制多线程访问
+    public static synchronized LocalSaveUtil getInitialize(Context context) {
+        if (mInstance == null) {
+            mInstance = new LocalSaveUtil(context);
+        }
+        return mInstance;
+    }
+
+    public synchronized int getCoinNum(){
         int coinNum = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"coinNum"}, null, null, null, null, null, null);
@@ -65,7 +126,7 @@ public class LocalSaveUtil {
         return  0;
     }
 
-    public static synchronized void setCoinNum(int coinNum){
+    public synchronized void setCoinNum(int coinNum){
         if (coinNum <0){
             return;
         }
@@ -76,7 +137,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static synchronized int getPointNum(){
+    public synchronized int getPointNum(){
         int pointNum = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"pointNum"}, null, null, null, null, null, null);
@@ -92,7 +153,7 @@ public class LocalSaveUtil {
         return  0;
     }
 
-    public static synchronized void setPointNum(int pointNum){
+    public synchronized void setPointNum(int pointNum){
         if (pointNum<0){
             return;
         }
@@ -103,7 +164,7 @@ public class LocalSaveUtil {
         }
     }
 //用户账号
-    public static synchronized void setAccount(int account){
+    public synchronized void setAccount(int account){
         if (account <0){
             return;
         }
@@ -114,7 +175,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static synchronized int getAccount(){
+    public synchronized int getAccount(){
         int userId = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"id"}, null, null, null, null, null, null);
@@ -130,7 +191,7 @@ public class LocalSaveUtil {
         return 0 ;
     }
 
-    public static synchronized int getLeftTime(){
+    public synchronized int getLeftTime(){
         int leftTime = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"timeNum"}, null, null, null, null, null, null);
@@ -146,7 +207,7 @@ public class LocalSaveUtil {
         return 0;
     }
 
-    public static synchronized void setLeftTime(int leftTime){
+    public synchronized void setLeftTime(int leftTime){
         if (leftTime <0){
             return;
         }
@@ -157,7 +218,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static synchronized void setIsGiveThreeDay(boolean isGive){
+    public synchronized void setIsGiveThreeDay(boolean isGive){
         if (isGive){
             ContentValues values = new ContentValues();
             values.put("isGiveThreeDay", 1);
@@ -173,7 +234,7 @@ public class LocalSaveUtil {
         }
     }
 
-    public static synchronized boolean getIsGiveThreeDay(){
+    public synchronized boolean getIsGiveThreeDay(){
         int leftTime = 0;
         if (null != mDataBase){
             Cursor cursor = mDataBase.query("user", new String[]{"isGiveThreeDay"}, null, null, null, null, null, null);
@@ -192,7 +253,7 @@ public class LocalSaveUtil {
         return false;
     }
 
-    private static boolean checkDBIsEmpty(SQLiteDatabase database){
+    private synchronized boolean checkDBIsEmpty(SQLiteDatabase database){
         Cursor cursor = null;
         int num;
         try {
@@ -219,9 +280,11 @@ public class LocalSaveUtil {
         return true;
     }
 
-    public static void closeDB(){
-        if (null != mDataBase){
-            mDataBase.close();
+    public synchronized void closeDB(){
+        if (mOpenCounter.decrementAndGet() == 0){
+            if (null != mDataBase){
+                mDataBase.close();
+            }
         }
     }
 }

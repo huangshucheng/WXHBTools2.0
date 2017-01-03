@@ -8,6 +8,7 @@ import android.util.Log;
 import com.junyou.hbks.config.Constants;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,7 +38,7 @@ public class TimeManager {
             editor.apply();
             //设置拥有时间
 //            setLeftTime(2880);      //48*60分钟 2天时间(单位：分钟)
-            setLeftTime(LocalSaveUtil.getLeftTime());       //3天
+            setLeftTime(LocalSaveUtil.getInitialize(activity).getLeftTime());
 //            setLeftTime("1");     //
             setFirstTimeDraw("2016-12-01");
             setFirstDraw(false);
@@ -125,11 +126,11 @@ public class TimeManager {
     }
     //设置剩余时间
     public static void setLeftTime(int lefttime){
-        LocalSaveUtil.setLeftTime(lefttime);
+        LocalSaveUtil.getInitialize(TimeManager.activity).setLeftTime(lefttime);
     }
     //获取剩余时间
     public static int getLeftTime(){
-        return  LocalSaveUtil.getLeftTime();
+        return LocalSaveUtil.getInitialize(TimeManager.activity).getLeftTime();
     }
     //是否没时间了
     public static boolean isTimeout(){

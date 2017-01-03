@@ -251,42 +251,42 @@ public class UmengUtil {
             case 0:
             {
                 //一小时
-                map_ekv.put("one_hour_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                map_ekv.put("one_hour_reward","" + LocalSaveUtil.getInitialize(context).getAccount());//标记，用户id
                 MobclickAgent.onEvent(context, "draw_reward", map_ekv);
             }
             break;
             case 1:
             {
                 //谢谢惠顾
-                map_ekv.put("no_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                map_ekv.put("no_reward","" + LocalSaveUtil.getInitialize(context).getAccount());//标记，用户id
                 MobclickAgent.onEvent(context, "draw_reward", map_ekv);
             }
             break;
             case 2:
             {
                 //三小时
-                map_ekv.put("three_hour_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                map_ekv.put("three_hour_reward","" + LocalSaveUtil.getInitialize(context).getAccount());//标记，用户id
                 MobclickAgent.onEvent(context, "draw_reward", map_ekv);
             }
             break;
             case 3:
             {
                 //一个月
-                map_ekv.put("one_month_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                map_ekv.put("one_month_reward","" + LocalSaveUtil.getInitialize(context).getAccount());//标记，用户id
                 MobclickAgent.onEvent(context, "draw_reward", map_ekv);
             }
             break;
             case 4:
             {
                 //三个月
-                map_ekv.put("three_month_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                map_ekv.put("three_month_reward","" + LocalSaveUtil.getInitialize(context).getAccount());//标记，用户id
                 MobclickAgent.onEvent(context, "draw_reward", map_ekv);
             }
             break;
             case 5:
             {
                 //终身
-                map_ekv.put("lifelong_reward","" + LocalSaveUtil.getAccount());//标记，用户id
+                map_ekv.put("lifelong_reward","" + LocalSaveUtil.getInitialize(context).getAccount());//标记，用户id
                 MobclickAgent.onEvent(context, "draw_reward", map_ekv);
             }
             break;
@@ -304,7 +304,7 @@ public class UmengUtil {
     //用户抢红包抢到的钱
     public static void YMGrasb_money(Context context,String money){
         Map<String, String> map_ekv = new HashMap<String, String>();
-        map_ekv.put("" +LocalSaveUtil.getAccount(),"" + money);//id，钱
+        map_ekv.put("" +LocalSaveUtil.getInitialize(context).getAccount(),"" + money);//id，钱
         MobclickAgent.onEvent(context, "grasp_money", map_ekv);
     }
 }

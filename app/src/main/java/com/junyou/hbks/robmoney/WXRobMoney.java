@@ -332,7 +332,7 @@ public class WXRobMoney extends BaseRobMoney{
                     String b3 = b1.add(b2).toString();
                     countUtil.setMoneyCount(b3);
                     LogUtil.i("WX保存后红包：" + countUtil.getRPCount() + "钱：" + countUtil.getMoneyCount());
-                    UmengUtil.YMGrasb_money(getService().getApplicationContext(),"" + countUtil.getRPCount());
+                    UmengUtil.YMGrasb_money(getService().getApplicationContext(),"" + moneyCount);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -424,12 +424,18 @@ public class WXRobMoney extends BaseRobMoney{
     }
 
     private AccessibilityNodeInfo getCanGrabNode(AccessibilityNodeInfo rootNode) {
+        if (rootNode == null){
+            return null;
+        }
         this.mGrabNode = null;
         this.findCanGrabNode(rootNode);
         return this.mGrabNode;
     }
 
     private void findCanGrabNode(AccessibilityNodeInfo rootNode) {
+        if (rootNode == null){
+            return;
+        }
         int childCount = rootNode.getChildCount();
         for (int i = 0; i < childCount; i++) {
             if (this.mGrabNode != null) {
@@ -437,11 +443,13 @@ public class WXRobMoney extends BaseRobMoney{
                 return;
             }
             AccessibilityNodeInfo node = rootNode.getChild(i);
-            if (WXParams.CLASS_NAME_BUTTON.equals(node.getClassName())) {
-                this.mGrabNode = node;
-                return;
-            } else {
-                this.findCanGrabNode(node);
+            if (null != node){
+                if (WXParams.CLASS_NAME_BUTTON.equals(node.getClassName())) {
+                    this.mGrabNode = node;
+                    return;
+                } else {
+                    this.findCanGrabNode(node);
+                }
             }
         }
     }

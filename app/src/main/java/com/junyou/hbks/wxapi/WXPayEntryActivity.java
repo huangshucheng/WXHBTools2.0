@@ -36,6 +36,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     private IWXAPI api;
     Handler mHandler = null;
     private static final String TAG = "TAG";
+    private static final String mChinnelId = "anzhuozhijia";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,22 +59,22 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 //                                Log.i("TAG", "成功收到6.66块钱，发放奖励");
                                 TimeManager.addToLeftTime(43200);
                                 UmengUtil.YMmoney_count(WXPayEntryActivity.this,0);
-                                    UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,"000020","6.66"); //todo add channel id
+                                    UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"6.66"); //todo add channel id
                             }else if (orderAmount.equals("1000")){
 //                                Log.i("TAG", "成功收到10.00块钱，发放奖励");
                                 TimeManager.addToLeftTime(129600);
                                 UmengUtil.YMmoney_count(WXPayEntryActivity.this,1);
-                                    UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,"000020","10.00"); //todo add channel id
+                                    UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"10.00"); //todo add channel id
                             }else if(orderAmount.equals("1800")){
 //                                Log.i("TAG", "成功收到18.00块钱，发放奖励");
                                 TimeManager.setLifeLongUse(true);//终身使用
                                 UmengUtil.YMmoney_count(WXPayEntryActivity.this,2);
-                                    UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,"000020","18.00"); //todo add channel id
+                                    UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"18.00"); //todo add channel id
                             }else {
                                     for (int i = 1 ; i < 100 ; i++) {
                                         if (orderAmount.equals(String.valueOf(i) + "00")) {//i个金币
-                                            LocalSaveUtil.setCoinNum(i + LocalSaveUtil.getCoinNum());
-                                            UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,"000020","" + i); //todo add channel id
+                                            LocalSaveUtil.getInitialize(WXPayEntryActivity.this).setCoinNum(i + LocalSaveUtil.getInitialize(WXPayEntryActivity.this).getCoinNum());
+                                            UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"" + i); //todo add channel id
                                         }
                                     }
                                 }

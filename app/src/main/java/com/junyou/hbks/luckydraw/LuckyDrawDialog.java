@@ -79,15 +79,15 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         public void onReceive(Context context, Intent intent) {
             if (intent.getBooleanExtra("draw_broadcast",true)){
 //                Log.i("TAG","receive drawMsgReceiver.......");
-                if (LocalSaveUtil.getCoinNum() >= 1){
+                if (LocalSaveUtil.getInitialize(mActivity).getCoinNum() >= 1){
                     try {
                         mRotateP.startRotate(-1);
                         mLuckyDrawL.setDelayTime(100);
                         mGoBtn.setEnabled(false);
-                        LocalSaveUtil.setCoinNum(LocalSaveUtil.getCoinNum() -1 );
-                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() + 1);
+                        LocalSaveUtil.getInitialize(mActivity).setCoinNum(LocalSaveUtil.getInitialize(mActivity).getCoinNum() -1 );
+                        LocalSaveUtil.getInitialize(mActivity).setPointNum(LocalSaveUtil.getInitialize(mActivity).getPointNum() + 1);
                         if (coint_num_text != null){
-                            coint_num_text.setText("" + LocalSaveUtil.getCoinNum());
+                            coint_num_text.setText("" + LocalSaveUtil.getInitialize(mActivity).getCoinNum());
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -224,7 +224,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
             mLuckyDrawL.setDelayTime(500);
 
             if (point_num_text != null){
-                point_num_text.setText("" + LocalSaveUtil.getPointNum());
+                point_num_text.setText("" + LocalSaveUtil.getInitialize(mActivity).getPointNum());
             }
 
             Dialog dialog_reward= new DrawRewardDialog(mActivity,R.style.dialog_fullscreen);
@@ -291,10 +291,10 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
         super.onStart();
         LogUtil.i("TAG","draw,onstart....");
         if (coint_num_text != null){
-            coint_num_text.setText( "" + LocalSaveUtil.getCoinNum());
+            coint_num_text.setText( "" + LocalSaveUtil.getInitialize(mActivity).getCoinNum());
         }
         if (point_num_text != null){
-            point_num_text.setText("" + LocalSaveUtil.getPointNum());
+            point_num_text.setText("" + LocalSaveUtil.getInitialize(mActivity).getPointNum());
         }
         if (TimeManager.isDrawNewDay()){
             //免费抽奖提示
@@ -335,7 +335,7 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                         mRotateP.startRotateChance(RandomUtil.randomsOne());//100%转到谢谢惠顾
                         mLuckyDrawL.setDelayTime(100);
                         mGoBtn.setEnabled(false);
-                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() + 1);
+                        LocalSaveUtil.getInitialize(mActivity).setPointNum(LocalSaveUtil.getInitialize(mActivity).getPointNum() + 1);
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -343,17 +343,17 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
             }else{
                 //金币抽奖
 //                Log.i("TAG","不是第一次进来抽奖。。。。");
-                if (LocalSaveUtil.getCoinNum() >= 1){
+                if (LocalSaveUtil.getInitialize(mActivity).getCoinNum() >= 1){
                     try {
 //                        mRotateP.startRotate(-1);
                         //0-5包含所有可能 TODO 计算概率
                          mRotateP.startRotateChance(new RandomUtil().startRandom());
                         mLuckyDrawL.setDelayTime(100);
                         mGoBtn.setEnabled(false);
-                        LocalSaveUtil.setCoinNum(LocalSaveUtil.getCoinNum() -1 );
-                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() + 1);
+                        LocalSaveUtil.getInitialize(mActivity).setCoinNum(LocalSaveUtil.getInitialize(mActivity).getCoinNum() -1 );
+                        LocalSaveUtil.getInitialize(mActivity).setPointNum(LocalSaveUtil.getInitialize(mActivity).getPointNum() + 1);
                         if (coint_num_text != null){
-                            coint_num_text.setText("" + LocalSaveUtil.getCoinNum());
+                            coint_num_text.setText("" + LocalSaveUtil.getInitialize(mActivity).getCoinNum());
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -415,10 +415,10 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    if (LocalSaveUtil.getPointNum() >= 8 ){
-                                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() - 8);
+                                    if (LocalSaveUtil.getInitialize(mActivity).getPointNum() >= 8 ){
+                                        LocalSaveUtil.getInitialize(mActivity).setPointNum(LocalSaveUtil.getInitialize(mActivity).getPointNum() - 8);
                                         if (point_num_text != null){
-                                            point_num_text.setText("" + LocalSaveUtil.getPointNum());
+                                            point_num_text.setText("" + LocalSaveUtil.getInitialize(mActivity).getPointNum());
                                         }
                                         TimeManager.addToLeftTime(43200);
                                         Toast.makeText(mActivity, "兑换成功!", Toast.LENGTH_SHORT).show();
@@ -445,10 +445,10 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    if (LocalSaveUtil.getPointNum() >= 12){
-                                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() - 12);
+                                    if (LocalSaveUtil.getInitialize(mActivity).getPointNum() >= 12){
+                                        LocalSaveUtil.getInitialize(mActivity).setPointNum(LocalSaveUtil.getInitialize(mActivity).getPointNum() - 12);
                                         if (point_num_text != null){
-                                            point_num_text.setText("" + LocalSaveUtil.getPointNum());
+                                            point_num_text.setText("" + LocalSaveUtil.getInitialize(mActivity).getPointNum());
                                         }
                                         TimeManager.addToLeftTime(129600);
                                         Toast.makeText(mActivity, "兑换成功!", Toast.LENGTH_SHORT).show();
@@ -475,10 +475,10 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    if (LocalSaveUtil.getPointNum() >= 20){
-                                        LocalSaveUtil.setPointNum(LocalSaveUtil.getPointNum() - 20);
+                                    if (LocalSaveUtil.getInitialize(mActivity).getPointNum() >= 20){
+                                        LocalSaveUtil.getInitialize(mActivity).setPointNum(LocalSaveUtil.getInitialize(mActivity).getPointNum() - 20);
                                         if (point_num_text != null){
-                                            point_num_text.setText("" + LocalSaveUtil.getPointNum());
+                                            point_num_text.setText("" + LocalSaveUtil.getInitialize(mActivity).getPointNum());
                                         }
                                         SharedPreferences sharedP=  mActivity.getSharedPreferences("config",mActivity.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedP.edit();

@@ -91,13 +91,13 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
     protected void onResume() {
         super.onResume();
         if (coint_num_text != null){
-            coint_num_text.setText("金币: " + LocalSaveUtil.getCoinNum());
+            coint_num_text.setText("金币: " + LocalSaveUtil.getInitialize(this).getCoinNum());
         }
         if (point_num_text != null){
-            point_num_text.setText("积分: " + LocalSaveUtil.getPointNum());
+            point_num_text.setText("积分: " + LocalSaveUtil.getInitialize(this).getPointNum());
         }
         if (user_account_text != null){
-            user_account_text.setText("账户: " + LocalSaveUtil.getAccount());
+            user_account_text.setText("账户: " + LocalSaveUtil.getInitialize(this).getAccount());
         }
         LogUtil.i("TAG","resume");
     }
@@ -122,9 +122,9 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
     public void convert_oneMonth(View view){
         LogUtil.i("TAG","one month");
         if (point_num_text != null){
-            LocalSaveUtil.setPointNum(10 + LocalSaveUtil.getPointNum());
+            LocalSaveUtil.getInitialize(this).setPointNum(10 + LocalSaveUtil.getInitialize(this).getPointNum());
 
-            int pointNum = LocalSaveUtil.getPointNum();
+            int pointNum = LocalSaveUtil.getInitialize(this).getPointNum();
             point_num_text.setText("积分: " + pointNum);
         }
     }
@@ -132,9 +132,9 @@ public class LuckyDraw extends AppCompatActivity implements RotatePlate.Animatio
     public void convert_threeMonth(View view){
         LogUtil.i("TAG","three month");
         if (coint_num_text != null){
-            LocalSaveUtil.setCoinNum(10 + LocalSaveUtil.getCoinNum());
+            LocalSaveUtil.getInitialize(this).setCoinNum(10 + LocalSaveUtil.getInitialize(this).getCoinNum());
 
-            int coinNum = LocalSaveUtil.getCoinNum();
+            int coinNum = LocalSaveUtil.getInitialize(this).getCoinNum();
             coint_num_text.setText("金币: " + coinNum);
         }
     }

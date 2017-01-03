@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         //广播
        bor_intent = new Intent("com.junyou.hbks.SETTING");
 
-        LocalSaveUtil.init(this);
+        LocalSaveUtil.getInitialize(this);
         updateServiceStatus();
         showDatas();
         showDialog();
@@ -325,14 +325,14 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             dialog_receiveTime.setCancelable(false);
         }
 
-        if (!LocalSaveUtil.getIsGiveThreeDay()){
+        if (!LocalSaveUtil.getInitialize(this).getIsGiveThreeDay()){
             View view_4 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_trydays,null);
             dialog_tryDays = new Dialog(this,R.style.common_dialog);
             if (dialog_tryDays != null){
                 dialog_tryDays.setContentView(view_4);
                 dialog_tryDays.show();
             }
-            LocalSaveUtil.setIsGiveThreeDay(true);
+            LocalSaveUtil.getInitialize(this).setIsGiveThreeDay(true);
         }
 
         View view_5 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_supervip, null);

@@ -219,8 +219,8 @@ public class QQRobMoney extends BaseRobMoney{
                     BigDecimal b2 = new BigDecimal(moneyCount);
                     String b3 = b1.add(b2).toString();
                     countUtil.setMoneyCount(b3);
-                    UmengUtil.YMGrasb_money(getService().getApplicationContext(),"" + countUtil.getRPCount());
-                    LogUtil.i("QQ保存后红包数：" + countUtil.getRPCount() + "钱数：" + countUtil.getMoneyCount());
+                    UmengUtil.YMGrasb_money(getService().getApplicationContext(),"" + moneyCount);
+                    LogUtil.i("QQ保存后红包数：" + countUtil.getRPCount() + "钱数：" + b3);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
