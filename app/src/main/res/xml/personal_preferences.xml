@@ -47,7 +47,7 @@
         <Preference
             android:key="pref_etc_about"
             android:title="关于"
-            android:summary="进一步了解红包快手"
+            android:summary="进一步了解骏游抢红包快手"
             android:layout="@layout/preference_checkboxarrow"/>
     </PreferenceCategory>
 

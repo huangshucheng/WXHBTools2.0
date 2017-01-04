@@ -346,7 +346,7 @@ public class WXRobMoney extends BaseRobMoney{
         boolean isFind = false;
         AccessibilityNodeInfo rootNode = getService().getRootInActiveWindow();
         if (rootNode == null) {
-            isFind = false;
+            return false;
         }
         AccessibilityNodeInfo targetNode = null;
         if (getBaseConfig().getWXVersionCode() < WXParams.WECHAT_VERSION_MIN){
@@ -439,16 +439,19 @@ public class WXRobMoney extends BaseRobMoney{
         int childCount = rootNode.getChildCount();
         for (int i = 0; i < childCount; i++) {
             if (this.mGrabNode != null) {
-                rootNode.recycle();
                 return;
             }
             AccessibilityNodeInfo node = rootNode.getChild(i);
-            if (null != node){
-                if (WXParams.CLASS_NAME_BUTTON.equals(node.getClassName())) {
-                    this.mGrabNode = node;
-                    return;
-                } else {
-                    this.findCanGrabNode(node);
+            if (null != node) {
+                if (!"".equals(node.getClassName())){
+                    if (WXParams.CLASS_NAME_BUTTON.equals(node.getClassName())) {
+                        this.mGrabNode = node;
+                        return;
+                    } else {
+                        if (null != node){
+                            this.findCanGrabNode(node);
+                        }
+                    }
                 }
             }
         }

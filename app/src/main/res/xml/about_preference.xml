@@ -9,7 +9,7 @@
         <Preference
             android:key="pref_dianzan"
             android:title="亲~抢了那么多红包，点个赞~"
-            android:summary="去给红包快手点赞吧~"
+            android:summary="去给骏游抢红包快手点赞吧~"
             android:layout="@layout/preference_checkboxarrow"/>
         <Preference
             android:key="pref_update"

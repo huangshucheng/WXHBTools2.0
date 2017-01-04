@@ -36,7 +36,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     private IWXAPI api;
     Handler mHandler = null;
     private static final String TAG = "TAG";
-    private static final String mChinnelId = "anzhuozhijia";
+    private static final String mChinnelId = "360";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

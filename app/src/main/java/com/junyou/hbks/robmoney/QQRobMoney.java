@@ -140,13 +140,13 @@ public class QQRobMoney extends BaseRobMoney{
         if (rootNode == null) {
             return null;
         }
-
-        AccessibilityNodeInfo resultInfo = null;
-        resultInfo = AccessibilityUtil.findNodeInfosById(rootNode,"com.tencent.mobileqq:id/ivTitleBtnLeft");
+        AccessibilityNodeInfo resultInfo = AccessibilityUtil.findNodeInfosById(rootNode,"com.tencent.mobileqq:id/ivTitleBtnLeft");
         if (resultInfo != null){
             if (QQParams.CLASS_NAME_TEXTVIEW.equals(resultInfo.getClassName())){
-                if (QQParams.KEY_RETURN_DESC.equals(resultInfo.getContentDescription().toString())){
-                    return resultInfo;
+                if (!"".equals(resultInfo.getContentDescription())){
+                    if (QQParams.KEY_RETURN_DESC.equals(resultInfo.getContentDescription().toString())){
+                        return resultInfo;
+                    }
                 }
             }
         }
@@ -301,10 +301,12 @@ public class QQRobMoney extends BaseRobMoney{
             int childCount = listView.getChildCount();
             for (int i = childCount - 1; i >= 0; i--) {//从最后一个开始往上读
                 AccessibilityNodeInfo rpNode = listView.getChild(i);
-                if (this.isRPNode(rpNode)) {
-                    this.openRPNode(rpNode.getChild(rpNode.getChildCount() - 1));
-                    LogUtil.i("是红包节点");
-                    break;
+                if (rpNode != null){
+                    if (this.isRPNode(rpNode)) {
+                        this.openRPNode(rpNode.getChild(rpNode.getChildCount() - 1));
+                        LogUtil.i("是红包节点");
+                        break;
+                    }
                 }
             }
             listView.recycle();
@@ -313,12 +315,19 @@ public class QQRobMoney extends BaseRobMoney{
     }
     //判断辅助节点是否为红包节点
     private boolean isRPNode(AccessibilityNodeInfo rpNode) {
+        if (rpNode == null){
+            return false;
+        }
         boolean flag = false;
-        if (QQParams.CLASS_NAME_RELATIVELAYOUT.equals(rpNode.getClassName())) {
-            int size = rpNode.getChildCount();
-            if (size > 0) {
-                if (QQParams.CLASS_NAME_RELATIVELAYOUT.equals(rpNode.getChild(size - 1).getClassName())) {
-                    flag = true;
+        if (rpNode != null){
+            if (QQParams.CLASS_NAME_RELATIVELAYOUT.equals(rpNode.getClassName())) {
+                int size = rpNode.getChildCount();
+                if (size > 0) {
+                    if (rpNode.getChild(size - 1) != null){
+                        if (QQParams.CLASS_NAME_RELATIVELAYOUT.equals(rpNode.getChild(size - 1).getClassName())) {
+                            flag = true;
+                        }
+                    }
                 }
             }
         }
@@ -329,7 +338,6 @@ public class QQRobMoney extends BaseRobMoney{
         if (rpNode == null) {
             return;
         }
-
         CharSequence nodeDescInfo = rpNode.getContentDescription();
         if (nodeDescInfo != null){
             String desc = String.valueOf(nodeDescInfo);
@@ -383,13 +391,19 @@ public class QQRobMoney extends BaseRobMoney{
     }
 
     private AccessibilityNodeInfo getChatAbsListView(AccessibilityNodeInfo rootNode){
-        this.mListViewNode = null;
-        this.findChatAbsListView(rootNode);
-        return this.mListViewNode;
+        if (rootNode != null){
+            this.mListViewNode = null;
+            this.findChatAbsListView(rootNode);
+            return this.mListViewNode;
+        }
+        return null;
     }
 
     //递归寻找聊天列表信息辅助节点,所有聊天信息都放在此节点下，包括红包
     private void findChatAbsListView(AccessibilityNodeInfo rootNode) {
+        if (rootNode == null){
+            return;
+        }
         int childCount = rootNode.getChildCount();
         for (int i = 0; i < childCount; i++) {
             if(this.mListViewNode != null){
@@ -397,11 +411,13 @@ public class QQRobMoney extends BaseRobMoney{
                 return;
             }
             AccessibilityNodeInfo node = rootNode.getChild(i);
-            if (QQParams.CLASS_NAME_ABSLISTVIEW.equals(node.getClassName())) {
-                this.mListViewNode = node;
-                return;
-            } else {
-                this.findChatAbsListView(node);
+            if (node != null){
+                if (QQParams.CLASS_NAME_ABSLISTVIEW.equals(node.getClassName())) {
+                    this.mListViewNode = node;
+                    return;
+                } else {
+                    this.findChatAbsListView(node);
+                }
             }
         }
     }
