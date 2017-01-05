@@ -1,0 +1,18 @@
+   <uses-permission android:name="android.permission.WAKE_LOCK" />  唤醒锁定是为了开锁使用《红包快手》抢红包功能
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />禁用键盘锁是为了开锁以后，锁上键盘
+    <uses-permission android:name="android.permission.INTERNET" />访问网络 是为了使用支付，使用统计功能
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />获取网络状态是为了使用抢红包功能，使用统计功能
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />获取WiFi状态是为了更好的使用app
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />写入外部存储,是为了存储数据
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />读取电话状态是为了统计用户
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" /> 使用自动点击功能是为了使用《红包快手》自动抢红包功能
+
+
+唤醒锁定是为了自动开锁使用《红包快手》抢红包功能
+禁用键盘锁是为了开锁以后，锁上键盘
+访问网络 是为了使用支付和统计功能
+获取网络状态是为了使用抢红包功能和统计功能
+获取WiFi状态是为了更好的使用app
+写入外部存储,是为了存储数据
+读取电话状态是为了统计用户
+使用自动点击功能是为了使用《红包快手》自动抢红包功能

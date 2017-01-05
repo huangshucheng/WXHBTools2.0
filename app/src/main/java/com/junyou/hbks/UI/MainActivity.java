@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         public void run() {
             do {
                 try {
-                    Thread.sleep(60000);//一分钟检测一侧
+                    Thread.sleep(5000);//5秒检测一侧
                     Message msg = new Message();
                     msg.what = 1;
                     mHandler.sendMessage(msg);
@@ -658,10 +658,10 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             */
             //使用sdk分享
             WXWebpageObject webpage = new WXWebpageObject();
-            webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";//vivo
+//            webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";//vivo
 //            webpage.webpageUrl = "http://zhushou.360.cn/detail/index/soft_id/3540668";//360
 //            webpage.webpageUrl = "http://www.wandoujia.com/apps/com.junyou.hbks";//wandoujia
-//            webpage.webpageUrl = "http://www.zjhzjykj.com";
+            webpage.webpageUrl = "http://www.zjhzjykj.com";
 //            webpage.webpageUrl = "http://app.meizu.com/apps/public/detail?package_name=com.junyou.hbks"; //魅族
 //            webpage.webpageUrl = "http://fx.anzhi.com/share_2711236.html?azfrom=qqfriend"; //安智
             WXMediaMessage msg = new WXMediaMessage(webpage);
@@ -722,10 +722,10 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             */
             //使用sdk分享
             WXWebpageObject webpage = new WXWebpageObject();
-            webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";   //vivo
+//            webpage.webpageUrl = "http://info.appstore.vivo.com.cn/detail/1643019?source=7";   //vivo
 //            webpage.webpageUrl = "http://zhushou.360.cn/detail/index/soft_id/3540668";  //360
 //            webpage.webpageUrl = "http://www.wandoujia.com/apps/com.junyou.hbks";//wandoujia
-//            webpage.webpageUrl = "http://www.zjhzjykj.com";
+            webpage.webpageUrl = "http://www.zjhzjykj.com";
 //            webpage.webpageUrl = "http://app.meizu.com/apps/public/detail?package_name=com.junyou.hbks"; //魅族
 //            webpage.webpageUrl = "http://fx.anzhi.com/share_2711236.html?azfrom=qqfriend"; //安智
             WXMediaMessage msg = new WXMediaMessage(webpage);
