@@ -90,5 +90,6 @@ dependencies {
     compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/jdom.jar')
     compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/libammsdk.jar')
     compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/mobclickhelper.jar')
-//    compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/umeng-analytics-v6.0.1.jar')
+    //    compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/umeng-analytics-v6.0.1.jar')
+    compile files('D:/androidStudio/WXHBTools2.0/gradle/wrapper/alipaySdk-20161222.jar')
 }

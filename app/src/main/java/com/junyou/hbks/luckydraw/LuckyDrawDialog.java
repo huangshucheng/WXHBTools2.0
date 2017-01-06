@@ -61,16 +61,19 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
     public LuckyDrawDialog(Context context) {
         super(context);
         mActivity = (Activity) context;
+        WXPayUtil.init(mActivity);
     }
 
     public LuckyDrawDialog(Context context, int themeResId) {
         super(context, themeResId);
         mActivity = (Activity) context;
+        WXPayUtil.init(mActivity);
     }
 
     protected LuckyDrawDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         mActivity = (Activity) context;
+        WXPayUtil.init(mActivity);
     }
 
     //广播接收器
@@ -384,14 +387,12 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                     if (ComFunction.networkInfo(mActivity)) {
                         if (ComFunction.isWechatAvilible(mActivity)) {
                             try {
-                                if (null != WXPayUtil.getInstance()) {
                                     SharedPreferences sharedP = mActivity.getSharedPreferences("config", mActivity.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedP.edit();
                                     editor.putString(Constants.MONEY_NUM, mDraw_buycoinNum_txt.getText() + "00");
                                     editor.apply();
-                                    WXPayUtil.getInstance().new GetPrepayIdTask().execute();
-                                }
-                                UmengUtil.YMpurchase_num(mActivity);
+                                    WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+                                    UmengUtil.YMpurchase_num(mActivity);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

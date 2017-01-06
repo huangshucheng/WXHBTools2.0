@@ -1,5 +1,6 @@
 package com.junyou.hbks.UI;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.switfpass.pay.MainApplication;
-//import com.switfpass.pay.activity.PayPlugin;
-//import com.switfpass.pay.bean.RequestMsg;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.junyou.hbks.alipayutils.AliPayUtil;
 import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
 import com.junyou.hbks.utils.UmengUtil;
@@ -36,7 +35,6 @@ public class VipActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vip);
         instance = this;
         WXPayUtil.init(this);
-
         coint_number = (TextView) findViewById(R.id.coint_number);//得到金币数量
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -66,6 +64,13 @@ public class VipActivity extends AppCompatActivity {
 
     public void performBack(View view) {
         super.onBackPressed();
+    }
+
+    private void sharePutString(String moneyNum){
+        SharedPreferences sharedP = getSharedPreferences("config", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedP.edit();
+        editor.putString(Constants.MONEY_NUM, moneyNum);
+        editor.apply();
     }
 
     public void jinbi_jian(View view) {
@@ -98,15 +103,9 @@ public class VipActivity extends AppCompatActivity {
             if (ComFunction.networkInfo(this)) {
                 if (ComFunction.isWechatAvilible(this)) {
                     try {
-                        if (null != WXPayUtil.getInstance()) {
-                            SharedPreferences sharedP = getSharedPreferences("config", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedP.edit();
-                            editor.putString(Constants.MONEY_NUM, coint_number.getText() + "00");
-//                        editor.putString(Constants.MONEY_NUM,"1");
-                            editor.apply();
-                            WXPayUtil.getInstance().new GetPrepayIdTask().execute();
-                        }
-                        UmengUtil.YMpurchase_num(this);
+                            sharePutString(coint_number.getText() + "00");
+                            WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+                            UmengUtil.YMpurchase_num(this);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -124,15 +123,10 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-                    if (null != WXPayUtil.getInstance()) {
-                        SharedPreferences sharedP = getSharedPreferences("config", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedP.edit();
-                        editor.putString(Constants.MONEY_NUM, "666");
-//                        editor.putString(Constants.MONEY_NUM,"1");
-                        editor.apply();
-                        WXPayUtil.getInstance().new GetPrepayIdTask().execute();
-                        UmengUtil.YMclk_one_vip(this);
-                    }
+                        sharePutString("666");
+//                        WXPayUtil.getInitialize(this).new GetPrepayIdTask().execute();
+//                        UmengUtil.YMclk_one_vip(this);
+                    AliPayUtil.getInitialize(this).AliPayV2("0.01");
                     UmengUtil.YMpurchase_num(this);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -151,15 +145,9 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-                    if (null != WXPayUtil.getInstance()) {
-                        SharedPreferences sharedP = getSharedPreferences("config", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedP.edit();
-                        editor.putString(Constants.MONEY_NUM, "1000");
-//                        editor.putString(Constants.MONEY_NUM,"2");
-                        editor.apply();
-                        WXPayUtil.getInstance().new GetPrepayIdTask().execute();
+                        sharePutString("1000");
+                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
                         UmengUtil.YMclk_three_vip(this);
-                    }
                     UmengUtil.YMpurchase_num(this);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -179,15 +167,9 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-                    if (null != WXPayUtil.getInstance()) {
-                        SharedPreferences sharedP = getSharedPreferences("config", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedP.edit();
-                        editor.putString(Constants.MONEY_NUM, "1800");
-//                        editor.putString(Constants.MONEY_NUM,"3");
-                        editor.apply();
-                        WXPayUtil.getInstance().new GetPrepayIdTask().execute();
+                        sharePutString("1800");
+                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
                         UmengUtil.YMclk_alife_vip(this);
-                    }
                     UmengUtil.YMpurchase_num(this);
                 } catch (Exception e) {
                     e.printStackTrace();

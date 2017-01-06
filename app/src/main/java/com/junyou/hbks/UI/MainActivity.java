@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         setContentView(R.layout.activity_main);
         instance = this;
         regToWx();      //注册微信id
-        WXPayUtil.init(this);
         //友盟埋点
         MobclickAgent.setDebugMode(true);   //打开友盟埋点数据统计测试
         MobclickAgent.setScenarioType(instance, MobclickAgent.EScenarioType.E_UM_NORMAL);
@@ -145,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         initTime();
         new TimeThread().start();
         showSettingDialog();
+        WXPayUtil.init(this);
 }
 
     private class ServiceStateBroadcast extends BroadcastReceiver {
@@ -834,14 +834,12 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         if (ComFunction.networkInfo(this)){
             if (ComFunction.isWechatAvilible(this)){
                 try{
-                    if (null != WXPayUtil.getInstance()){
                         SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedP.edit();
                         editor.putString(Constants.MONEY_NUM,"666");
                         //editor.putString(Constants.MONEY_NUM,"1");
                         editor.commit();
-                        WXPayUtil.getInstance().new GetPrepayIdTask().execute();
-                    }
+                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
                     UmengUtil.YMpurchase_num(this);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -874,14 +872,12 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         if (ComFunction.networkInfo(this)){
             if (ComFunction.isWechatAvilible(this)){
                 try{
-                    if (null != WXPayUtil.getInstance()){
                         SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedP.edit();
                         editor.putString(Constants.MONEY_NUM,"666");
 //                        editor.putString(Constants.MONEY_NUM,"1");
                         editor.commit();
-                        WXPayUtil.getInstance().new GetPrepayIdTask().execute();
-                    }
+                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
                     UmengUtil.YMpurchase_num(this);
                 }catch (Exception e){
                     e.printStackTrace();

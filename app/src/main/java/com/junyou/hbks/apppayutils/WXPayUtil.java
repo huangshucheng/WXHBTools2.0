@@ -2,6 +2,7 @@ package com.junyou.hbks.apppayutils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -26,34 +27,35 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class WXPayUtil {
 
-    public static WXPayUtil instance;
-    public static Activity activity;
+    public static WXPayUtil mInstance = null;
+    private static Context mContext = null;
     private static final String TAG = "TAG";
-    private static IWXAPI api;
+    private static IWXAPI api = null;
 
-    public static void init(Activity activity)
-    {
-        WXPayUtil.activity = activity;
-        api = WXAPIFactory.createWXAPI(activity, Constants.APP_ID,true);
+    public static void init(Context context){
+        mContext = context;
+        api = WXAPIFactory.createWXAPI(mContext, Constants.APP_ID,true);
         api.registerApp(Constants.APP_ID);	//注册到微
-        instance = new WXPayUtil();
     }
 
-    public static WXPayUtil getInstance(){
-        return instance;
+    public static WXPayUtil getInitialize(){
+        if (null == mInstance){
+            mInstance = new WXPayUtil();
+        }
+        return mInstance;
     }
 
     public class GetPrepayIdTask extends AsyncTask<String, Void, String> {
-
         private ProgressDialog dialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog =
-                    ProgressDialog.show(WXPayUtil.activity,
-                            WXPayUtil.activity.getResources().getString(R.string.app_tip),
-                            WXPayUtil.activity.getResources().getString(R.string.getting_prepayid));
+            if (null != mContext){
+                dialog = ProgressDialog.show(mContext,
+                                mContext.getResources().getString(R.string.app_tip),
+                                mContext.getResources().getString(R.string.getting_prepayid));
+            }
         }
 
         @Override
@@ -64,6 +66,9 @@ public class WXPayUtil {
             //Log.i(TAG, "url: " + url);
             String entity = genEntity();
 //            Log.i(TAG, "entity: " + entity);
+            if ("".equals(entity)){
+                return null;
+            }
             byte[] buf = WeChatHttpClient.httpPost(url, entity);
             if (buf != null && buf.length > 0) {
                 try {
@@ -89,7 +94,9 @@ public class WXPayUtil {
             }
             if (s == null){
                 //Log.i(TAG, "支付失败111");
-                Toast.makeText(WXPayUtil.activity, WXPayUtil.activity.getResources().getString(R.string.get_prepayid_fail), Toast.LENGTH_SHORT).show();
+                if (mContext != null){
+                    Toast.makeText(mContext, mContext.getResources().getString(R.string.get_prepayid_fail), Toast.LENGTH_SHORT).show();
+                }
             }else {
                 try {
                     //Log.i(TAG,"发送支付订单！");
@@ -124,11 +131,14 @@ public class WXPayUtil {
             signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
             //再次签名
             req.sign = ComFunction.genPackageSign(signParams);
-            WXPayUtil.api.sendReq(req);
+            api.sendReq(req);
         }
         //下单参数
         public String genEntity(){
-            SharedPreferences sharedP=  WXPayUtil.activity.getSharedPreferences("config",WXPayUtil.activity.MODE_PRIVATE);
+            if (mContext == null){
+                return null;
+            }
+            SharedPreferences sharedP=  mContext.getSharedPreferences("config",mContext.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedP.edit();
             String nonceStr = ComFunction.genNonceStr();
             List<NameValuePair> packageParams = new ArrayList<NameValuePair>();
@@ -148,7 +158,7 @@ public class WXPayUtil {
 //            Log.i(TAG, "orderNo: "+ orderNo);
             //保存订单号
             editor.putString(Constants.ORDER_NUM,orderNo);
-            editor.commit();
+            editor.apply();
 
 //          Log.i(TAG, "保存订单号：" + sharedP.getString(Constants.ORDER_NUM, "null"));
             packageParams.add(new BasicNameValuePair("out_trade_no", orderNo));
