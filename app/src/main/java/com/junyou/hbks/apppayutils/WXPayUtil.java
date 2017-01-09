@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
 import com.junyou.hbks.utils.LogUtil;
+import com.junyou.hbks.utils.SaveMoneyUtil;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -165,12 +166,13 @@ public class WXPayUtil {
             // 提交用户端ip
             packageParams.add(new BasicNameValuePair("spbill_create_ip",ComFunction.getIPAddress()));
 
-            String moneyNum = sharedP.getString(Constants.MONEY_NUM,"null");
+//            String moneyNum = sharedP.getString(Constants.MONEY_NUM,"null");
 //            Log.i(TAG,"钱:" + moneyNum);
-            BigDecimal totalFeeBig = new BigDecimal(moneyNum);
-            int totalFee = totalFeeBig.multiply(new BigDecimal(1)).intValue();
+//            BigDecimal totalFeeBig = new BigDecimal(moneyNum);
+//            int totalFee = totalFeeBig.multiply(new BigDecimal(1)).intValue();
             // 总金额，单位分!
-            packageParams.add(new BasicNameValuePair("total_fee", String.valueOf(totalFee)));
+            String moneyNum = SaveMoneyUtil.getInitialize(mContext).getMoneyCount();
+            packageParams.add(new BasicNameValuePair("total_fee", "" + moneyNum));
             // 支付类型
             packageParams.add(new BasicNameValuePair("trade_type", "APP"));
             // 生成签名

@@ -1,6 +1,7 @@
 package com.junyou.hbks.UI;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.junyou.hbks.alipayutils.AliPayUtil;
 import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
+import com.junyou.hbks.utils.SaveCountUtil;
+import com.junyou.hbks.utils.SaveMoneyUtil;
 import com.junyou.hbks.utils.UmengUtil;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WXPayUtil;
@@ -103,9 +106,16 @@ public class VipActivity extends AppCompatActivity {
             if (ComFunction.networkInfo(this)) {
                 if (ComFunction.isWechatAvilible(this)) {
                     try {
-                            sharePutString(coint_number.getText() + "00");
-                            WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
-                            UmengUtil.YMpurchase_num(this);
+//                            sharePutString(coint_number.getText() + "00");
+//                            WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+                        SaveMoneyUtil.getInitialize(this).setMoneyCount(coint_number.getText() + "00");
+                        SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.COIN_TYPE);
+                        Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
+                        if (dialog_pay != null){
+                            dialog_pay.show();
+                            dialog_pay.setCanceledOnTouchOutside(false);
+                        }
+                        UmengUtil.YMpurchase_num(this);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -123,10 +133,16 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-                        sharePutString("666");
 //                        WXPayUtil.getInitialize(this).new GetPrepayIdTask().execute();
-//                        UmengUtil.YMclk_one_vip(this);
-                    AliPayUtil.getInitialize(this).AliPayV2("0.01");
+                    SaveMoneyUtil.getInitialize(this).setMoneyCount("666");
+                    SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.VIP_TYPE);
+//                    AliPayUtil.getInitialize(this).AliPayV2("0.01");
+                    Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
+                    if (dialog_pay != null){
+                        dialog_pay.show();
+                        dialog_pay.setCanceledOnTouchOutside(false);
+                    }
+                    UmengUtil.YMclk_one_vip(this);
                     UmengUtil.YMpurchase_num(this);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -145,9 +161,16 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-                        sharePutString("1000");
-                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
-                        UmengUtil.YMclk_three_vip(this);
+//                        sharePutString("1000");
+//                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+                    SaveMoneyUtil.getInitialize(this).setMoneyCount("1000");
+                    SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.VIP_TYPE);
+                    Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
+                    if (dialog_pay != null){
+                        dialog_pay.show();
+                        dialog_pay.setCanceledOnTouchOutside(false);
+                    }
+                    UmengUtil.YMclk_three_vip(this);
                     UmengUtil.YMpurchase_num(this);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -167,9 +190,17 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-                        sharePutString("1800");
-                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
-                        UmengUtil.YMclk_alife_vip(this);
+//                        sharePutString("1800");
+//                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+
+                    SaveMoneyUtil.getInitialize(this).setMoneyCount("1800");
+                    SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.VIP_TYPE);
+                    Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
+                    if (dialog_pay != null){
+                        dialog_pay.show();
+                        dialog_pay.setCanceledOnTouchOutside(false);
+                    }
+                    UmengUtil.YMclk_alife_vip(this);
                     UmengUtil.YMpurchase_num(this);
                 } catch (Exception e) {
                     e.printStackTrace();

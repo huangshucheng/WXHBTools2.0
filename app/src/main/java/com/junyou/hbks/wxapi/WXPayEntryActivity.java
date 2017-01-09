@@ -8,6 +8,7 @@ import android.widget.Toast;
 import android.os.Handler;
 
 import com.junyou.hbks.utils.LocalSaveUtil;
+import com.junyou.hbks.utils.SaveMoneyUtil;
 import com.junyou.hbks.utils.TimeManager;
 import com.junyou.hbks.apppayutils.ComFunction;
 import com.junyou.hbks.apppayutils.WeChatHttpClient;
@@ -55,29 +56,34 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         //完成主界面更新,拿到数据
                         try{
                             String orderAmount = (String)msg.obj;
+
+                            if (SaveMoneyUtil.getInitialize(WXPayEntryActivity.this).getPayType() == SaveMoneyUtil.PAYTYPE.VIP_TYPE ){
+                                //vip
                                 if (orderAmount.equals("666")){
 //                                Log.i("TAG", "成功收到6.66块钱，发放奖励");
-                                TimeManager.addToLeftTime(43200);
-                                UmengUtil.YMmoney_count(WXPayEntryActivity.this,0);
+                                    TimeManager.addToLeftTime(43200);
+                                    UmengUtil.YMmoney_count(WXPayEntryActivity.this,0);
                                     UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"6.66"); //todo add channel id
-                            }else if (orderAmount.equals("1000")){
+                                }else if (orderAmount.equals("1000")){
 //                                Log.i("TAG", "成功收到10.00块钱，发放奖励");
-                                TimeManager.addToLeftTime(129600);
-                                UmengUtil.YMmoney_count(WXPayEntryActivity.this,1);
+                                    TimeManager.addToLeftTime(129600);
+                                    UmengUtil.YMmoney_count(WXPayEntryActivity.this,1);
                                     UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"10.00"); //todo add channel id
-                            }else if(orderAmount.equals("1800")){
+                                }else if(orderAmount.equals("1800")){
 //                                Log.i("TAG", "成功收到18.00块钱，发放奖励");
-                                TimeManager.setLifeLongUse(true);//终身使用
-                                UmengUtil.YMmoney_count(WXPayEntryActivity.this,2);
+                                    TimeManager.setLifeLongUse(true);//终身使用
+                                    UmengUtil.YMmoney_count(WXPayEntryActivity.this,2);
                                     UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"18.00"); //todo add channel id
-                            }else {
-                                    for (int i = 1 ; i < 100 ; i++) {
-                                        if (orderAmount.equals(String.valueOf(i) + "00")) {//i个金币
-                                            LocalSaveUtil.getInitialize(WXPayEntryActivity.this).setCoinNum(i + LocalSaveUtil.getInitialize(WXPayEntryActivity.this).getCoinNum());
-                                            UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"" + i); //todo add channel id
-                                        }
+                                }
+                            }else{
+                                //coin
+                                for (int i = 1 ; i < 100 ; i++) {
+                                    if (orderAmount.equals(String.valueOf(i) + "00")) {//i个金币
+                                        LocalSaveUtil.getInitialize(WXPayEntryActivity.this).setCoinNum(i + LocalSaveUtil.getInitialize(WXPayEntryActivity.this).getCoinNum());
+                                        UmengUtil.YMMoney_count_bychannel(WXPayEntryActivity.this,mChinnelId,"" + i); //todo add channel id
                                     }
                                 }
+                            }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -112,8 +118,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         public void run() {
                             super.run();
                             try {
-                                SharedPreferences sharedP=  getSharedPreferences("config",MODE_MULTI_PROCESS);
-                                String moneyNum = sharedP.getString(Constants.MONEY_NUM,"null");
+//                                SharedPreferences sharedP=  getSharedPreferences("config",MODE_MULTI_PROCESS);
+//                                String moneyNum = sharedP.getString(Constants.MONEY_NUM,"null");
+                                String moneyNum = SaveMoneyUtil.getInitialize(WXPayEntryActivity.this).getMoneyCount();
                                 if(!moneyNum.equals("null")){
                                     if (query()){
                                         mHandler.sendEmptyMessage(0);

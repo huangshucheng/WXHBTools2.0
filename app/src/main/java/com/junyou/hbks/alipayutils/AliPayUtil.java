@@ -12,7 +12,11 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.junyou.hbks.config.AliConfig;
+import com.junyou.hbks.utils.LocalSaveUtil;
 import com.junyou.hbks.utils.LogUtil;
+import com.junyou.hbks.utils.SaveMoneyUtil;
+import com.junyou.hbks.utils.TimeManager;
+import com.junyou.hbks.utils.UmengUtil;
 
 import java.util.Map;
 
@@ -20,6 +24,7 @@ public class AliPayUtil {
 
     private Context mContext = null;
     private static AliPayUtil mInstance = null;
+    private static final String mChinnelId = "chuizi";
 
     public AliPayUtil(Context context){
         this.mContext = context;
@@ -48,6 +53,34 @@ public class AliPayUtil {
                         if (TextUtils.equals(resultStatus, "9000")) {
                             // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                             Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
+                            SaveMoneyUtil instance = SaveMoneyUtil.getInitialize(mContext);
+                            if (instance.getPayType() == SaveMoneyUtil.PAYTYPE.VIP_TYPE){
+                                //vip
+                                if ("666".equals(instance.getMoneyCount()) ){
+                                    LogUtil.i("TAG", "成功收到6.66块钱，发放奖励");
+                                    TimeManager.addToLeftTime(43200);
+                                    UmengUtil.YMmoney_count(mContext,0);
+                                    UmengUtil.YMMoney_count_bychannel(mContext,mChinnelId,"6.66"); //todo add channel id
+                                }else if("1000".equals(instance.getMoneyCount())){
+                                    LogUtil.i("TAG", "成功收到10.00块钱，发放奖励");
+                                    TimeManager.addToLeftTime(129600);
+                                    UmengUtil.YMmoney_count(mContext,1);
+                                    UmengUtil.YMMoney_count_bychannel(mContext,mChinnelId,"10.00"); //todo add channel id
+                                }else if ("1800".equals(instance.getMoneyCount())){
+                                    LogUtil.i("TAG", "成功收到18.00块钱，发放奖励");
+                                    TimeManager.setLifeLongUse(true);//终身使用
+                                    UmengUtil.YMmoney_count(mContext,2);
+                                    UmengUtil.YMMoney_count_bychannel(mContext,mChinnelId,"18.00"); //todo add channel id
+                                }
+                            }else{
+                                //coin
+                                for (int i = 1 ; i < 100 ; i++) {
+                                    if (instance.getMoneyCount().equals(String.valueOf(i) + "00")) {
+                                        LocalSaveUtil.getInitialize(mContext).setCoinNum(i + LocalSaveUtil.getInitialize(mContext).getCoinNum());
+                                        UmengUtil.YMMoney_count_bychannel(mContext,mChinnelId,"" + i); //todo add channel id
+                                    }
+                                }
+                            }
                         } else {
                             // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                             Toast.makeText(mContext, "支付失败", Toast.LENGTH_SHORT).show();
