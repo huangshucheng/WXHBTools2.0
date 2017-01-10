@@ -4,35 +4,112 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0.00元"
-        android:id="@+id/pay_money_text"
-        android:layout_above="@+id/pay_bg_0"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:textSize="25dp"
-        android:textColor="@color/colorwhite"/>
-
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="165dp"
-            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/pop"
             android:id="@+id/pay_bg_0"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="270dp"
+                android:layout_height="10dp"
+                android:id="@+id/pay_line"
+                android:layout_marginTop="60dp"
+                android:orientation="horizontal"
+                android:background="@color/colorBG">
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/user_bg"
-                android:layout_alignParentTop="true"
+                android:text="选择支付方式"
+                android:layout_centerHorizontal="false"
+                android:layout_marginLeft="19dp"
+                android:textSize="18dp"
+                android:layout_marginTop="36dp"
+                android:textColor="@color/colordark"/>
+
+            <RelativeLayout
+                android:layout_width="270dp"
+                android:layout_height="80dp"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="115dp"
                 android:id="@+id/pay_bg_1"
                 android:clickable="true">
+                <RelativeLayout
+                    android:layout_width="270dp"
+                    android:layout_height="1dp"
+                    android:background="@color/colorg"
+                    android:layout_alignParentTop="true">
+                </RelativeLayout>
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@mipmap/logo_wx"
+                    android:id="@+id/pay_icon_weixin"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="21dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pay_wx_text"
+                    android:text="微信支付"
+                    android:textSize="15dp"
+                    android:layout_toRightOf="@+id/pay_icon_weixin"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/colordark"/>
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@mipmap/icon_tuijian"
+                    android:layout_toRightOf="@+id/pay_wx_text"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="13dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="轻松快捷,一键支付"
+                    android:textSize="11dp"
+                    android:layout_below="@id/pay_wx_text"
+                    android:layout_marginTop="3dp"
+                    android:layout_toRightOf="@+id/pay_icon_weixin"
+                    android:layout_marginLeft="15dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/id_wx_pay"
+                    android:src="@mipmap/btn_selected_1"
+                    android:background="@android:color/transparent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="270dp"
+                android:layout_height="80dp"
+                android:background="@android:color/transparent"
+               android:layout_below="@+id/pay_bg_1"
+                android:id="@+id/pay_bg_2"
+                android:clickable="true">
+                <RelativeLayout
+                    android:layout_width="270dp"
+                    android:layout_height="1dp"
+                    android:background="@color/colorg"
+                    android:layout_alignParentTop="true">
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="270dp"
+                    android:layout_height="1dp"
+                    android:background="@color/colorg"
+                    android:layout_alignParentBottom="true">
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:id="@+id/pay_icon_zfb"
                     android:src="@mipmap/icon_zfb"
                     android:layout_centerVertical="true"
@@ -42,101 +119,66 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/pay_zfb_text"
                     android:text="支付宝"
-                    android:textSize="25dp"
+                    android:textSize="15dp"
                     android:layout_toRightOf="@+id/pay_icon_zfb"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="23dp"
                     android:textColor="@color/colordark"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="数亿用户都在用,安全可托付"
                     android:layout_below="@id/pay_zfb_text"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
+                    android:textSize="11dp"
                     android:layout_toRightOf="@+id/pay_icon_zfb"
                     android:layout_marginLeft="15dp"/>
-                <ImageView
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:src="@mipmap/icon_tuijian"
-                    android:layout_toRightOf="@+id/pay_zfb_text"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="2dp"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/id_zfb_pay"
-                    android:src="@mipmap/btn_selected"
-                    android:background="@android:color/transparent"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/user_bg"
-                android:layout_below="@+id/pay_bg_1"
-                android:id="@+id/pay_bg_2"
-                android:clickable="true">
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@mipmap/icon_weixin"
-                    android:id="@+id/pay_icon_weixin"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/pay_wx_text"
-                    android:text="微信支付"
-                    android:textSize="25dp"
-                    android:layout_toRightOf="@+id/pay_icon_weixin"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:textColor="@color/colordark"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="轻松快捷,一键支付"
-                    android:layout_below="@id/pay_wx_text"
-                    android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/pay_icon_weixin"
-                    android:layout_marginLeft="15dp"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/id_wx_pay"
                     android:src="@mipmap/btn_default"
                     android:background="@android:color/transparent"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="25dp"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"/>
+                    android:layout_marginRight="10dp" />
             </RelativeLayout>
-        </RelativeLayout>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/pay_okbtn"
-        android:src="@mipmap/btn_pay"
-        android:background="@android:color/transparent"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="70dp"/>
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:id="@+id/pay_okbtn"
+                android:background="@mipmap/btn_pay"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/pay_bg_2"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定支付 ¥ 0.00"
+                android:id="@+id/pay_money_text"
+                android:layout_centerHorizontal="true"
+                android:textSize="14dp"
+                android:textColor="@color/colorwhite"
+                    android:layout_marginTop="10dp"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@mipmap/kid"
+                android:layout_marginLeft="155dp"
+                android:layout_marginTop="17dp"/>
+        </RelativeLayout>
 
     <ImageButton
         android:id="@+id/pay_close_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/draw_icon_delete"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="32dp"
+        android:src="@mipmap/icon_close"
+        android:layout_below="@+id/pay_bg_0"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:background="@android:color/transparent" />
 </RelativeLayout>

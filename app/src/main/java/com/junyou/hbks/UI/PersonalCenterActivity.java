@@ -86,7 +86,7 @@ public class PersonalCenterActivity extends AppCompatActivity {
         public void run() {
             do {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(3000);
                     Message msg = new Message();
                     msg.what = 1;
                     mHandler.sendMessage(msg);

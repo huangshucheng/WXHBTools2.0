@@ -115,7 +115,8 @@ public class RobAccessibilityService extends AccessibilityService {
                         break;
                 }
             }
-        }else if (ZFBParams.PACKAGENAME.equals(packageName)){
+        }/*
+        else if (ZFBParams.PACKAGENAME.equals(packageName)){
             if (saveUtil.getZfbEnabled()){
                 //支付宝抢红包
                 switch (eventType) {
@@ -131,6 +132,7 @@ public class RobAccessibilityService extends AccessibilityService {
                 }
             }
         }
+        */
     }
 
     @Override

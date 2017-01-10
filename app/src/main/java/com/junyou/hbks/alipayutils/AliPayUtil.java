@@ -78,6 +78,7 @@ public class AliPayUtil {
                                     if (instance.getMoneyCount().equals(String.valueOf(i) + "00")) {
                                         LocalSaveUtil.getInitialize(mContext).setCoinNum(i + LocalSaveUtil.getInitialize(mContext).getCoinNum());
                                         UmengUtil.YMMoney_count_bychannel(mContext,mChinnelId,"" + i); //todo add channel id
+                                        LogUtil.i("支付宝买了：" + i + "个金币");
                                     }
                                 }
                             }

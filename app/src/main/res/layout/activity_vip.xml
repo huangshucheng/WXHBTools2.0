@@ -318,7 +318,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="现在只支持微信,支付宝在赶来的路上(*^__^*)"
+                    android:text="支持微信,支付宝支付哦(*^__^*)"
                     android:layout_alignParentBottom="true"
                     android:textSize="13sp"
                     android:layout_marginLeft="5dp"

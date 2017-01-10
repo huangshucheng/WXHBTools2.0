@@ -102,7 +102,7 @@ public class LocalSaveUtil {
         return mDataBase;
     }
 
-    //todo 单例模式，控制多线程访问
+    //单例模式，控制多线程访问
     public static synchronized LocalSaveUtil getInitialize(Context context) {
         if (mInstance == null) {
             mInstance = new LocalSaveUtil(context);

@@ -19,11 +19,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.junyou.hbks.UI.SelectPayDialog;
 import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
 import com.junyou.hbks.utils.LocalSaveUtil;
 import com.junyou.hbks.utils.LogUtil;
 import com.junyou.hbks.utils.RandomUtil;
+import com.junyou.hbks.utils.SaveMoneyUtil;
 import com.junyou.hbks.utils.TimeManager;
 import com.junyou.hbks.utils.UmengUtil;
 import com.junyou.hbks.apppayutils.ComFunction;
@@ -387,11 +389,19 @@ public class LuckyDrawDialog extends Dialog implements RotatePlate.AnimationEndL
                     if (ComFunction.networkInfo(mActivity)) {
                         if (ComFunction.isWechatAvilible(mActivity)) {
                             try {
-                                    SharedPreferences sharedP = mActivity.getSharedPreferences("config", mActivity.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedP.edit();
-                                    editor.putString(Constants.MONEY_NUM, mDraw_buycoinNum_txt.getText() + "00");
-                                    editor.apply();
-                                    WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+                                //todo 换成选择支付
+//                                    SharedPreferences sharedP = mActivity.getSharedPreferences("config", mActivity.MODE_PRIVATE);
+//                                    SharedPreferences.Editor editor = sharedP.edit();
+//                                    editor.putString(Constants.MONEY_NUM, mDraw_buycoinNum_txt.getText() + "00");
+//                                    editor.apply();
+//                                    WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+                                SaveMoneyUtil.getInitialize(mActivity).setMoneyCount(mDraw_buycoinNum_txt.getText() + "00");
+                                SaveMoneyUtil.getInitialize(mActivity).setPayType(SaveMoneyUtil.PAYTYPE.COIN_TYPE);
+                                Dialog dialog_pay = new SelectPayDialog(mActivity,R.style.dialog_fullscreen);
+                                if (dialog_pay != null){
+                                    dialog_pay.show();
+                                    dialog_pay.setCanceledOnTouchOutside(false);
+                                }
                                     UmengUtil.YMpurchase_num(mActivity);
                             } catch (Exception e) {
                                 e.printStackTrace();

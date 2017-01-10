@@ -69,13 +69,6 @@ public class VipActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void sharePutString(String moneyNum){
-        SharedPreferences sharedP = getSharedPreferences("config", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedP.edit();
-        editor.putString(Constants.MONEY_NUM, moneyNum);
-        editor.apply();
-    }
-
     public void jinbi_jian(View view) {
         //Log.i("TAG", "金币减一个");
         if (coint_number != null) {
@@ -106,8 +99,6 @@ public class VipActivity extends AppCompatActivity {
             if (ComFunction.networkInfo(this)) {
                 if (ComFunction.isWechatAvilible(this)) {
                     try {
-//                            sharePutString(coint_number.getText() + "00");
-//                            WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
                         SaveMoneyUtil.getInitialize(this).setMoneyCount(coint_number.getText() + "00");
                         SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.COIN_TYPE);
                         Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
@@ -133,10 +124,8 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-//                        WXPayUtil.getInitialize(this).new GetPrepayIdTask().execute();
                     SaveMoneyUtil.getInitialize(this).setMoneyCount("666");
                     SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.VIP_TYPE);
-//                    AliPayUtil.getInitialize(this).AliPayV2("0.01");
                     Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
                     if (dialog_pay != null){
                         dialog_pay.show();
@@ -161,8 +150,6 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-//                        sharePutString("1000");
-//                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
                     SaveMoneyUtil.getInitialize(this).setMoneyCount("1000");
                     SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.VIP_TYPE);
                     Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
@@ -181,7 +168,6 @@ public class VipActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "网络未连接!", Toast.LENGTH_SHORT).show();
         }
-
         // Log.i("TAG", "购买三个月");
     }
 
@@ -190,9 +176,6 @@ public class VipActivity extends AppCompatActivity {
         if (ComFunction.networkInfo(this)) {
             if (ComFunction.isWechatAvilible(this)) {
                 try {
-//                        sharePutString("1800");
-//                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
-
                     SaveMoneyUtil.getInitialize(this).setMoneyCount("1800");
                     SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.VIP_TYPE);
                     Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);

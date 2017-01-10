@@ -40,6 +40,7 @@ import com.junyou.hbks.utils.BtnBlinkUtil;
 import com.junyou.hbks.utils.LocalSaveUtil;
 import com.junyou.hbks.utils.LogUtil;
 import com.junyou.hbks.utils.SaveCountUtil;
+import com.junyou.hbks.utils.SaveMoneyUtil;
 import com.junyou.hbks.utils.ShareHelper;
 import com.junyou.hbks.utils.TimeManager;
 import com.junyou.hbks.utils.UmengUtil;
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         public void run() {
             do {
                 try {
-                    Thread.sleep(5000);//5秒检测一侧
+                    Thread.sleep(3000);//5秒检测一侧
                     Message msg = new Message();
                     msg.what = 1;
                     mHandler.sendMessage(msg);
@@ -834,12 +835,14 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         if (ComFunction.networkInfo(this)){
             if (ComFunction.isWechatAvilible(this)){
                 try{
-                        SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedP.edit();
-                        editor.putString(Constants.MONEY_NUM,"666");
-                        //editor.putString(Constants.MONEY_NUM,"1");
-                        editor.commit();
-                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+                    SaveMoneyUtil.getInitialize(this).setMoneyCount("666");
+                    SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.VIP_TYPE);
+                    Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
+                    if (dialog_pay != null){
+                        dialog_pay.show();
+                        dialog_pay.setCanceledOnTouchOutside(false);
+                    }
+                    UmengUtil.YMclk_one_vip(this);
                     UmengUtil.YMpurchase_num(this);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -872,12 +875,14 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         if (ComFunction.networkInfo(this)){
             if (ComFunction.isWechatAvilible(this)){
                 try{
-                        SharedPreferences sharedP=  getSharedPreferences("config",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedP.edit();
-                        editor.putString(Constants.MONEY_NUM,"666");
-//                        editor.putString(Constants.MONEY_NUM,"1");
-                        editor.commit();
-                        WXPayUtil.getInitialize().new GetPrepayIdTask().execute();
+                    SaveMoneyUtil.getInitialize(this).setMoneyCount("666");
+                    SaveMoneyUtil.getInitialize(this).setPayType(SaveMoneyUtil.PAYTYPE.VIP_TYPE);
+                    Dialog dialog_pay = new SelectPayDialog(this,R.style.dialog_fullscreen);
+                    if (dialog_pay != null){
+                        dialog_pay.show();
+                        dialog_pay.setCanceledOnTouchOutside(false);
+                    }
+                    UmengUtil.YMclk_one_vip(this);
                     UmengUtil.YMpurchase_num(this);
                 }catch (Exception e){
                     e.printStackTrace();

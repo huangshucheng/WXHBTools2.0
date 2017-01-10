@@ -25,7 +25,7 @@ public class SelectPayDialog extends Dialog {
     private Context mContext = null;
 
     private ImageButton mClose_btn = null;
-    private ImageButton mPay_btn = null;
+    private RelativeLayout mPay_btn = null;
 
     private RelativeLayout mLayout_zfb = null;
     private RelativeLayout mLayout_wx = null;
@@ -35,7 +35,7 @@ public class SelectPayDialog extends Dialog {
 
     private TextView mPay_money_text = null;
 
-    private PAYTYPE mPayType = PAYTYPE.ZFBPAY;
+    private PAYTYPE mPayType = PAYTYPE.WXPAY;
 
     private enum PAYTYPE {
         ZFBPAY,
@@ -62,19 +62,19 @@ public class SelectPayDialog extends Dialog {
             mClose_btn.setOnClickListener(onClickClose);
         }
 
-        mPay_btn = (ImageButton) findViewById(R.id.pay_okbtn);
+        mPay_btn = (RelativeLayout) findViewById(R.id.pay_okbtn);
         if (mPay_btn != null){
             mPay_btn.setOnClickListener(onClickPay);
         }
 
-        mLayout_zfb = (RelativeLayout) findViewById(R.id.pay_bg_1);
-        if (mLayout_zfb != null){
-            mLayout_zfb.setOnClickListener(onClickZfb);
-        }
-
-        mLayout_wx = (RelativeLayout) findViewById(R.id.pay_bg_2);
+        mLayout_wx = (RelativeLayout) findViewById(R.id.pay_bg_1);
         if (mLayout_wx != null){
             mLayout_wx.setOnClickListener(onClickWx);
+        }
+
+        mLayout_zfb = (RelativeLayout) findViewById(R.id.pay_bg_2);
+        if (mLayout_zfb != null){
+            mLayout_zfb.setOnClickListener(onClickZfb);
         }
 
         mId_zfb_pay = (ImageView) findViewById(R.id.id_zfb_pay);
@@ -83,7 +83,7 @@ public class SelectPayDialog extends Dialog {
         mPay_money_text = (TextView) findViewById(R.id.pay_money_text);
         if (mPay_money_text != null){
             if (!"".equals(getMoneyFromShareP())){
-                mPay_money_text.setText("" + getMoneyFromShareP() + "元");
+                mPay_money_text.setText("确定支付 ¥" + getMoneyFromShareP());
             }
         }
     }
@@ -152,7 +152,7 @@ public class SelectPayDialog extends Dialog {
     private void setBtnImage(PAYTYPE tpye){
         if (tpye == PAYTYPE.ZFBPAY){
             if (mId_zfb_pay != null){
-                mId_zfb_pay.setImageResource(R.mipmap.btn_selected);
+                mId_zfb_pay.setImageResource(R.mipmap.btn_selected_1);
             }
             if (mId_wx_pay != null){
                 mId_wx_pay.setImageResource(R.mipmap.btn_default);
@@ -162,7 +162,7 @@ public class SelectPayDialog extends Dialog {
                 mId_zfb_pay.setImageResource(R.mipmap.btn_default);
             }
             if (mId_wx_pay != null){
-                mId_wx_pay.setImageResource(R.mipmap.btn_selected);
+                mId_wx_pay.setImageResource(R.mipmap.btn_selected_1);
             }
         }
 
