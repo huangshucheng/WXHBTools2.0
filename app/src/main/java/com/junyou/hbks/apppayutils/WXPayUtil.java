@@ -89,8 +89,7 @@ public class WXPayUtil {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
            // Log.i(TAG,"后台操作结束");
-            if (dialog != null)
-            {
+            if (dialog != null) {
                 dialog.dismiss();
             }
             if (s == null){

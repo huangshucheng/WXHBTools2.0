@@ -454,8 +454,6 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     @Override
     protected void onRestart(){
         super.onRestart();
-       //updateServiceStatus();
-       // showLeftDays();
         newShowLeftDays();
     }
 
@@ -531,9 +529,15 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     private boolean isServiceEnabled() {
         if (accessibilityManager != null){
             List<AccessibilityServiceInfo> accessibilityServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
-            for (AccessibilityServiceInfo info : accessibilityServices) {
-                if (info.getId().equals(getPackageName() + "/.service.RobAccessibilityService")) {
-                    return true;
+            if (!accessibilityServices.isEmpty()){
+                for (AccessibilityServiceInfo info : accessibilityServices) {
+                    if (info.getId() != null && !"".equals(info.getId())){
+                        if (getPackageName() != null && !"".equals(getPackageName())){
+                            if ((getPackageName() + "/.service.RobAccessibilityService").equals(info.getId())){
+                                return true;
+                            }
+                        }
+                    }
                 }
             }
         }
