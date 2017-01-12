@@ -192,8 +192,10 @@ public class RobAccessibilityService extends AccessibilityService {
             return false;
         }
         List<AccessibilityServiceInfo> list = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
+        if (list.isEmpty()){
+            return false;
+        }
         Iterator<AccessibilityServiceInfo> iterator = list.iterator();
-
         boolean isConnect = false;
         while (iterator.hasNext()) {
             AccessibilityServiceInfo i = iterator.next();

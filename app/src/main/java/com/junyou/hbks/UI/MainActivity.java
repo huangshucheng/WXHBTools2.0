@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.junyou.hbks.config.Constants;
 import com.junyou.hbks.R;
+import com.junyou.hbks.service.RobAccessibilityService;
 import com.junyou.hbks.utils.BtnBlinkUtil;
 import com.junyou.hbks.utils.LocalSaveUtil;
 import com.junyou.hbks.utils.LogUtil;
@@ -527,22 +528,22 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     }
 
     private boolean isServiceEnabled() {
-        if (accessibilityManager != null){
-            List<AccessibilityServiceInfo> accessibilityServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
-            if (!accessibilityServices.isEmpty()){
-                for (AccessibilityServiceInfo info : accessibilityServices) {
-                    if (info.getId() != null && !"".equals(info.getId())){
-                        if (getPackageName() != null && !"".equals(getPackageName())){
-                            if ((getPackageName() + "/.service.RobAccessibilityService").equals(info.getId())){
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-//        return RobAccessibilityService.isRunning();
+//        if (accessibilityManager != null){
+//            List<AccessibilityServiceInfo> accessibilityServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
+//            if (!accessibilityServices.isEmpty()){
+//                for (AccessibilityServiceInfo info : accessibilityServices) {
+//                    if (info.getId() != null && !"".equals(info.getId())){
+//                        if (getPackageName() != null && !"".equals(getPackageName())){
+//                            if ((getPackageName() + "/.service.RobAccessibilityService").equals(info.getId())){
+//                                return true;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+        return RobAccessibilityService.isRunning();
     }
 
     public void openSettings(View view) {
