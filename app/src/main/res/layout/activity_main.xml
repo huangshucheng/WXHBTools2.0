@@ -25,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/center_count_bg"
             android:id="@+id/top_img_show"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="40dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -147,7 +147,7 @@
             android:background="@android:color/transparent"
             android:layout_above="@+id/marquee_text"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:onClick="openSettings"/>
     </RelativeLayout>
 
@@ -187,7 +187,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="250dp"
         android:id="@+id/mainavt_layout"
         tools:layout="@android:layout/simple_list_item_1"
         android:background="#f2f2f2"
@@ -283,7 +283,7 @@
         <!--</RelativeLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
             <RelativeLayout
@@ -367,8 +367,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -417,6 +417,13 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorbluer"
+        android:layout_alignParentBottom="true">
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -425,7 +432,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="14dp">
+        android:layout_marginBottom="65dp">
         <!--android:onClick="getMoreTime"-->
         <TextView
             android:layout_width="wrap_content"
