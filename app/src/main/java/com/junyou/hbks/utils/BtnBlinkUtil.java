@@ -13,7 +13,7 @@ public class BtnBlinkUtil {
         }
         Animation alphaAnimation = new AlphaAnimation( 1, 0 );
         alphaAnimation.setDuration( 500 );
-        alphaAnimation.setInterpolator( new LinearInterpolator( ) );
+        alphaAnimation.setInterpolator( new LinearInterpolator() );
         alphaAnimation.setRepeatCount( Animation.INFINITE );
         alphaAnimation.setRepeatMode( Animation.REVERSE );
         view.startAnimation( alphaAnimation );

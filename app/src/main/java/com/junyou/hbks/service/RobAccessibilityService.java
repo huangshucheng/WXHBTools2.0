@@ -146,6 +146,8 @@ public class RobAccessibilityService extends AccessibilityService {
     public void onInterrupt() {
 //        LogUtil.i("service onInterrupt");
         super.sendBroadcast(new Intent(RobApp.ACTION_ACCESSIBILITY_SERVICE_DISCONNECT));
+        ComponentName cName = new ComponentName(Constants.PKG_NAME,Constants.ACK_NAME);
+        ComFunction.startAPP(getApplicationContext(),cName,null);
     }
 
     @Override
@@ -155,6 +157,8 @@ public class RobAccessibilityService extends AccessibilityService {
         stopForeground(true);
         mInstanceService = null;
         super.sendBroadcast(new Intent(RobApp.ACTION_ACCESSIBILITY_SERVICE_DISCONNECT));
+        ComponentName cName = new ComponentName(Constants.PKG_NAME,Constants.ACK_NAME);
+        ComFunction.startAPP(getApplicationContext(),cName,null);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

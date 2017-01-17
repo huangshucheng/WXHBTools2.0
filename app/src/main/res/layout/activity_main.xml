@@ -69,7 +69,7 @@
                 android:layout_marginLeft="80dp"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
-                android:textSize="28sp"
+                android:textSize="28dp"
                 android:id="@+id/packt_num_text"/>
             <!--金额标签-->
             <TextView
@@ -81,7 +81,7 @@
                 android:layout_marginRight="60dp"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
-                android:textSize="28sp"
+                android:textSize="28dp"
                 android:id="@+id/money_num_text"/>
 
             <TextView
@@ -92,7 +92,7 @@
                 android:layout_marginLeft="60dp"
                 android:layout_below="@+id/packt_num_text"
                 android:textColor="#ffffff"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="60dp"
                 android:textColor="#ffffff"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <LinearLayout
                 android:layout_width="3dp"
@@ -187,7 +187,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="230dp"
         android:id="@+id/mainavt_layout"
         tools:layout="@android:layout/simple_list_item_1"
         android:background="#f2f2f2"
@@ -283,7 +283,7 @@
         <!--</RelativeLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
             <RelativeLayout
@@ -367,7 +367,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -417,12 +417,12 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorbluer"
-        android:layout_alignParentBottom="true">
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:background="@color/colorbluer"-->
+        <!--android:layout_alignParentBottom="true">-->
+    <!--</LinearLayout>-->
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -432,7 +432,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="65dp">
+        android:layout_marginBottom="15dp">
         <!--android:onClick="getMoreTime"-->
         <TextView
             android:layout_width="wrap_content"
