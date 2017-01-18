@@ -187,7 +187,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="235dp"
         android:id="@+id/mainavt_layout"
         tools:layout="@android:layout/simple_list_item_1"
         android:background="#f2f2f2"
@@ -368,7 +368,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="15dp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -421,18 +421,19 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="60dp"-->
         <!--android:background="@color/colorbluer"-->
-        <!--android:layout_alignParentBottom="true">-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:onClick="ad_onclick">-->
     <!--</LinearLayout>-->
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="85dp"
         android:id="@+id/under_clock"
         android:background="@mipmap/under_icon_draw"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="20dp">
         <!--android:onClick="getMoreTime"-->
         <TextView
             android:layout_width="wrap_content"
@@ -441,52 +442,10 @@
             android:text="永久使用 "
             android:textSize="16dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="60dp"
             android:layout_alignParentTop="false"
             android:singleLine="true"
             android:textColor="@color/colordark" />
     </RelativeLayout>
-    <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/under_icon_tool"-->
-        <!--android:src="@mipmap/under_icon_cj"-->
-        <!--android:layout_above="@+id/under_clock"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_marginRight="25dp"-->
-        <!--android:layout_marginBottom="-5dp" />-->
-    <!--android:src="@mipmap/under_icon_cj"-->
 
-    <!--android:onClick="getMoreTime"-->
-    <!--<ImageButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@mipmap/bat_pop_yellow_three"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_marginBottom="15dp"-->
-        <!--android:layout_marginLeft="20dp"-->
-        <!--android:onClick="superVipClick"/>-->
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/signedIn_btn"-->
-        <!--android:text="签到"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:clickable="true"-->
-        <!--android:onClick="signedInClick"/>-->
-
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/luckyDraw_btn"-->
-        <!--android:text="抽奖"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="false"-->
-        <!--android:layout_marginBottom="80dp"-->
-        <!--android:layout_marginLeft="30dp"-->
-        <!--android:clickable="true"-->
-        <!--android:onClick="luckyDrawClick"/>-->
 </RelativeLayout>

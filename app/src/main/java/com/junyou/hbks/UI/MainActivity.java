@@ -948,4 +948,8 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
             }
         }
     }
+
+    public void ad_onclick(View view){
+        LogUtil.i("ad click.....");
+    }
 }
